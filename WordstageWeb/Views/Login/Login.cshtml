@@ -1,0 +1,77 @@
+﻿@model WordstageWeb.Models.Login.Login
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <title>Log in</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins%3A300%2C400%2C500%2C600" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro%3A300%2C400%2C500%2C600" />
+    <link href="~/styles/log-in.css" rel="stylesheet" />
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="log-in-CRv">
+            <div class="auto-group-a9by-WSc">
+                <div class="auto-group-a9by-WSc-bg">
+                </div>
+                LOGO
+            </div>
+            <div class="group-1000004425-H5z">
+                <p class="log-in-Cye">Log in</p>
+                <div class="group-1000004423-vPr">
+                    <div class="group-1000004421-fcL">
+                        @Html.LabelFor(model => model.UserName, htmlAttributes: new {@class = "e-mail-1RJ" })
+                        @Html.EditorFor(model => model.UserName, new { htmlAttributes = new {@class = "auto-group-xuty-LCg"}})
+                    </div>
+                    <div class="group-1000004422-BUC">
+                        @Html.LabelFor(model => model.Password, htmlAttributes: new {@class = "password-8PS" })
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new {@class = "auto-group-61g7-42C"}})
+                    </div>
+                    <p class="forgot-your-password-uoW">Forgot your password?</p>
+                    <input type="submit" value="Log in" class="frame-71-eFJ" />
+                </div>
+                <div class="auto-group-wq7u-vCp">
+                    <div class="group-1000004424-eec">
+                        <div class="or-continue-with-zyN">
+                            <div class="line-32-YV6">
+                            </div>
+                            <p class="or-continue-with-U7r">Or continue with</p>
+                            <div class="line-31-CpY">
+                            </div>
+                        </div>
+                        <div class="social-media-frame-k5N">
+                            <img class="google-FH2" src="~/assets/google-hD2.png" />
+                            <img class="facebook-NMe" src="~/assets/facebook-RCL.png" />
+                            <img class="twitter-K1z" src="~/assets/twitter.png" />
+                        </div>
+                    </div>
+                    <div class="frame-1000004425-qm2">
+                        <p class="dont-have-an-account-mPn">Don’t have an account?</p>
+                        <input type="submit" value="Sign Up" class="sign-up-U3J" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*<div class="form-horizontal">
+            <h4> Login </h4> <hr />
+            @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+            <div class="form-group">
+                @Html.LabelFor(model => model.UserName, htmlAttributes: new {@class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.UserName, new { htmlAttributes = new {@class = "form-control"}})
+                </div>
+            </div>
+        </div>*@
+    }
+</body>
+</html>

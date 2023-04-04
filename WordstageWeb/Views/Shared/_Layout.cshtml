@@ -4,41 +4,177 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - WordstageWeb</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    @* <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/WordstageWeb.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/WordstageWeb.styles.css" asp-append-version="true" />*@
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins%3A300%2C400%2C500%2C600" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro%3A300%2C400%2C500%2C600" />
+    <link href="~/styles/home-page.css" rel="stylesheet" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WordstageWeb</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
+    <div class="home-page-bkL">
+        <div class="version-1-WsJ">
+            <p class="logo-2Kr">Logo</p>
+            <div class="frame-1-KJx">
+                <p class="services-dKe">Services</p>
+                <p class="pricing-mAx">Pricing</p>
+                <p class="company-uHA">Company</p>
+                <p class="faq-ekY">FAQ</p>
+                <p class="became-a-translator-zZW">Became a Translator</p>
             </div>
-        </nav>
-    </header>
+            <div class="frame-2-L7a">
+                <div class="auto-group-aaxk-ghE">
+                    <a class="log-in-p2k" asp-area="" asp-controller="Login" asp-action="Login">Log In</a>
+                    <div class="line-1-952">
+                    </div>
+                </div>
+                <div class="frame-1-GQY">Sign Up</div>
+            </div>
+        </div>
+    </div>
+    @* <header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <div class="container-fluid">
+    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WordstageWeb</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+    <ul class="navbar-nav flex-grow-1">
+    <li class="nav-item">
+    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+    </li>
+    <li class="nav-item">
+    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    </li>
+    <li class="nav-item">
+    <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Login">Login</a>
+    </li>
+    </ul>
+    </div>
+    </div>
+    </nav>
+    </header>*@
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2023 - WordstageWeb - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <footer>
+        @*<div class="container">
+        &copy; 2023 - WordstageWeb - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>*@
+        <div class="home-page-bkL">
+            <div class="group-80-ZtC">
+                <div class="group-79-JKz">
+                    <div class="auto-group-eshu-44G">
+                        <div class="auto-group-d9qx-Nqe">
+                            <div class="untitled-1-7HS">
+                            </div>
+                            <div class="frame-254-nPa">
+                                <p class="our-office--9E8">Our Office:</p>
+                                <div class="frame-78-3qJ">
+                                    <div class="frame-251-1XE">
+                                        <img class="ic-baseline-location-on-A9E" src="~/assets/ic-baseline-location-on.png" />
+                                        <p class="ganesh-glory-godrej-garden-city-road-jagatpur-ahmedabad-382470-51J">1005, Ganesh Glory, Godrej Garden City Road, Jagatpur, Ahmedabad 382470.</p>
+                                    </div>
+                                    <div class="auto-group-cbxr-B4L">
+                                        <div class="frame-252-vXi">
+                                            <img class="fluent-call-24-filled-qPn" src="~/assets/fluent-call-24-filled.png" />
+                                            <p class="item-91-7069731619-mYL">+91 7069731619</p>
+                                        </div>
+                                        <div class="frame-253-gfJ">
+                                            <img class="raphael-mail-cor" src="~/assets/raphael-mail-VaG.png" />
+                                            <p class="bellowwordstagcom-936">
+                                                bellow@wordstag.com
+                                                <br />
+
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="group-75-F68">
+                            <p class="for-customers-n64">For Customers</p>
+                            <div class="frame-250-KLt">
+                                <p class="translation-service-TCC">Translation Service</p>
+                                <p class="voice-over-translation-b3W">Voice-Over Translation</p>
+                                <p class="subtitling-z5e">Subtitling</p>
+                                <p class="interpretation-8Sk">Interpretation</p>
+                                <p class="transcription-5Mz">Transcription</p>
+                                <p class="editing-and-proof-reading-d8c">Editing and Proof Reading</p>
+                                <p class="branding-and-ui-ux-A8Y">Branding and UI/UX</p>
+                                <p class="creative-content-u68">Creative Content</p>
+                            </div>
+                        </div>
+                        <div class="group-77-Eu6">
+                            <p class="for-business-P1J">For Business</p>
+                            <div class="frame-250-K9r">
+                                <p class="translation-api-sBN">Translation API</p>
+                                <p class="api-guide-DFE">API Guide</p>
+                                <p class="documentation-MsE">Documentation</p>
+                            </div>
+                        </div>
+                        <div class="group-76-JGg">
+                            <p class="resources-dpk">Resources</p>
+                            <div class="frame-250-ydi">
+                                <p class="machine-translation-7zp">Machine Translation</p>
+                                <p class="languages-G72">Languages</p>
+                                <p class="dictonaries-ose">Dictonaries</p>
+                                <p class="languages-pairs-knt">Languages Pairs</p>
+                            </div>
+                        </div>
+                        <div class="group-74-u9z">
+                            <p class="company-FUk">Company</p>
+                            <div class="frame-250-nja">
+                                <p class="about-us-Xx4">About Us</p>
+                                <p class="services-sW8">Services</p>
+                                <p class="careers-R1r">Careers</p>
+                                <p class="contact-us-AEL">Contact Us</p>
+                                <p class="became-a-translator-7QU">Became a Translator</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="frame-255-3J8">
+                        <p class="follow-us-xvt">Follow Us</p>
+                        <div class="frame-78-WBi">
+                            <img class="ri-facebook-fill-dXE" src="~/assets/ri-facebook-fill.png" />
+                            <img class="mdi-twitter-xpQ" src="~/assets/mdi-twitter-ki4.png" />
+                            <img class="ri-linkedin-fill-Hbn" src="~/assets/ri-linkedin-fill.png" />
+                            <img class="ph-instagram-logo-fill-pLp" src="~/assets/ph-instagram-logo-fill.png" />
+                        </div>
+                    </div>
+                    <div class="line-9-xT2">
+                    </div>
+                    <div class="auto-group-21q7-HkC">
+                        <div class="frame-79-RbW">
+                            <img class="emojione-monotone-copyright-LyN" src="~/assets/emojione-monotone-copyright.png" />
+                            <p class="wordstag-2023-fkk">Wordstag 2023</p>
+                        </div>
+                        <div class="frame-79-1Jp">
+                            <p class="term-conditions-wyA">Term &amp; Conditions</p>
+                            <div class="line-11-GkY">
+                            </div>
+                            <p class="privacy-policy-CeC">Privacy Policy</p>
+                            <div class="line-10-j8L">
+                            </div>
+                            <p class="standards-fXn">Standards</p>
+                        </div>
+                        <div class="frame-256-zpx">
+                            <p class="en-Ldv">EN</p>
+                            <div class="line-11-fgC">
+                            </div>
+                            <p class="fr-zyN">FR</p>
+                            <div class="line-10-iuN">
+                            </div>
+                            <p class="es-TMA">ES</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

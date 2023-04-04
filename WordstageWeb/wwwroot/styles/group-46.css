@@ -1,0 +1,488 @@
+
+html {
+	font-size:62.5%;
+}
+* {
+	margin: 0;
+	padding: 0;
+}
+ul, li {
+	list-style: none;
+}
+input {
+	border: none;
+}
+body {
+  width: 120rem;
+}.group-46-oSg {
+  width: 100%;
+  height: 67rem;
+  position: relative;
+  box-shadow: 0 0.2rem 5rem rgba(184, 184, 184, 0.25);
+  background-color: #ffffff;
+  border-radius: 0.8rem;
+}
+.group-46-oSg .group-42-jbE {
+  width: 39.5rem;
+  height: 20.4rem;
+  position: absolute;
+  left: 68.8rem;
+  top: 9.1rem;
+}
+.group-46-oSg .group-42-jbE .frame-243-zQg {
+  margin-bottom: 2.4rem;
+  width: 100%;
+  height: 14rem;
+  position: relative;
+}
+.group-46-oSg .group-42-jbE .frame-243-zQg .frame-241-iba {
+  width: 35rem;
+  height: 9.3rem;
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+}
+.group-46-oSg .group-42-jbE .frame-243-zQg .frame-241-iba .item-1500-E48 {
+  margin-right: 1.6rem;
+  font-size: 6rem;
+  font-weight: 600;
+  line-height: 1.5399998983;
+  color: #6a1d59;
+  font-family: Poppins, 'Source Sans Pro';
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.group-46-oSg .group-42-jbE .frame-243-zQg .frame-241-iba .native-translators-KrG {
+  margin-bottom: 0.1rem;
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: #222222;
+  font-family: Poppins, 'Source Sans Pro';
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.group-46-oSg .group-42-jbE .frame-243-zQg .a-global-pool-of-native-translators-at-your-service-anytime-anywhere-43A {
+  width: 39.5rem;
+  height: 4.8rem;
+  position: absolute;
+  left: 0;
+  top: 9.2rem;
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #888888;
+  font-family: Poppins, 'Source Sans Pro';
+}
+.group-46-oSg .group-42-jbE .frame-245-vbA {
+  margin-right: 17.6rem;
+  width: calc(100% - 17.6rem);
+  height: 4rem;
+  display: flex;
+  align-items: center;
+}
+.group-46-oSg .group-42-jbE .frame-245-vbA .group-41-4Ba {
+  margin-right: 2.4rem;
+  width: 10rem;
+  height: 100%;
+  position: relative;
+  flex-shrink: 0;
+}
+.group-46-oSg .group-42-jbE .frame-245-vbA .group-41-4Ba .ellipse-7-PzY {
+  width: 4rem;
+  height: 4rem;
+  position: absolute;
+  left: 0;
+  top: 0;
+  border: solid 0.1rem #ffffff;
+  box-sizing: border-box;
+  background-color: #d9d9d9;
+  background-size: 100% 150.157%;
+  background-position: 0 -0.2759rem;
+  background-image: url('../assets/ellipse-7-bg.png');
+  border-radius: 2rem;
+}
+.group-46-oSg .group-42-jbE .frame-245-vbA .group-41-4Ba .ellipse-7-PzY .ellipse-7-PzY-bg {
+  width: 4rem;
+  height: 4rem;
+  position: relative;
+  /*background-image: url('REPLACE_IMAGE:054b061257d3493b65b102b195ab45bae13d31e3');*/
+}
+.group-46-oSg .group-42-jbE .frame-245-vbA .group-41-4Ba .ellipse-8-Dig {
+  width: 4rem;
+  height: 4rem;
+  position: absolute;
+  left: 3rem;
+  top: 0;
+  border: solid 0.1rem #ffffff;
+  box-sizing: border-box;
+  background-color: #d9d9d9;
+  background-size: 100% 150.157%;
+  background-position: 0 -0.094rem;
+  background-image: url('../assets/ellipse-8-bg.png');
+  border-radius: 2rem;
+}
+.group-46-oSg .group-42-jbE .frame-245-vbA .group-41-4Ba .ellipse-8-Dig .ellipse-8-Dig-bg {
+  width: 4rem;
+  height: 4rem;
+  position: relative;
+  /*background-image: url('REPLACE_IMAGE:59f09bb1d5c20440e4dd644295a5c845cbe2942f');*/
+}
+.group-46-oSg .group-42-jbE .frame-245-vbA .group-41-4Ba .ellipse-9-gMN {
+  width: 4rem;
+  height: 4rem;
+  position: absolute;
+  left: 6rem;
+  top: 0;
+  border: solid 0.1rem #ffffff;
+  box-sizing: border-box;
+  background-color: #d9d9d9;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url('../assets/ellipse-9-bg-YQQ.png');
+  border-radius: 2rem;
+}
+.group-46-oSg .group-42-jbE .frame-245-vbA .frame-7-Njz {
+  margin: 0.75rem 0;
+  height: calc(100% - 1.5rem);
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.group-46-oSg .group-42-jbE .frame-245-vbA .frame-7-Njz .view-all-uE8 {
+  margin-right: 0.4rem;
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 1.5399999619;
+  color: #2f2f2f;
+  font-family: Poppins, 'Source Sans Pro';
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.group-46-oSg .group-42-jbE .frame-245-vbA .frame-7-Njz .arrow-12-prt {
+  width: 3rem;
+  height: 0.8rem;
+  object-fit: contain;
+  vertical-align: top;
+  flex-shrink: 0;
+}
+.group-46-oSg .group-43-mGL {
+  width: 42.3rem;
+  height: 20.4rem;
+  position: absolute;
+  left: 8.7rem;
+  top: 9.1rem;
+}
+.group-46-oSg .group-43-mGL .frame-242-trk {
+  margin-bottom: 2.4rem;
+  width: 100%;
+  height: 14rem;
+  position: relative;
+}
+.group-46-oSg .group-43-mGL .frame-242-trk .frame-241-qmz {
+  width: 36.6rem;
+  height: 9.3rem;
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+}
+.group-46-oSg .group-43-mGL .frame-242-trk .frame-241-qmz .item-98-azU {
+  margin-right: 1.6rem;
+  font-size: 6rem;
+  font-weight: 600;
+  line-height: 1.5399998983;
+  color: #6a1d59;
+  font-family: Poppins, 'Source Sans Pro';
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.group-46-oSg .group-43-mGL .frame-242-trk .frame-241-qmz .customer-satisfaction-iat {
+  margin-bottom: 0.1rem;
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: #222222;
+  font-family: Poppins, 'Source Sans Pro';
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.group-46-oSg .group-43-mGL .frame-242-trk .our-customer-agree-that-wordstag-is-the-best-for-his-services-3dA {
+  width: 42.3rem;
+  height: 4.8rem;
+  position: absolute;
+  left: 0;
+  top: 9.2rem;
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #888888;
+  font-family: Poppins, 'Source Sans Pro';
+}
+.group-46-oSg .group-43-mGL .frame-245-Y48 {
+  margin-right: 20.4rem;
+  width: calc(100% - 20.4rem);
+  height: 4rem;
+  display: flex;
+  align-items: center;
+}
+.group-46-oSg .group-43-mGL .frame-245-Y48 .group-41-H1i {
+  margin-right: 2.4rem;
+  width: 10rem;
+  height: 100%;
+  position: relative;
+  flex-shrink: 0;
+}
+.group-46-oSg .group-43-mGL .frame-245-Y48 .group-41-H1i .ellipse-7-R7v {
+  width: 4rem;
+  height: 4rem;
+  position: absolute;
+  left: 0;
+  top: 0;
+  border: solid 0.1rem #ffffff;
+  box-sizing: border-box;
+  background-color: #d9d9d9;
+  background-size: 100% 150.157%;
+  background-position: 0 -0.2759rem;
+  background-image: url('../assets/ellipse-7-bg-xLY.png');
+  border-radius: 2rem;
+}
+.group-46-oSg .group-43-mGL .frame-245-Y48 .group-41-H1i .ellipse-7-R7v .ellipse-7-R7v-bg {
+  width: 4rem;
+  height: 4rem;
+  position: relative;
+  /*background-image: url('REPLACE_IMAGE:b0bc116047fff8ac8d9218b3ed422be109f36e06');*/
+}
+.group-46-oSg .group-43-mGL .frame-245-Y48 .group-41-H1i .ellipse-8-Ubz {
+  width: 4rem;
+  height: 4rem;
+  position: absolute;
+  left: 3rem;
+  top: 0;
+  border: solid 0.1rem #ffffff;
+  box-sizing: border-box;
+  background-color: #d9d9d9;
+  background-size: 100% 150.157%;
+  background-position: 0 -0.094rem;
+  background-image: url('../assets/ellipse-8-bg-LM6.png');
+  border-radius: 2rem;
+}
+.group-46-oSg .group-43-mGL .frame-245-Y48 .group-41-H1i .ellipse-8-Ubz .ellipse-8-Ubz-bg {
+  width: 4rem;
+  height: 4rem;
+  position: relative;
+  /*background-image: url('REPLACE_IMAGE:a354eaecc26cb2c894ef0a5cd58c0898c999c211');*/
+}
+.group-46-oSg .group-43-mGL .frame-245-Y48 .group-41-H1i .ellipse-9-YLx {
+  width: 4rem;
+  height: 4rem;
+  position: absolute;
+  left: 6rem;
+  top: 0;
+  border: solid 0.1rem #ffffff;
+  box-sizing: border-box;
+  background-color: #d9d9d9;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url('../assets/ellipse-9-bg.png');
+  border-radius: 2rem;
+}
+.group-46-oSg .group-43-mGL .frame-245-Y48 .frame-7-Qtx {
+  margin: 0.75rem 0;
+  height: calc(100% - 1.5rem);
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.group-46-oSg .group-43-mGL .frame-245-Y48 .frame-7-Qtx .view-all-MZJ {
+  margin-right: 0.4rem;
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 1.5399999619;
+  color: #2f2f2f;
+  font-family: Poppins, 'Source Sans Pro';
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.group-46-oSg .group-43-mGL .frame-245-Y48 .frame-7-Qtx .arrow-12-t3S {
+  width: 3rem;
+  height: 0.8rem;
+  object-fit: contain;
+  vertical-align: top;
+  flex-shrink: 0;
+}
+.group-46-oSg .group-44-pBz {
+  width: 36.4rem;
+  height: 18.9rem;
+  position: absolute;
+  left: 68.8rem;
+  top: 37.5rem;
+}
+.group-46-oSg .group-44-pBz .frame-244-xJC {
+  margin-bottom: 2.4rem;
+  width: 100%;
+  height: 14rem;
+  position: relative;
+}
+.group-46-oSg .group-44-pBz .frame-244-xJC .frame-241-Jsr {
+  width: 33rem;
+  height: 9.3rem;
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+}
+.group-46-oSg .group-44-pBz .frame-244-xJC .frame-241-Jsr .item-100-Sz4 {
+  margin-right: 1.6rem;
+  font-size: 6rem;
+  font-weight: 600;
+  line-height: 1.5399998983;
+  color: #6a1d59;
+  font-family: Poppins, 'Source Sans Pro';
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.group-46-oSg .group-44-pBz .frame-244-xJC .frame-241-Jsr .languages-and-pairs-Nsi {
+  margin-bottom: 0.1rem;
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: #222222;
+  font-family: Poppins, 'Source Sans Pro';
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.group-46-oSg .group-44-pBz .frame-244-xJC .we-have-the-language-pair-you-need-to-bring-meaning-to-your-words-huz {
+  width: 36.4rem;
+  height: 4.8rem;
+  position: absolute;
+  left: 0;
+  top: 9.2rem;
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #888888;
+  font-family: Poppins, 'Source Sans Pro';
+}
+.group-46-oSg .group-44-pBz .frame-8-nRe {
+  margin-right: 26.9rem;
+  width: calc(100% - 26.9rem);
+  display: flex;
+  align-items: center;
+}
+.group-46-oSg .group-44-pBz .frame-8-nRe .view-all-Xu2 {
+  margin-right: 0.4rem;
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 1.5399999619;
+  color: #2f2f2f;
+  font-family: Poppins, 'Source Sans Pro';
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.group-46-oSg .group-44-pBz .frame-8-nRe .arrow-12-Gbi {
+  width: 3rem;
+  height: 0.8rem;
+  object-fit: contain;
+  vertical-align: top;
+  flex-shrink: 0;
+}
+.group-46-oSg .group-45-pNL {
+  width: 36.5rem;
+  height: 18.9rem;
+  position: absolute;
+  left: 8.7rem;
+  top: 37.5rem;
+}
+.group-46-oSg .group-45-pNL .frame-243-9vQ {
+  margin-bottom: 2.4rem;
+  width: 100%;
+  height: 14rem;
+  position: relative;
+}
+.group-46-oSg .group-45-pNL .frame-243-9vQ .frame-241-WFA {
+  width: 30.5rem;
+  height: 9.3rem;
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+}
+.group-46-oSg .group-45-pNL .frame-243-9vQ .frame-241-WFA .item-10-3Vz {
+  margin-right: 1.6rem;
+  font-size: 6rem;
+  font-weight: 600;
+  line-height: 1.5399998983;
+  color: #6a1d59;
+  font-family: Poppins, 'Source Sans Pro';
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.group-46-oSg .group-45-pNL .frame-243-9vQ .frame-241-WFA .years-of-professional-translation-experience-yeY {
+  margin-bottom: 0.1rem;
+  max-width: 22.8rem;
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: #222222;
+  font-family: Poppins, 'Source Sans Pro';
+  flex-shrink: 0;
+}
+.group-46-oSg .group-45-pNL .frame-243-9vQ .weve-had-more-than-a-decade-of-experience-optimizing-our-services-5Bn {
+  width: 36.5rem;
+  height: 4.8rem;
+  position: absolute;
+  left: 0;
+  top: 9.2rem;
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #888888;
+  font-family: Poppins, 'Source Sans Pro';
+}
+.group-46-oSg .group-45-pNL .frame-8-ADE {
+  margin-right: 27rem;
+  width: calc(100% - 27rem);
+  display: flex;
+  align-items: center;
+}
+.group-46-oSg .group-45-pNL .frame-8-ADE .view-all-iEk {
+  margin-right: 0.4rem;
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 1.5399999619;
+  color: #2f2f2f;
+  font-family: Poppins, 'Source Sans Pro';
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.group-46-oSg .group-45-pNL .frame-8-ADE .arrow-12-3np {
+  width: 3rem;
+  height: 0.8rem;
+  object-fit: contain;
+  vertical-align: top;
+  flex-shrink: 0;
+}
+.group-46-oSg .line-6-Nq6 {
+  width: 0.1rem;
+  height: 55rem;
+  position: absolute;
+  left: 60rem;
+  top: 6rem;
+  background-color: #dfd0dc;
+}
+.group-46-oSg .line-7-Vep {
+  width: 106rem;
+  height: 0.1rem;
+  position: absolute;
+  left: 7rem;
+  top: 33.5rem;
+  background-color: #dfcfdb;
+}
