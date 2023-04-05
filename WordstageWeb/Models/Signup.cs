@@ -18,6 +18,9 @@ namespace WordstageWeb.Models
         [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "E-mail id is not valid")]
         public string? EmailAddress { get; set; }
         public string? UserType { get; set; }
+
+        [Required(ErrorMessage = "Password is required")]
+        [DataType(DataType.Password)]
         public string? Password { get; set; }
     }
 }

@@ -48,16 +48,19 @@
                         <div class="group-68-mmi">
                             <p class="last-name-KoE">Last name</p>
                             @Html.EditorFor(model => model.LastName, new { htmlAttributes = new {@class = "auto-group-f8hr-4F2", @placeholder="Enter your last name" }})
+                            @Html.ValidationMessageFor(e => e.LastName)
                         </div>
                     </div>
                     <div class="group-1000004421-8Et">
                         <p class="e-mail-HNg">E-mail</p>
                         @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new {@class = "auto-group-tcmh-obv", @placeholder="Enter email address" }})
+                        @Html.ValidationMessageFor(e => e.EmailAddress)
                     </div>
                     <div class="group-1000004553-DQk">
                         <div class="group-1000004422-NYY">
                             <p class="password-jP6">Password</p>
                             @Html.EditorFor(model => model.Password, new { htmlAttributes = new {@class = "auto-group-sc51-sEQ", @placeholder="Enter password" }})
+                            @Html.ValidationMessageFor(e => e.Password)
                         </div>
                         <p class="at-least-6-character-include-numbers-uppercase-and-lowercase-character-Ltg">At least 6 character include numbers, uppercase and lowercase character</p>
                     </div>
@@ -87,8 +90,10 @@
                     </div>
                     <div class="frame-1000004425-wjN">
                         <p class="already-have-an-account-UjJ">Already have an account?</p>
-                        <p class="log-in-zhe">Log In</p>
+                        <a class="log-in-zhe" style="text-decoration: none" asp-area="" asp-controller="Login" asp-action="Login">Log In</a>
+
                     </div>
+               
                 </div>
 
             </div>

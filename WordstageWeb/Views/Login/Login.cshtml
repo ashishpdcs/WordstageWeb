@@ -30,12 +30,16 @@
                 <p class="log-in-Cye">Log in</p>
                 <div class="group-1000004423-vPr">
                     <div class="group-1000004421-fcL">
-                        <p class="e-mail-1RJ">UserName</p>
-                        @Html.EditorFor(model => model.emailid, new { htmlAttributes = new {@class = "auto-group-xuty-LCg"}})
+                        <p class="e-mail-1RJ">E-mail</p>
+                        @Html.EditorFor(model => model.emailid, new { htmlAttributes = new {@class = "auto-group-xuty-LCg", @placeholder="Enter your email address" }})
+                        @Html.ValidationMessageFor(e => e.emailid)
+
                     </div>
                     <div class="group-1000004422-BUC">
-                        @Html.LabelFor(model => model.Password, htmlAttributes: new {@class = "password-8PS" })
-                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new {@class = "auto-group-61g7-42C"}})
+                        <p class="password-8PS">Password</p>
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new {@class = "auto-group-61g7-42C", @placeholder="Enter your password" }})
+                        @Html.ValidationMessageFor(e => e.Password)
+
                     </div>
                     <p class="forgot-your-password-uoW">Forgot your password?</p>
                     <input type="submit" value="Log in" class="frame-71-eFJ" />
@@ -57,7 +61,7 @@
                     </div>
                     <div class="frame-1000004425-qm2">
                         <p class="dont-have-an-account-mPn">Don’t have an account?</p>
-                        <input type="submit" value="Sign Up" class="sign-up-U3J" />
+                        <a class="sign-up-U3J" style="text-decoration: none" asp-controller="Signup" asp-action="Signup">Sign Up</a>
                     </div>
                 </div>
             </div>
