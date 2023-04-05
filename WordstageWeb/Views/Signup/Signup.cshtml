@@ -1,0 +1,100 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model WordstageWeb.Models.Signup
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <title>Sign up</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins%3A300%2C400%2C500%2C600" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro%3A300%2C400%2C500%2C600" />
+    <link rel="stylesheet" href="~/styles/sign-up.css" />
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="sign-up-tkY">
+            <div class="auto-group-ivxv-S1N">
+                <div class="auto-group-ivxv-S1N-bg">
+                </div>
+                LOGO
+            </div>
+            <div class="group-1000004428-2EU">
+
+                <div class="auto-group-7whv-N3S">
+                    <p class="sign-up-6k8">Sign up</p>
+
+
+                    <div class="group-1000004426-dEG">
+                        <option class=" customers-xXS">Customers</option>
+                        <img class="ic-outline-arrow-drop-down-6Nk" src="~/assets/ic-outline-arrow-drop-down.png" />
+                    </div>
+                </div>
+                <div class="group-1000004427-Bf6">
+                    <div class="auto-group-9kgs-KmJ">
+                        <div class="group-67-GRe">
+                            <p class="first-name-Dbn">First name</p>
+                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new {@class = "auto-group-k3fy-j4L", @placeholder="Enter your first name" }})
+                            @Html.ValidationMessageFor(e => e.FirstName)
+
+                        </div>
+                        <div class="group-68-mmi">
+                            <p class="last-name-KoE">Last name</p>
+                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new {@class = "auto-group-f8hr-4F2", @placeholder="Enter your last name" }})
+                        </div>
+                    </div>
+                    <div class="group-1000004421-8Et">
+                        <p class="e-mail-HNg">E-mail</p>
+                        @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new {@class = "auto-group-tcmh-obv", @placeholder="Enter email address" }})
+                    </div>
+                    <div class="group-1000004553-DQk">
+                        <div class="group-1000004422-NYY">
+                            <p class="password-jP6">Password</p>
+                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new {@class = "auto-group-sc51-sEQ", @placeholder="Enter password" }})
+                        </div>
+                        <p class="at-least-6-character-include-numbers-uppercase-and-lowercase-character-Ltg">At least 6 character include numbers, uppercase and lowercase character</p>
+                    </div>
+                </div>
+                <p class="by-submitting-this-form-you-agree-to-wordstags-privacy-policy-and-terms-conditions-EDN">
+                    <span class="by-submitting-this-form-you-agree-to-wordstags-privacy-policy-and-terms-conditions-EDN-sub-0">By submitting this form, you agree to WORDSTAG’S </span>
+                    <span class="by-submitting-this-form-you-agree-to-wordstags-privacy-policy-and-terms-conditions-EDN-sub-1"> Privacy Policy</span>
+                    <span class="by-submitting-this-form-you-agree-to-wordstags-privacy-policy-and-terms-conditions-EDN-sub-2"> and </span>
+                    <span class="by-submitting-this-form-you-agree-to-wordstags-privacy-policy-and-terms-conditions-EDN-sub-3">Terms &amp; Conditions.</span>
+                </p>
+                <input type="submit" class="frame-71-Ymn" value="Sign up" />
+                <div class="auto-group-jq2b-S6U">
+                    <div class="group-1000004424-MjE">
+                        <div class="or-continue-with-uVr">
+                            <div class="line-32-3c4">
+                            </div>
+                            <p class="or-continue-with-nJk">Or continue with</p>
+                            <div class="line-31-iTJ">
+                            </div>
+                        </div>
+                        <div class="social-media-frame-Su6">
+                            <img class="google-9oW" src="~/assets/google.png" />
+                            <img class="facebook-gYY" src="~/assets/facebook.png" />
+                            <img class="twitter-RFE" src="~/assets/twitter-XjE.png" />
+
+                        </div>
+                    </div>
+                    <div class="frame-1000004425-wjN">
+                        <p class="already-have-an-account-UjJ">Already have an account?</p>
+                        <p class="log-in-zhe">Log In</p>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+    }
+</body>
