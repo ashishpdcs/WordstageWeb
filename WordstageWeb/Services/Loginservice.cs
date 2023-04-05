@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using System.Text;
-using WordstageWeb.Models.Login;
 using WordstageWeb.Repository;
+using WordstageWeb.Models;
 
 namespace WordstageWeb.Services
 {

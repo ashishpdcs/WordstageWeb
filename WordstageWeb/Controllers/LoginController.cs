@@ -15,28 +15,27 @@ namespace WordstageWeb.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(string emailid, string password)
         {
-
             if (ModelState.IsValid)
             {
-                var Userinfo = await _loginRepository.login(emailid, password);
-                if (Userinfo)
-                {
-                    Console.WriteLine("Succesfully register");
-                    return RedirectToAction("Index", "Home");
-                    //return View();
+                    var Userinfo = await _loginRepository.login(emailid, password);
+                    if (Userinfo)
+                    {
+                        Console.WriteLine("Succesfully register");
+                        return RedirectToAction("Index", "Home");
+                        //return View();
+                    }
+                    else
+                    {
+                        Console.WriteLine("not register");
+
+                        return View("Index");
+                    }
+
                 }
                 else
                 {
-                    Console.WriteLine("not register");
-
-                    return View("Index");
+                    return View();
                 }
-
-            }
-            else
-            {
-                return View();
-            }
         }
     }
 }

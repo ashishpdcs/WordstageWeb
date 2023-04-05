@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace WordstageWeb.Models.Login
+namespace WordstageWeb.Models
 {
     public partial class Login
     {

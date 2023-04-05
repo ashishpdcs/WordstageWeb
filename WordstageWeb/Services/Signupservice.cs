@@ -29,11 +29,6 @@ namespace WordstageWeb.Services
                 var details = JsonConvert.SerializeObject(JObject.Parse(jsonResponse)["Data"]);
                 // var data = JsonConvert.DeserializeObject<SignUpresponse>(details);
                 var data = JsonConvert.DeserializeObject<List<Signup>>(details).FirstOrDefault();
-
-
-
-
-
                 return true;
             }
             return false;

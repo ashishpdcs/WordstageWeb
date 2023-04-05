@@ -17,7 +17,6 @@ namespace WordstageWeb.Controllers
         [HttpPost]
         public async Task<IActionResult> SignUp(string firstname, string lastname, string emailAddress, string password)
         {
-          
                if(ModelState.IsValid)
             {
                 var Userinfo = await _signUpRepository.SignUp(firstname, lastname, emailAddress, password);
