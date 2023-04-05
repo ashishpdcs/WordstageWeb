@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using WordstageWeb.Models.Login;
 
-namespace WordstageWeb.Models.Language
+namespace WordstageWeb.Models
 {
     public partial class Language : Pagination
     {
-        public Guid LanguageId { get; set; }
+        public string LanguageId { get; set; }
         public string? LanguageName { get; set; }
         public string? LanguageCode { get; set; }
         public DateTime? CreatedOn { get; set; }

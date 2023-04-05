@@ -15,8 +15,6 @@ namespace WordstageWeb.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(string emailid, string password)
         {
-
-
             var Userinfo = await _loginRepository.login(emailid, password);
             if (Userinfo)
             {

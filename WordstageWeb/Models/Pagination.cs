@@ -1,4 +1,4 @@
-﻿namespace WordstageWeb.Models.Login
+﻿namespace WordstageWeb.Models
 {
     public class Pagination
     {
