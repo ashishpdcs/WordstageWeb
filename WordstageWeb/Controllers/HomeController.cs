@@ -3,18 +3,19 @@ using WordstageWeb.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using WordstageWeb.Repository;
 using WordstageWeb.Services;
+using System.Reflection;
 
 namespace WordstageWeb.Controllers
 {
     public class HomeController : Controller
     {
         private readonly IHomerepository _homerepository = new Homeservice();
+        List<Language> Languagemodel = new List<Language>();
+        List<Product> productmodel = new List<Product>();
         public async Task<ActionResult> Index()
         {
-            List<Language> Languagemodel = new List<Language>();
-
             Languagemodel = await _homerepository.LoadLanguageDropdown();
-            if (Languagemodel != null || Languagemodel.Count() > 0)
+            if (Languagemodel.Count() > 0)
             {
                 ViewBag.Languages = new SelectList(Languagemodel, "LanguageId", "LanguageName");
             }
@@ -23,8 +24,12 @@ namespace WordstageWeb.Controllers
                 Languagemodel.Insert(0, new Language() { LanguageId = "00000000-0000-0000-0000-000000000000", LanguageName = "--Select--" });
                 ViewBag.Languages = new SelectList(Languagemodel, "LanguageId", "LanguageName");
             }
-            return View();
-        }
+            productmodel = await _homerepository.GetAllProductDetails();
+            List<Product> ProductNamelist = productmodel;
+            if (ProductNamelist != null) ProductNamelist = ProductNamelist.DistinctBy(x => x.ProductName).ToList();
+            ViewBag.ProductNames = new SelectList(ProductNamelist, "ProductId", "ProductName");
 
+            return View(productmodel);
+        }
     }
 }

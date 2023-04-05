@@ -1,4 +1,5 @@
-﻿@model WordstageWeb.Models.Product
+﻿@*@model WordstageWeb.Models.Product*@
+@model List<WordstageWeb.Models.Product>
 @*@model Tuple<WordstageWeb.Models.Language.Language, WordstageWeb.Models.Login.Login>*@
 
 <!DOCTYPE html>
@@ -179,9 +180,12 @@
                     <div class="frame-249-ide">
                         <p class="translation-3R2">TRANSLATION</p>
                         <div class="group-57-ZuA">
-                            <p class="voice-over-translation-V28">Voice-Over Translation</p>
-                            <div class="line-8-p4Q">
-                            </div>
+                            @*<p class="voice-over-translation-V28">Voice-Over Translation</p>
+                        <div class="line-8-p4Q">
+                        </div>*@
+
+                            @Html.DropDownList("ProductId", (IEnumerable<SelectListItem>)ViewBag.ProductNames, null)
+
                             <img class="material-symbols-arrow-drop-down-MKE" src="~/assets/material-symbols-arrow-drop-down-HfE.png" />
                         </div>
                     </div>
@@ -230,12 +234,12 @@
                     </div>
                     <div class="group-53-jrp">
                         <div class="group-50-5Qt">
-                            <div class="group-48-cQp">STANDARD</div>
+                            <div class="group-48-cQp">@Model[0].planTypes[0].PlanType</div>
                             <div class="auto-group-qmkw-Uxp">
                                 <div class="frame-247-cJL">
                                     <div class="frame-246-N2c">
                                         <img class="vector-7kt" src="~/assets/vector-4AL.png" />
-                                        <p class="item-200-Fs6">2.00</p>
+                                        <p class="item-200-Fs6">@Model[0].Price</p>
                                     </div>
                                     <p class="per-word-nc8">per word</p>
                                 </div>
@@ -257,12 +261,12 @@
                             </div>
                         </div>
                         <div class="group-51-rvk">
-                            <div class="group-48-oLC">ADVANCED</div>
+                            <div class="group-48-oLC">@Model[1].planTypes[0].PlanType</div>
                             <div class="auto-group-yvb5-get">
                                 <div class="frame-247-ozQ">
                                     <div class="frame-246-Zig">
                                         <img class="vector-8Fz" src="~/assets/vector-q9J.png" />
-                                        <p class="item-500-sUU">5.00</p>
+                                        <p class="item-500-sUU">@Model[0].Price</p>
                                     </div>
                                     <p class="per-word-D2Y">per word</p>
                                 </div>
@@ -284,12 +288,12 @@
                             </div>
                         </div>
                         <div class="group-52-uV2">
-                            <div class="group-48-2Jk">PREMIUM</div>
+                            <div class="group-48-2Jk">@Model[2].planTypes[0].PlanType</div>
                             <div class="auto-group-bivf-UgY">
                                 <div class="frame-247-nhE">
                                     <div class="frame-246-jMa">
                                         <img class="vector-Hdz" src="~/assets/vector-6Wc.png" />
-                                        <p class="item-800-E3S">8.00</p>
+                                        <p class="item-800-E3S">@Model[0].Price</p>
                                     </div>
                                     <p class="per-word-kXa">per word</p>
                                 </div>

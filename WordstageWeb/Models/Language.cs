@@ -2,9 +2,9 @@
 
 namespace WordstageWeb.Models
 {
-    public partial class Language : Pagination
+    public partial class Language
     {
-        public string LanguageId { get; set; }
+        public string? LanguageId { get; set; }
         public string? LanguageName { get; set; }
         public string? LanguageCode { get; set; }
         public DateTime? CreatedOn { get; set; }
