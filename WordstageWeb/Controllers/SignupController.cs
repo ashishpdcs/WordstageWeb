@@ -17,8 +17,7 @@ namespace WordstageWeb.Controllers
             model.UserTypes = new List<SelectListItem>
     {
         new SelectListItem { Text = "Customers", Value = "Customers" },
-        new SelectListItem { Text = "Admin", Value = "Admin" },
-        new SelectListItem { Text = "Option 3", Value = "3" }
+        new SelectListItem { Text = "Translator", Value = "Translator" }       
     };
             return View(model);
            // return View();

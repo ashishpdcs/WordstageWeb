@@ -37,7 +37,7 @@
                     </div>
                     <div class="group-1000004422-BUC">
                         <p class="password-8PS">Password</p>
-                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new {@class = "auto-group-61g7-42C", @placeholder="Enter your password" }})
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new {@class = "auto-group-61g7-42C", @placeholder="Enter your password",@maxlength = "8" }})
                         @Html.ValidationMessageFor(e => e.Password)
 
                     </div>
