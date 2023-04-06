@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using WordstageWeb.Models;
 using WordstageWeb.Repository;
 using WordstageWeb.Services;
 
@@ -11,15 +13,23 @@ namespace WordstageWeb.Controllers
         [HttpGet]
         public async Task<IActionResult> SignUp()
         {
-            return View();
+            var model = new Signup();
+            model.UserTypes = new List<SelectListItem>
+    {
+        new SelectListItem { Text = "Customers", Value = "Customers" },
+        new SelectListItem { Text = "Admin", Value = "Admin" },
+        new SelectListItem { Text = "Option 3", Value = "3" }
+    };
+            return View(model);
+           // return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> SignUp(string firstname, string lastname, string emailAddress, string password)
+        public async Task<IActionResult> SignUp(string firstname, string lastname, string emailAddress, string password, string usertype)
         {
                if(ModelState.IsValid)
             {
-                var Userinfo = await _signUpRepository.SignUp(firstname, lastname, emailAddress, password);
+                var Userinfo = await _signUpRepository.SignUp(firstname, lastname, emailAddress, password, usertype);
                 if (Userinfo)
                 {
                     Console.WriteLine("Succesfully register");

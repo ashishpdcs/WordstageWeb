@@ -32,9 +32,12 @@
                     <p class="sign-up-6k8">Sign up</p>
 
 
-                    <div class="group-1000004426-dEG">
-                        <option class=" customers-xXS">Customers</option>
-                        <img class="ic-outline-arrow-drop-down-6Nk" src="~/assets/ic-outline-arrow-drop-down.png" />
+                    <div>
+                        @Html.DropDownListFor(m => m.UserType, Model.UserTypes,new { @class="group-1000004426-dEG",Style="margin-right: 11.5rem; font-size: 1.6rem; font-weight: 400;  line-height: 1.5;  color: #333333; font-family: Poppins, 'Source Sans Pro'; white-space: nowrap;  flex-shrink: 0;  margin-top: 0.1rem; " ,Image="src=~/assets/ic-outline-arrow-drop-down.png"  })
+                       
+                     @*   @Html.DropDownList("LanguageId", (IEnumerable<SelectListItem>)ViewBag.Languages, null)*@
+
+                        <img class="ic-outline-arrow-drop-down-6Nk" />
                     </div>
                 </div>
                 <div class="group-1000004427-Bf6">
