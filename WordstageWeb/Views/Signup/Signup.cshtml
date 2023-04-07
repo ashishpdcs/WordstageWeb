@@ -32,34 +32,37 @@
                     <p class="sign-up-6k8">Sign up</p>
 
 
-                    <div class="group-1000004426-dEG">
-                        <option class=" customers-xXS">Customers</option>
-                        <img class="ic-outline-arrow-drop-down-6Nk" src="~/assets/ic-outline-arrow-drop-down.png" />
+                    <div>
+                        @Html.DropDownListFor(m => m.UserType, Model.UserTypes,new { @class="group-1000004426-dEG",Style="margin-right: 11.5rem; font-size: 1.6rem; font-weight: 400;  line-height: 1.5;  color: #333333; font-family: Poppins, 'Source Sans Pro'; white-space: nowrap;  flex-shrink: 0;  margin-top: 0.1rem; " ,Image="src=~/assets/ic-outline-arrow-drop-down.png"  })
+                       
+                     @*   @Html.DropDownList("LanguageId", (IEnumerable<SelectListItem>)ViewBag.Languages, null)*@
+
+                        <img class="ic-outline-arrow-drop-down-6Nk" />
                     </div>
                 </div>
                 <div class="group-1000004427-Bf6">
                     <div class="auto-group-9kgs-KmJ">
                         <div class="group-67-GRe">
                             <p class="first-name-Dbn">First name</p>
-                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new {@class = "auto-group-k3fy-j4L", @placeholder="Enter your first name" }})
+                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new {@class = "auto-group-k3fy-j4L", @placeholder="Enter your first name", @maxlength = "15" }})
                             @Html.ValidationMessageFor(e => e.FirstName)
 
                         </div>
                         <div class="group-68-mmi">
                             <p class="last-name-KoE">Last name</p>
-                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new {@class = "auto-group-f8hr-4F2", @placeholder="Enter your last name" }})
+                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new {@class = "auto-group-f8hr-4F2", @placeholder="Enter your last name",@maxlength = "15" }})
                             @Html.ValidationMessageFor(e => e.LastName)
                         </div>
                     </div>
                     <div class="group-1000004421-8Et">
                         <p class="e-mail-HNg">E-mail</p>
-                        @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new {@class = "auto-group-tcmh-obv", @placeholder="Enter email address" }})
+                        @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new {@class = "auto-group-tcmh-obv", @placeholder="Enter email address",type = "email" }})
                         @Html.ValidationMessageFor(e => e.EmailAddress)
                     </div>
                     <div class="group-1000004553-DQk">
                         <div class="group-1000004422-NYY">
                             <p class="password-jP6">Password</p>
-                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new {@class = "auto-group-sc51-sEQ", @placeholder="Enter password" }})
+                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new {@class = "auto-group-sc51-sEQ", @placeholder="Enter password",type = "password" ,@minlength = "6", @maxlength="15" }})
                             @Html.ValidationMessageFor(e => e.Password)
                         </div>
                         <p class="at-least-6-character-include-numbers-uppercase-and-lowercase-character-Ltg">At least 6 character include numbers, uppercase and lowercase character</p>

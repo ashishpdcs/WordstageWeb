@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
 
 namespace WordstageWeb.Models
@@ -17,10 +18,13 @@ namespace WordstageWeb.Models
         [Required]
         [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "E-mail id is not valid")]
         public string? EmailAddress { get; set; }
-        public string? UserType { get; set; }
+        //public string? UserType { get; set; }
 
         [Required(ErrorMessage = "Password is required")]
         [DataType(DataType.Password)]
         public string? Password { get; set; }
+
+        public string? UserType { get; set; }
+        public List<SelectListItem> UserTypes { get; set; }
     }
 }

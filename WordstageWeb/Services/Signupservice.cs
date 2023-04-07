@@ -8,7 +8,7 @@ namespace WordstageWeb.Services
 {
     public class Signupservice : ISignuprepository
     {
-        public async Task<bool> SignUp(string firstName, string lastName, string emailAddress, string password)
+        public async Task<bool> SignUp(string firstName, string lastName, string emailAddress, string password, string usertype)
         {
             var SignUp = new Signup()
             {
@@ -16,7 +16,8 @@ namespace WordstageWeb.Services
                 LastName = lastName,
                 EmailAddress = emailAddress,
                 Password = password,
-
+                UserType=usertype,
+              
             };
             var httpClient = new HttpClient();
             var json = JsonConvert.SerializeObject(SignUp);
