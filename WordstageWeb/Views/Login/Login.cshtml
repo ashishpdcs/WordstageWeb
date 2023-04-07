@@ -33,13 +33,11 @@
                         <p class="e-mail-1RJ">E-mail</p>
                         @Html.EditorFor(model => model.emailid, new { htmlAttributes = new {@class = "auto-group-xuty-LCg", @placeholder="Enter your email address" }})
                         @Html.ValidationMessageFor(e => e.emailid)
-
                     </div>
                     <div class="group-1000004422-BUC">
                         <p class="password-8PS">Password</p>
-                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new {@class = "auto-group-61g7-42C", @placeholder="Enter your password",@maxlength = "8" }})
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new {@class = "auto-group-61g7-42C", @placeholder="Enter your password",@minlength = "6", @maxlength="15"  }})
                         @Html.ValidationMessageFor(e => e.Password)
-
                     </div>
                     <p class="forgot-your-password-uoW">Forgot your password?</p>
                     <input type="submit" value="Log in" class="frame-71-eFJ" />

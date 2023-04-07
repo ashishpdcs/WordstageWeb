@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Reflection;
 using WordstageWeb.Repository;
 using WordstageWeb.Services;
 
@@ -26,9 +27,8 @@ namespace WordstageWeb.Controllers
                     }
                     else
                     {
-                        Console.WriteLine("not register");
-
-                        return View("Index");
+                    ModelState.AddModelError("Password", "Invalid Email and Password");
+                    return View();
                     }
 
                 }
