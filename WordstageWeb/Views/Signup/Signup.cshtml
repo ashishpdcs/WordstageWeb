@@ -62,7 +62,7 @@
                     <div class="group-1000004553-DQk">
                         <div class="group-1000004422-NYY">
                             <p class="password-jP6">Password</p>
-                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new {@class = "auto-group-sc51-sEQ", @placeholder="Enter password",type = "password" ,@maxlength = "8" }})
+                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new {@class = "auto-group-sc51-sEQ", @placeholder="Enter password",type = "password" ,@minlength = "6", @maxlength="15" }})
                             @Html.ValidationMessageFor(e => e.Password)
                         </div>
                         <p class="at-least-6-character-include-numbers-uppercase-and-lowercase-character-Ltg">At least 6 character include numbers, uppercase and lowercase character</p>
