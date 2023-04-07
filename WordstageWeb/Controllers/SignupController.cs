@@ -17,16 +17,16 @@ namespace WordstageWeb.Controllers
             model.UserTypes = new List<SelectListItem>
     {
         new SelectListItem { Text = "Customers", Value = "Customers" },
-        new SelectListItem { Text = "Translator", Value = "Translator" }       
+        new SelectListItem { Text = "Translator", Value = "Translator" }
     };
             return View(model);
-           // return View();
+            // return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> SignUp(string firstname, string lastname, string emailAddress, string password, string usertype)
         {
-               if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 var Userinfo = await _signUpRepository.SignUp(firstname, lastname, emailAddress, password, usertype);
                 if (Userinfo)
@@ -35,19 +35,18 @@ namespace WordstageWeb.Controllers
                     return RedirectToAction("Login", "Login");
                     //return View();
                 }
-                else
-                {
-
-                    TempData["Warning"] = "Please Input Username & Password";
-
-                }
-             
+               
             }
-            else
-            {
-                return View();
-            }
-            return View();
+            var model = new Signup();
+            model.UserTypes = new List<SelectListItem>
+    {
+        new SelectListItem { Text = "Customers", Value = "Customers" },
+        new SelectListItem { Text = "Translator", Value = "Translator" }
+    };
+            return View(model);
+            // return View();
         }
+
     }
-}
+    }
+
