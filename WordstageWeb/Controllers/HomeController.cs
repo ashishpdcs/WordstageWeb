@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using WordstageWeb.Repository;
 using WordstageWeb.Services;
 using System.Reflection;
+using Nancy.Json;
+using Newtonsoft.Json;
 
 namespace WordstageWeb.Controllers
 {
@@ -11,25 +13,34 @@ namespace WordstageWeb.Controllers
     {
         private readonly IHomerepository _homerepository = new Homeservice();
         List<Language> Languagemodel = new List<Language>();
-        List<Product> productmodel = new List<Product>();
+        List<ProductType> productmodel = new List<ProductType>();
+
         public async Task<ActionResult> Index()
         {
             Languagemodel = await _homerepository.LoadLanguageDropdown();
-            if (Languagemodel.Count() > 0)
-            {
-                ViewBag.Languages = new SelectList(Languagemodel, "LanguageId", "LanguageName");
-            }
-            else
-            {
-                Languagemodel.Insert(0, new Language() { LanguageId = "00000000-0000-0000-0000-000000000000", LanguageName = "--Select--" });
-                ViewBag.Languages = new SelectList(Languagemodel, "LanguageId", "LanguageName");
-            }
-            productmodel = await _homerepository.GetAllProductDetails();
-            List<Product> ProductNamelist = productmodel;
-            if (ProductNamelist != null) ProductNamelist = ProductNamelist.DistinctBy(x => x.ProductName).ToList();
-            ViewBag.ProductNames = new SelectList(ProductNamelist, "ProductId", "ProductName");
+            ViewBag.FromLanguages = new SelectList(Languagemodel, "LanguageId", "LanguageName");
+            ViewBag.ToLanguages = new SelectList(Languagemodel, "LanguageId", "LanguageName");
 
-            return View(productmodel);
+            productmodel = await _homerepository.LoadProductDropdown();
+            var productDropdown = productmodel.Select(p => new SelectListItem
+            {
+                Value = p.TypeId.ToString(),
+                Text = p.ProductTypeName,
+            });
+            ViewBag.ProductDropdown = productDropdown;
+            List<SelectListItem> applicant = new List<SelectListItem>();
+            applicant.Add(new SelectListItem { Value = "1", Text = "1" });
+            applicant.Add(new SelectListItem { Value = "2", Text = "2" });
+            applicant.Add(new SelectListItem { Value = "3", Text = "3" });
+            ViewBag.noofapplicant = applicant;
+            return View();
+        }
+        [HttpPost]
+        public async Task<ActionResult> LoadProductdata(string Product, string from, string to)
+        {
+            List<Product> productmodel = new List<Product>();
+            productmodel = await _homerepository.LoadProduct(Product,from,to);
+            return Json(productmodel);
         }
     }
 }

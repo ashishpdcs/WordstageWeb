@@ -9,15 +9,60 @@ namespace WordstageWeb.Services
 {
     public class Homeservice : IHomerepository
     {
-        public async Task<List<Product>> GetAllProductDetails()
+        public async Task<List<ProductType>> LoadProductDropdown()
         {
-            var myObject = new
+            var myObject = new { };
+
+            JsonContent content = JsonContent.Create(myObject);
+            //live url = https://wordstageapi.azurewebsites.net
+            string apiUrl = "https://localhost:7256/api/ProductType/GetAllProductType";
+            using (HttpClient client = new HttpClient())
             {
-                GlobalSearch = "",
-                PageSize = 0,
-                PageIndex = 0,
-                OrderBy = "",
-                OrderDirection = "",
+                List<ProductType> model = new List<ProductType>();
+                client.BaseAddress = new Uri(apiUrl);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+                var response = await client.PostAsync(apiUrl, content);
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    var jsonResponse = await response.Content.ReadAsStringAsync();
+                    var details = JsonConvert.SerializeObject(JObject.Parse(jsonResponse)["Data"]);
+                    model = JsonConvert.DeserializeObject<List<ProductType>>(details).ToList();
+                }
+                return model;
+            }
+        }
+
+        public async Task<List<Language>> LoadLanguageDropdown()
+        {
+            var myObject = new { };
+
+            JsonContent content = JsonContent.Create(myObject);
+            //live url = https://wordstageapi.azurewebsites.net
+            string apiUrl = "https://localhost:7256/api/Language/GetAllLanguageName";
+            using (HttpClient client = new HttpClient())
+            {
+                List<Language> model = new List<Language>();
+                client.BaseAddress = new Uri(apiUrl);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+                var response = await client.PostAsync(apiUrl, content);
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    var jsonResponse = await response.Content.ReadAsStringAsync();
+                    var details = JsonConvert.SerializeObject(JObject.Parse(jsonResponse)["Data"]);
+                    model = JsonConvert.DeserializeObject<List<Language>>(details).ToList();
+                }
+                return model;
+            }
+        }
+
+        public async Task<List<Product>> LoadProduct(string Productid,string from, string to)
+        {
+            var myObject = new {
+                ProductTypeId = Productid,
+                FromLanguage = from,
+                ToLanguage = to
             };
 
             JsonContent content = JsonContent.Create(myObject);
@@ -35,30 +80,6 @@ namespace WordstageWeb.Services
                     var jsonResponse = await response.Content.ReadAsStringAsync();
                     var details = JsonConvert.SerializeObject(JObject.Parse(jsonResponse)["Data"]);
                     model = JsonConvert.DeserializeObject<List<Product>>(details).ToList();
-                }
-                return model;
-            }
-        }
-
-        public async Task<List<Language>> LoadLanguageDropdown()
-        {
-            var myObject = new {};
-
-            JsonContent content = JsonContent.Create(myObject);
-            //live url = https://wordstageapi.azurewebsites.net
-            string apiUrl = "https://localhost:7256/api/Language/GetAllLanguageName";
-            using (HttpClient client = new HttpClient())
-            {
-                List<Language> model = new List<Language>();
-                client.BaseAddress = new Uri(apiUrl);
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-                var response = await client.PostAsync(apiUrl, content);
-                if (response.StatusCode == System.Net.HttpStatusCode.OK)
-                {
-                    var jsonResponse = await response.Content.ReadAsStringAsync();
-                    var details = JsonConvert.SerializeObject(JObject.Parse(jsonResponse)["Data"]);
-                    model = JsonConvert.DeserializeObject<List<Language>>(details).ToList();
                 }
                 return model;
             }

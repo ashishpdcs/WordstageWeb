@@ -1,0 +1,134 @@
+﻿<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <title>Order</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins%3A400%2C500" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro%3A400%2C500" />
+    <link rel="stylesheet" href="~/styles/order.css" />
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            const ProductId = sessionStorage.getItem('ProductId');
+            alert(ProductId);
+            LoadProductData(ProductId);
+        });
+        function LoadProductData(ProductId) {
+            alert("V");
+            $.ajax({
+                url: '/Order/LoadProductData',
+                data: { 'ProductId': ProductId },
+                type: 'GET',
+                dataType: 'json',
+                success: function (result) {
+                    console.log(result);
+                    console.log(result[0].price);
+                    document.getElementById("priceLabel").innerHTML = result[0].price;
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert('Error: ' + thrownError);
+                }
+            });
+        }
+    </script>
+
+</head>
+<body>
+    <div class="order-AiL">
+        <div class="group-1000004476-Uyv">
+            <div class="group-1000004469-nzc">
+            </div>
+            <div class="frame-1000004469-t24">
+                <img class="group-1000004466-D4L" src="~/assets/group-1000004466.png" />
+                <p class="step-1-project-details-XKv">Step 1 : Project details </p>
+            </div>
+            <div class="frame-1000004494-2nU">
+                <img class="group-1000004467-NLY" src="~/assets/group-1000004467.png" />
+                <p class="step-2-purchase-options-hdi">Step 2 : Purchase options</p>
+            </div>
+            <div class="frame-1000004495-dXN">
+                <img class="group-1000004468-AGQ" src="~/assets/group-1000004468.png" />
+                <p class="step-3-payment-VpU">Step 3 : Payment</p>
+            </div>
+        </div>
+        <div class="auto-group-nrrx-dvg">
+            <div class="group-1000004471-a5E">
+                <p class="order-summary-6pG">Order Summary</p>
+                <div class="line-34-1wE">
+                </div>
+                <div class="line-35-9Xe">
+                </div>
+                <div class="line-36-h3N">
+                </div>
+                <div class="group-1000004463-dSp">
+                    <div class="frame-1000004493-xjz">
+                        <div class="frame-1000004463-K4k">
+                            <div class="ellipse-26-rqN">
+                            </div>
+                            <p class="items-aWU">0 items</p>
+                        </div>
+                        <p class="words-icg">0 words</p>
+                    </div>
+                    <div class="auto-group-pazh-Fcc">
+                        <div class="frame-1000004463-oPE">
+                            <div class="ellipse-27-im6">
+                            </div>
+                            <p class="select-languages-rcQ">Select languages</p>
+                        </div>
+                        <div class="frame-1000004463-aoJ">
+                            <div class="ellipse-28-XyS">
+                            </div>
+                            <p class="select-payment-method-Gg8">Select payment method</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="auto-group-mxix-oAG">
+                    <p class="from-KuJ">From</p>
+                    <div class="frame-1000004497-GJk">
+                        <img class="vector-dQC" src="~/assets/vector-Sq6.png" />
+                        <p class="per-word-Mqz"><label id="priceLabel">per word</label>  per word</p>
+                    </div>
+                </div>
+            </div>
+            <div class="group-1000004470-tqv">
+                <div class="group-1000004465-Eun">
+                    <div class="rectangle-9-z8G">
+                    </div>
+                    <div class="auto-group-eenp-Xtt">
+                        <div class="frame-1000004462-EYQ">
+                            <div class="frame-1000004460-Nec">
+                                <p class="from-vAL">FROM</p>
+                                <div class="group-28-f7v">
+                                    <img class="twemoji-flag-us-outlying-islands-Brx" src="~/assets/twemoji-flag-us-outlying-islands-nQg.png" />
+                                    <p class="english-XA8">English</p>
+                                    <img class="material-symbols-arrow-drop-down-eVe" src="~/assets/material-symbols-arrow-drop-down-wmJ.png" />
+                                </div>
+                            </div>
+                            <div class="frame-1000004461-8Qp">
+                                <p class="to-sdJ">TO</p>
+                                <div class="group-29-1jW">
+                                    <img class="twemoji-flag-clipperton-island-MHa" src="~/assets/twemoji-flag-clipperton-island-FAp.png" />
+                                    <p class="french-5zG">French</p>
+                                    <img class="material-symbols-arrow-drop-down-CZ6" src="~/assets/material-symbols-arrow-drop-down-RW8.png" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="group-30-5sn">
+                            <div class="frame-1000004492-oYt">
+                                <p class="type-or-paste-text-here-to-translate-or-96x">Type or paste text here to translate,  or</p>
+                                <div class="frame-1000004491-U9E">Upload Files</div>
+                            </div>
+                        </div>
+                        <p class="words-sx4">0 words</p>
+                    </div>
+                    <p class="what-would-you-like-to-translate-DW8">What would you like to translate?</p>
+                </div>
+                <div class="frame-1000004496-3k4">NEXT</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

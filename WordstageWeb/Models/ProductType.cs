@@ -1,6 +1,6 @@
 ﻿namespace WordstageWeb.Models
 {
-    public class ProductType
+    public partial class ProductType
     {
         public Guid? TypeId { get; set; }
         public string? ProductTypeName { get; set; }

@@ -1,9 +1,122 @@
 ﻿@*@model WordstageWeb.Models.Product*@
-@model List<WordstageWeb.Models.Product>
+@*@model List<WordstageWeb.Models.Product>*@
 @*@model Tuple<WordstageWeb.Models.Language.Language, WordstageWeb.Models.Login.Login>*@
 
 <!DOCTYPE html>
 <html>
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var myModelList, Pselect, fromselect, toselect, translationtype;
+
+            Pselect = $('#ProductDropdown').val();
+            fromselect = $('#FromLanguages').val();
+            toselect = $('#ToLanguages').val();
+
+
+            fromselect = "69A9FFD4-5F46-432F-BA80-0AEE04B59E52";
+            toselect = "F7C668E4-FFA4-4FA2-936A-D20E03BA009E";
+            //default set to and from laguaage
+
+            LoadProductData(Pselect, fromselect, toselect);
+
+            $('#ProductDropdown').change(function () {
+                Pselect = $(this).val();
+                LoadProductData(Pselect, fromselect, toselect);
+            });
+            $('#FromLanguages').change(function () {
+                fromselect = $(this).val();
+                LoadProductData(Pselect, fromselect, toselect);
+            });
+            $('#ToLanguages').change(function () {
+                toselect = $(this).val();
+                LoadProductData(Pselect, fromselect, toselect);
+            });
+        });
+        function LoadProductData(Product, from, to) {
+            $.ajax({
+                url: '/Home/LoadProductData',
+                data: { 'Product': Product, 'from': from, 'to': to },
+                type: 'Post',
+                dataType: 'json',
+                success: function (result) {
+                    console.log(result);
+                    TablelooandupdatePlan(result);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert('Error: ' + thrownError);
+                }
+            });
+        }
+        function TablelooandupdatePlan(myModelList) {
+            console.log(myModelList);
+            myModelList.forEach(function (item) {
+                if (item.planTypes[0].planType == "STANDARD") {
+                    document.getElementById("Labelstandard").innerHTML = item.planTypes[0].planType;
+                    document.getElementById("standardprice").innerHTML = item.price;
+                    //link = document.getElementById('standardLink
+                    createLinkWithPlanType(item.planTypes[0].planType, 'standardLink', item.productId);
+                    //sessionStorage.setItem('ProductId', item.ProductId);
+                }
+                else if (item.planTypes[0].planType == "ADVANCED") {
+                    document.getElementById("Labeladvanced").innerHTML = item.planTypes[0].planType;
+                    document.getElementById("advancedprice").innerHTML = item.price + ".00";
+                    createLinkWithPlanType(item.planTypes[0].planType, 'advancedLink', item.productId);
+                    //sessionStorage.setItem('ProductId', item.ProductId);
+                }
+                else if (item.planTypes[0].planType == "PREMIUM") {
+                    document.getElementById("Labelpremium").innerHTML = item.planTypes[0].planType;
+                    document.getElementById("premiumprice").innerHTML = item.price + ".00";
+                    // link = document.getElementById('premiumLink');
+                    createLinkWithPlanType(item.planTypes[0].planType, 'premiumLink', item.productId);
+                    //sessionStorage.setItem('ProductId', item.ProductId);
+                }
+                var group51 = document.getElementById("group51");
+                var group52 = document.getElementById("group52");
+                var group53 = document.getElementById("group53");
+                var group54 = document.getElementById("group54");
+
+                if (item.productName == "Certificate") {
+                    group51.style.display = "none";
+                    group52.style.display = "none";
+                    group53.style.display = "block";
+                    group54.style.display = "block";
+                }
+                else {
+                    group51.style.display = "block";
+                    group52.style.display = "block";
+                    group53.style.display = "none";
+                    group54.style.display = "none";
+                }
+            });
+        };
+        function createLinkWithPlanType(planType, linkId, ProductId) {
+            console.log(planType, linkId, ProductId);
+            const link = document.getElementById(linkId);
+
+            if (planType === 'STANDARD') {
+                link.href = '/Order/Order';
+            } else if (planType === 'ADVANCED') {
+                link.href = '/Order/Order';
+            } else if (planType === 'PREMIUM') {
+                link.href = '/Order/Order';
+            }
+
+            // Add a click event listener to the link with parameters
+            link.addEventListener('click', function () {
+                sessionStorage.setItem('ProductId', ProductId);
+                myFunction(planType, ProductId);
+            });
+        };
+
+        // Define the function to be called with a parameter
+        function myFunction(planType, ProductId) {
+            // Do something with the parameter
+            //window.location.href = url;
+        };
+    </script>
+</head>
 <body>
     <div class="home-page-bkL">
         @using (Html.BeginForm())
@@ -183,9 +296,7 @@
                             @*<p class="voice-over-translation-V28">Voice-Over Translation</p>
                         <div class="line-8-p4Q">
                         </div>*@
-
-                            @Html.DropDownList("ProductId", (IEnumerable<SelectListItem>)ViewBag.ProductNames, null)
-
+                            @Html.DropDownList("ProductDropdown", ViewBag.ProductDropdown as List<SelectListItem>)
                             <img class="material-symbols-arrow-drop-down-MKE" src="~/assets/material-symbols-arrow-drop-down-HfE.png" />
                         </div>
                     </div>
@@ -198,7 +309,7 @@
                             @*@Html.DropDownList("LanguageId", (IEnumerable<SelectListItem>)ViewBag.Languages, null, new { @class ="from-TQC" })*@
                             <div class="group-28-oDA">
                                 <img class="twemoji-flag-us-outlying-islands-vYg" src="~/assets/twemoji-flag-us-outlying-islands.png" />
-                                @Html.DropDownList("LanguageId", (IEnumerable<SelectListItem>)ViewBag.Languages, null)
+                                @Html.DropDownList("FromLanguages", (IEnumerable<SelectListItem>)ViewBag.FromLanguages, null)
                                 @* <img class="material-symbols-arrow-drop-down-BzQ" src="~/assets/material-symbols-arrow-drop-down-RHA.png" />*@
                             </div>
                         </div>
@@ -228,49 +339,56 @@
                             <p class="to-iYQ">TO</p>
                             <div class="group-29-fCk">
                                 <img class="twemoji-flag-clipperton-island-Bgt" src="~/assets/twemoji-flag-clipperton-island.png" />
-                                @Html.DropDownList("LanguageId", (IEnumerable<SelectListItem>)ViewBag.Languages, null)
+                                @Html.DropDownList("ToLanguages", (IEnumerable<SelectListItem>)ViewBag.ToLanguages, null)
                             </div>
                         </div>
                     </div>
                     <div class="group-53-jrp">
-                        <div class="group-50-5Qt">
-                            <div class="group-48-cQp">@Model[0].planTypes[0].PlanType</div>
-                            <div class="auto-group-qmkw-Uxp">
-                                <div class="frame-247-cJL">
-                                    <div class="frame-246-N2c">
-                                        <img class="vector-7kt" src="~/assets/vector-4AL.png" />
-                                        <p class="item-200-Fs6">@Model[0].Price</p>
+                        <div style="width:30%">
+                            <div class="group-50-5Qt" id="group50">
+                                <div class="group-48-cQp"><label id="Labelstandard"></label></div>
+                                <a href="#" id="standardLink" style="text-decoration: none;">
+                                    <div class="auto-group-qmkw-Uxp">
+                                        <div class="frame-247-cJL">
+                                            <div class="frame-246-N2c">
+                                                <img class="vector-7kt" src="~/assets/vector-4AL.png" />
+                                                <p class="item-200-Fs6"><label id="standardprice"></label></p>
+                                            </div>
+                                            <p class="per-word-nc8">per word</p>
+                                        </div>
                                     </div>
-                                    <p class="per-word-nc8">per word</p>
-                                </div>
-                            </div>
-                            <p class="machine-text-translation-Wo2">Machine text translation</p>
-                            <div class="group-49-Rf6">
-                                <div class="frame-33-Yji">
-                                    <img class="dashicons-yes-alt-4xx" src="~/assets/dashicons-yes-alt.png" />
-                                    <p class="unedited-Bng">Unedited</p>
-                                </div>
-                                <div class="frame-34-Kdz">
-                                    <img class="dashicons-yes-alt-rtp" src="~/assets/dashicons-yes-alt-cb2.png" />
-                                    <p class="instant-service-zEL">Instant Service</p>
-                                </div>
-                                <div class="frame-236-iRE">
-                                    <img class="dashicons-yes-alt-e3z" src="~/assets/dashicons-yes-alt-MsN.png" />
-                                    <p class="free-trial-xaU">1-Free Trial</p>
+                                </a>
+                                <p class="machine-text-translation-Wo2">Machine text translation</p>
+                                <div class="group-49-Rf6">
+                                    <div class="frame-33-Yji">
+                                        <img class="dashicons-yes-alt-4xx" src="~/assets/dashicons-yes-alt.png" />
+                                        <p class="unedited-Bng">Unedited</p>
+                                    </div>
+                                    <div class="frame-34-Kdz">
+                                        <img class="dashicons-yes-alt-rtp" src="~/assets/dashicons-yes-alt-cb2.png" />
+                                        <p class="instant-service-zEL">Instant Service</p>
+                                    </div>
+                                    <div class="frame-236-iRE">
+                                        <img class="dashicons-yes-alt-e3z" src="~/assets/dashicons-yes-alt-MsN.png" />
+                                        <p class="free-trial-xaU">1-Free Trial</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="group-51-rvk">
-                            <div class="group-48-oLC">@Model[1].planTypes[0].PlanType</div>
-                            <div class="auto-group-yvb5-get">
-                                <div class="frame-247-ozQ">
-                                    <div class="frame-246-Zig">
-                                        <img class="vector-8Fz" src="~/assets/vector-q9J.png" />
-                                        <p class="item-500-sUU">@Model[0].Price</p>
+                        <div class="group-51-rvk" id="group51">
+
+                            <div class="group-48-oLC"><label id="Labeladvanced"></label></div>
+                            <a href="#" id="advancedLink" style="text-decoration: none;">
+                                <div class="auto-group-yvb5-get">
+                                    <div class="frame-247-ozQ">
+                                        <div class="frame-246-Zig">
+                                            <img class="vector-8Fz" src="~/assets/vector-q9J.png" />
+                                            <p class="item-500-sUU"><label id="advancedprice"></label></p>
+                                        </div>
+                                        <p class="per-word-D2Y">per word</p>
                                     </div>
-                                    <p class="per-word-D2Y">per word</p>
                                 </div>
-                            </div>
+                            </a>
                             <p class="expert-text-translation-wjE">Expert text translation</p>
                             <div class="group-49-gB2">
                                 <div class="frame-33-bon">
@@ -287,17 +405,20 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="group-52-uV2">
-                            <div class="group-48-2Jk">@Model[2].planTypes[0].PlanType</div>
-                            <div class="auto-group-bivf-UgY">
-                                <div class="frame-247-nhE">
-                                    <div class="frame-246-jMa">
-                                        <img class="vector-Hdz" src="~/assets/vector-6Wc.png" />
-                                        <p class="item-800-E3S">@Model[0].Price</p>
+
+                        <div class="group-52-uV2" id="group52">
+                            <div class="group-48-2Jk"><label id="Labelpremium"></label></div>
+                            <a href="#" id="premiumLink" style="text-decoration: none;">
+                                <div class="auto-group-bivf-UgY">
+                                    <div class="frame-247-nhE">
+                                        <div class="frame-246-jMa">
+                                            <img class="vector-Hdz" src="~/assets/vector-6Wc.png" />
+                                            <p class="item-800-E3S"><label id="premiumprice"></label></p>
+                                        </div>
+                                        <p class="per-word-kXa">per word</p>
                                     </div>
-                                    <p class="per-word-kXa">per word</p>
                                 </div>
-                            </div>
+                            </a>
                             <p class="professional-translation-Fz8">Professional translation</p>
                             <div class="group-49-C8g">
                                 <div class="auto-group-uqdv-8HE">
@@ -320,6 +441,91 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div id="group53" style="width:35%">
+                            <div style="font-size:medium">
+                                <h1>Gujarati to English Birth Certificate</h1>
+                                <span class="woocs_price_code" data-product-id="19704"><del aria-hidden="true"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">₹</span>1,050.00</bdi></span></del> <ins><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">₹</span>750.00</bdi></span></ins> <small class="woocommerce-price-suffix">per page (auto-discount for multiple pages)</small></span>
+                                <br /><br />
+                                <p><em><strong id="order-now">3 easy steps</strong></em> to order internationally accepted Gujarati to English certified translation of Birth Certificate in <em><strong>48 hours</strong></em> with various additional options.</p><br>
+                                <ol>
+                                    <li><em>1.Select number of <strong>applicants </strong>and required <strong>services</strong></em></li>
+                                    <li><em>2.Confirm service details &amp; timeline and “<strong>Proceed to Checkout</strong>”</em></li>
+                                    <li><em>3.Enter <strong>billing</strong> details, <strong>upload</strong> Gujarati Birth Certificate/s and <strong>pay</strong>!</em></li>
+                                </ol>
+                                <br>
+                                <p>Order below or Scroll down the page for full service description.</p> <br /><hr><br />
+                                <h3><span style="color: red">Do Birth Certificates belong to multiple applicants?</span></h3><br />
+                                <aside>(Which will require us to issue more than one certificate)</aside>
+
+                                <label>No. of applicants:*</label><br>
+                                <div style="width:15%">
+                                    @Html.DropDownList("noofapplicant", ViewBag.noofapplicant as List<SelectListItem>)
+                                </div>
+                                <br>
+                                <div data-is-required="" data-field-id="60b9d78f814e0">
+                                    <h3><span style="color: red">Select required services:</span></h3>
+                                    <br>
+                                    ☑️&nbsp;<span style="color: grey">Certified Translation (Included by default - free)</span>
+                                </div>
+                                <br>
+                                <div for="60ae7178ee575">
+                                    <div class="wapf-field-label wapf--above">
+                                        <label>
+                                            <span>Require document/s to be Apostilled?</span>
+                                            <abbr class="required" title="required">*</abbr>
+                                        </label>
+                                    </div>
+
+                                    <div data-is-required="1">
+                                        <button type="submit" style="display: inline-block;">No</button>
+                                        <button type="submit" style="display: inline-block;">Yes</button>
+                                    </div>
+                                    <br>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div id="group54" style="width:35%">
+                            <div style="font-size:medium">
+                                <div style="width:100%;" for="60ae7178ee571">
+                                    <div><label><span>Applying for Canada immigration/visa?</span></label></div><div class="wapf-field-input">
+                                        <br>
+                                        <input type="hidden" data-fid="60ae7178ee571" value="0" name="wapf[field_60ae7178ee571]">
+                                        <label for="30756">
+                                            <input id="30756" type="checkbox" value="1" data-is-required="" data-field-id="60ae7178ee571" name="wapf[field_60ae7178ee571]" data-wapf-price="[field.60bc6a5519a1c]*850+150" data-wapf-pricetype="fx" data-wapf-tax="1">
+
+                                            Yes (<span>+₹1,000.00</span>)
+
+                                        </label>
+                                        <br>
+                                    </div><div>Canada requires compulsory notarization with translator's affidavit.</div><br>
+                                </div>
+                                <label>
+                                    <span>Require notarized translation?</span>
+                                    <abbr class="required" title="required">*</abbr>
+                                </label>
+                                <div data-is-required="1">
+                                    <button type="submit" style="display: inline-block;">No</button>
+
+                                    <button type="submit" style="display: inline-block;">Yes <span>(<span>+₹400.00</span>)</span><input type="button"  data-wapf-label="Yes" data-is-required="1" required=""  data-wapf-tax="1"></button>
+                                </div>
+                                <br>
+                                <div><label><span>Courier notarized &amp; certified translation to an Indian address?</span></label></div>
+                                <div class="wapf-field-input"><div class="wapf-radios"><input type="hidden" data-fid="60ae7178ee587" value="0" name="wapf[field_60ae7178ee587]"><div ><label for="62564" class="wapf-input-label"><input type="radio" id="62564" name="wapf[field_60ae7178ee587]" data-wapf-label="No, only scanned copy via email" data-is-required="" data-wapf-pricetype="fixed" data-wapf-price="-150"><span class="wapf-custom"></span><span class="wapf-label-text">No, only scanned copy via email <span class="wapf-pricing-hint">(<span class="wapf-addon-price">₹-150.00</span>)</span></span></label></div><div class="wapf-checkable has-pricing"><label for="31132" class="wapf-input-label"><input type="radio" id="31132" name="wapf[field_60ae7178ee587]" class="wapf-input" data-field-id="60ae7178ee587" value="uygo1" data-wapf-label="No, will collect from your Mumbai office" data-is-required="" data-wapf-pricetype="fixed" data-wapf-price="-150"><span class="wapf-custom"></span><span class="wapf-label-text">No, will collect from your Mumbai office <span class="wapf-pricing-hint">(<span class="wapf-addon-price">₹-150.00</span>)</span></span></label></div><div class="wapf-checkable"><label for="68281" class="wapf-input-label"><input type="radio" id="68281" name="wapf[field_60ae7178ee587]" class="wapf-input" data-field-id="60ae7178ee587" value="1rcwy" data-wapf-label="Yes, send via standard courier service" data-is-required="" checked=""><span class="wapf-custom"></span><span class="wapf-label-text">Yes, send via standard courier service </span></label></div><div class="wapf-checkable has-pricing"><label for="73952" class="wapf-input-label"><input type="radio" id="73952" name="wapf[field_60ae7178ee587]" class="wapf-input" data-field-id="60ae7178ee587" value="ungcz" data-wapf-label="Yes, send via express courier service" data-is-required="" data-wapf-pricetype="fixed" data-wapf-price="250"><span class="wapf-custom"></span><span class="wapf-label-text">Yes, send via express courier service <span class="wapf-pricing-hint">(<span class="wapf-addon-price">+₹250.00</span>)</span></span></label></div></div></div>
+                                <br><hr>
+                                <h3><span style="color: red">Confirm selected services &amp; timeline (or change selections above):</span></h3><br>
+                                <span style="color: darkgreen">✔️Certified Translation (Included by default - Free)&nbsp;</span><br>
+                                <br><span>Turnaround: 48 hours </span><span style="font-family: lato;font-size: 14px;font-style: normal;font-weight: 400;letter-spacing: normal;text-align: start;text-indent: 0px;text-transform: none;float: none">(For upto 3 pages. Add 6 hours for each additional page)</span><br>
+                               
+                                <br>
+                                <span style="color: darkgreen">✔️Notarization of certified translation&nbsp;</span><br>
+                                <span>Time required: 1 working day after certified translation </span>
+                                <br><br><span>Add-ons Cost (Total for all pages/documents)</span>
+                                <button type="submit" name="add-to-cart" value="19704" style="display: inline-block; opacity: 1; background-color: #38abcf">Proceed to checkout</button>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
