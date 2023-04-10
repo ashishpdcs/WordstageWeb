@@ -33,12 +33,18 @@ namespace WordstageWeb.Controllers
             applicant.Add(new SelectListItem { Value = "2", Text = "2" });
             applicant.Add(new SelectListItem { Value = "3", Text = "3" });
             ViewBag.noofapplicant = applicant;
+            ViewBag.email = HttpContext.Session.GetString("emailid");
+            ViewBag.mytest = "hello from my test";
+
+
             return View();
         }
         [HttpPost]
         public async Task<ActionResult> LoadProductdata(string Product, string from, string to)
         {
             List<Product> productmodel = new List<Product>();
+          
+
             productmodel = await _homerepository.LoadProduct(Product,from,to);
             return Json(productmodel);
         }

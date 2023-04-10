@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -24,7 +26,16 @@
             </div>
             <div class="frame-2-L7a">
                 <div class="auto-group-aaxk-ghE">
-                    <a class="log-in-p2k" style="text-decoration: none" asp-area="" asp-controller="Login" asp-action="Login">Log In</a>
+                    <a class="log-in-p2k" style="text-decoration: none" asp-controller="Login" asp-action="Login">
+                        @if(ViewBag.email == null)
+                        {
+                            <p> Log in</p>
+                        }
+                        else
+                        {
+                            <p> @ViewBag.email </p>
+                        }
+                    </a>     
                     <div class="line-1-952">
                     </div>
                 </div>
@@ -74,7 +85,7 @@
                             <div class="untitled-1-7HS">
                             </div>
                             <div class="frame-254-nPa">
-                                <p class="our-office--9E8">Our Office:</p>
+                                <p class="our-office--9E8">Our Office: </p>
                                 <div class="frame-78-3qJ">
                                     <div class="frame-251-1XE">
                                         <img class="ic-baseline-location-on-A9E" src="~/assets/ic-baseline-location-on.png" />

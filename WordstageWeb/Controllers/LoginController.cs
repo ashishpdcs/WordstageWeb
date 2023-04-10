@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Nancy.Session;
 using System.Reflection;
 using WordstageWeb.Repository;
 using WordstageWeb.Services;
@@ -14,6 +15,7 @@ namespace WordstageWeb.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(string emailid, string password)
         {
             if (ModelState.IsValid)
@@ -22,6 +24,7 @@ namespace WordstageWeb.Controllers
                     if (Userinfo)
                     {
                         Console.WriteLine("Succesfully register");
+                    HttpContext.Session.SetString("emailid", emailid);
                         return RedirectToAction("Index", "Home");
                         //return View();
                     }
