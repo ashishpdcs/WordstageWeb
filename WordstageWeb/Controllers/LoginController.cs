@@ -40,5 +40,11 @@ namespace WordstageWeb.Controllers
                     return View();
                 }
         }
+
+        public ActionResult Logout()
+        {
+            HttpContext.Session.Remove("emailid");
+            return RedirectToAction("Index","Home");
+        }
     }
 }

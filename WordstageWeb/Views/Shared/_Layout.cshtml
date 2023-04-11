@@ -26,20 +26,27 @@
             </div>
             <div class="frame-2-L7a">
                 <div class="auto-group-aaxk-ghE">
-                    <a class="log-in-p2k" style="text-decoration: none" asp-controller="Login" asp-action="Login">
+                  
                         @if(ViewBag.email == null)
                         {
-                            <p> Log in</p>
-                        }
+                            <a class="log-in-p2k" style="text-decoration: none" asp-controller="Login" asp-action="Login">Log In</a>
+                                }
                         else
                         {
-                            <p> @ViewBag.email </p>
+                        <p class="log-in-p2k"> @ViewBag.email </p>
                         }
-                    </a>     
+                       
                     <div class="line-1-952">
                     </div>
                 </div>
-                <a class="frame-1-GQY" style="text-decoration: none" asp-controller="Signup" asp-action="Signup">Sign Up</a>
+                @if (ViewBag.email == null)
+                {
+                    <a class="frame-1-GQY" style="text-decoration: none" asp-controller="Signup" asp-action="Signup">Sign Up</a>
+                }
+                else
+                {
+                    <a class="frame-1-GQY" style="text-decoration: none" asp-controller="Login" asp-action="Logout"> Logout </a>
+                }
             </div>
         </div>
     </div>
