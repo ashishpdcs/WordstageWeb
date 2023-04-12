@@ -9,6 +9,8 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins%3A300%2C400%2C500%2C600"/>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro%3A300%2C400%2C500%2C600"/>
   <link rel="stylesheet" href="~/styles/about-us.css"/>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxlswj6IWjzgiuqoG7IxoMWn8kXWU54vY&callback=initMap" async defer></script>
+
 </head>
 <body>
 <div class="about-us-3Ag">
@@ -98,8 +100,21 @@
         <div class="group-1000004410-ALx">
             <p class="where-to-find-us-HgU">Where to find us</p>
             <div class="frame-1000004409-zat">
-                <div class="group-1000004407-Lue">
-                    <img class="mdi-location-rsz" src="~/assets/mdi-location.png" />
+           
+@*                    <img class="mdi-location-rsz" src="~/assets/mdi-location.png" />*@
+                 <div id="map" class="group-1000004407-Lue">
+                        <script>
+                            function initMap() {
+                           
+                            var myCenter = new google.maps.LatLng(23.11391, 72.54128);
+                            var mapProp = { center: myCenter, zoom: 12, scrollwheel: false, draggable: true, mapTypeId: google.maps.MapTypeId.ROADMAP };  
+            var map = new google.maps.Map(document.getElementById("map"), mapProp);  
+            var marker = new google.maps.Marker({ position: myCenter });  
+            marker.setMap(map);  
+                            }
+                        </script>
+
+
                     <div class="auto-group-lsat-nFr">
                         <div class="group-1000004403-8ac">
                             <p class="wordstag-office-T76">Wordstag Office</p>
