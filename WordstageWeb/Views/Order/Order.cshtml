@@ -1,4 +1,6 @@
-﻿<html>
+﻿@model WordstageWeb.Models.Order
+
+<html>
 <head>
     <meta charset="utf-8" />
     <link rel="icon" href="/favicon.ico" />
@@ -8,13 +10,122 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins%3A400%2C500" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro%3A400%2C500" />
     <link rel="stylesheet" href="~/styles/order.css" />
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <style type="text/css">
+        .Textareclass {
+            width: 100%;
+            height: 50%;
+        }
+
+        .button {
+            background-color: #008080;
+            display: inline-block;
+            color: #fff;
+            width: 15%;
+            height: 10%;
+        }
+        .container .form-outer {
+                width: 100%;
+                display: flex;
+            }
+           .container .form-outer .page{
+               width:25%;
+               translation: margin-left 0.3s ease-in-out;
+           }
+          .container .progress-bar{
+              display:flex;
+          }
+          .container .progress-bar{
+
+          }
+          .container .progress-bar .step{
+              text-align: center;
+              width:100%;
+              /*margin: 20% 100% 0px 15px;*/
+          }
+          .container .progress-bar .step p{
+               font-size: 17px;
+                font-weight: 500;
+                color:#000;
+                margin-bottom:8px;
+          }
+          .container .progress-bar .step .bullet{
+                  position: relative;
+              height: 25px;
+        width: 25px;
+        border: 2px solid #000;
+        display: inline-block;
+        border-radius: 75%;
+
+          }
+          .container .progress-bar .step .bullet:before,
+          .container .progress-bar .step .bullet:after
+          {
+              position:absolute;
+              content:'';
+              height:3px;
+              bottom:11px;
+              right:-340px;
+              width:340px;
+              background:#262626;
+          }
+           .container .progress-bar .step:last-child .bullet:before,
+           .container .progress-bar .step:last-child .bullet:after
+          {
+              display: none;
+          }
+          .container .progress-bar .step .bullet:after{
+              background:#d43f8d;
+              transform: scaleX(0);
+              transform-origin: left;
+          }
+          .container .progress-bar .step span{
+             font-weight: 500;
+            font-size: 17px;
+            line-height: 25%;
+            position: absolute;
+            margin: 12px 32px;
+            transform: translateX(-50px);
+          }
+          .check.fas.fa-check {
+           position: absolute;
+        left: 35%;
+        top: 60%;
+        font-size: 15px;
+        transform: translate(0px, 0px);
+        display: none;
+        }
+
+    </style>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
+            const slidepage = document.querySelector(".slidepage");
+            const firstnextbtn = document.querySelector(".nextbtn");
+            alert(firstnextbtn);
+            firstnextbtn.addEventListener("click", function () {
+                slidepage.style.marginLeft = "-25%";
+            });
+
             const ProductId = sessionStorage.getItem('ProductId');
             alert(ProductId);
             LoadProductData(ProductId);
+            var words, wordCount;
+            $('#numbersofItem').text(0);
+            $('#Noofwords').text(0);
+
+            $('#OrderDescription').on('input', function () {
+                words = this.value.match(/\S+/g);
+                var wordCount = words ? words.length : 0;
+                if (wordCount == 0) {
+                    $('#numbersofItem').text(wordCount);
+                }
+                else {
+                    $('#numbersofItem').text(1);
+                }
+                $('#Noofwords').text(wordCount);
+            });
         });
         function LoadProductData(ProductId) {
             alert("V");
@@ -25,110 +136,185 @@
                 dataType: 'json',
                 success: function (result) {
                     console.log(result);
-                    console.log(result[0].price);
-                    document.getElementById("priceLabel").innerHTML = result[0].price;
+                    console.log(result[0].price.toFixed(2));
+                    document.getElementById("priceLabel").innerHTML = result[0].price.toFixed(2);
+                    document.getElementById("FromLanguageId").innerHTML = result[0].fromlanguages[0].languageName;
+                    document.getElementById("ToLanguageId").innerHTML = result[0].tolanguages[0].languageName;
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     alert('Error: ' + thrownError);
                 }
             });
         }
+
     </script>
 
 </head>
 <body>
-    <div class="order-AiL">
-        <div class="group-1000004476-Uyv">
-            <div class="group-1000004469-nzc">
-            </div>
-            <div class="frame-1000004469-t24">
-                <img class="group-1000004466-D4L" src="~/assets/group-1000004466.png" />
-                <p class="step-1-project-details-XKv">Step 1 : Project details </p>
-            </div>
-            <div class="frame-1000004494-2nU">
-                <img class="group-1000004467-NLY" src="~/assets/group-1000004467.png" />
-                <p class="step-2-purchase-options-hdi">Step 2 : Purchase options</p>
-            </div>
-            <div class="frame-1000004495-dXN">
-                <img class="group-1000004468-AGQ" src="~/assets/group-1000004468.png" />
-                <p class="step-3-payment-VpU">Step 3 : Payment</p>
-            </div>
-        </div>
-        <div class="auto-group-nrrx-dvg">
-            <div class="group-1000004471-a5E">
-                <p class="order-summary-6pG">Order Summary</p>
-                <div class="line-34-1wE">
-                </div>
-                <div class="line-35-9Xe">
-                </div>
-                <div class="line-36-h3N">
-                </div>
-                <div class="group-1000004463-dSp">
-                    <div class="frame-1000004493-xjz">
-                        <div class="frame-1000004463-K4k">
-                            <div class="ellipse-26-rqN">
-                            </div>
-                            <p class="items-aWU">0 items</p>
+    @using (Html.BeginForm("Order", "Order", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="order-AiL">
+            <div class="group-1000004476-Uyv">
+                <div class="container">
+                    <div class="progress-bar">
+                        <div class="step slidepage">
+                            <p>name</p>
+                            <div class="bullet"></div><span>1</span>
+                            <div class="check fas fa-check"></div>
                         </div>
-                        <p class="words-icg">0 words</p>
-                    </div>
-                    <div class="auto-group-pazh-Fcc">
-                        <div class="frame-1000004463-oPE">
-                            <div class="ellipse-27-im6">
-                            </div>
-                            <p class="select-languages-rcQ">Select languages</p>
+                        <div class="step">
+                            <p>name1</p>
+                            <div class="bullet"></div><span>2</span>
+                            <div class="check fas fa-check"></div>
+
                         </div>
-                        <div class="frame-1000004463-aoJ">
-                            <div class="ellipse-28-XyS">
-                            </div>
-                            <p class="select-payment-method-Gg8">Select payment method</p>
+                        <div class="step">
+                            <p>name2</p>
+                            <div class="bullet"></div><span>3</span>
+                            <div class="check fas fa-check"></div>
+
                         </div>
                     </div>
-                </div>
-                <div class="auto-group-mxix-oAG">
-                    <p class="from-KuJ">From</p>
-                    <div class="frame-1000004497-GJk">
-                        <img class="vector-dQC" src="~/assets/vector-Sq6.png" />
-                        <p class="per-word-Mqz"><label id="priceLabel">per word</label>  per word</p>
-                    </div>
+                   @* <div class="form-outer">
+                        <div class="page">
+                            <div class="title"> login</div>
+                            <div class="filed">
+                                <div class="label">
+                                    firstname
+                                </div>
+                                <input type="text">
+                            </div>
+                            <div class="filed">
+                                <div class="label">
+                                    firstname
+                                </div>
+                                <input type="text">
+                            </div>
+                            <div class="filed">
+                                <button class="nextbtn">next</button>
+                            </div>
+                        </div>
+                        <div class="page">
+                            <div class="title"> login</div>
+                            <div class="filed">
+                                <div class="label">
+                                    firstname
+                                </div>
+                                <input type="text">
+                            </div>
+                            <div class="filed">
+                                <div class="label">
+                                    firstname
+                                </div>
+                                <input type="text">
+                            </div>
+                            <div class="filed">
+                                <button class="next-1 next">next</button>
+                            </div>
+                        </div>
+                        <div class="page">
+                            <div class="title"> login</div>
+                            <div class="filed">
+                                <div class="label">
+                                    firstname
+                                </div>
+                                <input type="text">
+                            </div>
+                            <div class="filed">
+                                <div class="label">
+                                    firstname
+                                </div>
+                                <input type="text">
+                            </div>
+                            <div class="filed">
+                                <button class="next-2 next">next</button>
+                            </div>
+                        </div>
+                    </div>*@
                 </div>
             </div>
-            <div class="group-1000004470-tqv">
-                <div class="group-1000004465-Eun">
-                    <div class="rectangle-9-z8G">
+            <div class="auto-group-nrrx-dvg" style="margin:7%;">
+                <div class="group-1000004471-a5E">
+                    <p class="order-summary-6pG">Order Summary</p>
+                    <div class="line-34-1wE">
                     </div>
-                    <div class="auto-group-eenp-Xtt">
-                        <div class="frame-1000004462-EYQ">
-                            <div class="frame-1000004460-Nec">
-                                <p class="from-vAL">FROM</p>
-                                <div class="group-28-f7v">
-                                    <img class="twemoji-flag-us-outlying-islands-Brx" src="~/assets/twemoji-flag-us-outlying-islands-nQg.png" />
-                                    <p class="english-XA8">English</p>
-                                    <img class="material-symbols-arrow-drop-down-eVe" src="~/assets/material-symbols-arrow-drop-down-wmJ.png" />
+                    <div class="line-35-9Xe">
+                    </div>
+                    <div class="line-36-h3N">
+                    </div>
+                    <div class="group-1000004463-dSp">
+                        <div class="frame-1000004493-xjz">
+                            <div class="frame-1000004463-K4k">
+                                <div class="ellipse-26-rqN">
+                                </div>
+                                <p class="items-aWU"><label id="numbersofItem"></label> items</p>
+                            </div>
+                            <p class="words-icg"><label id="Noofwords"></label> words</p>
+                        </div>
+                        <div class="auto-group-pazh-Fcc">
+                            <div class="frame-1000004463-oPE">
+                                <div class="ellipse-27-im6">
+                                </div>
+                                <p class="select-languages-rcQ">Select languages</p>
+                            </div>
+                            <div class="frame-1000004463-aoJ">
+                                <div class="ellipse-28-XyS">
+                                </div>
+                                <p class="select-payment-method-Gg8">Select payment method</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="auto-group-mxix-oAG">
+                        <p class="from-KuJ">From</p>
+                        <div class="frame-1000004497-GJk">
+                            <img class="vector-dQC" src="~/assets/vector-Sq6.png" />
+                            <p class="per-word-Mqz"><label id="priceLabel">per word</label>  per word</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="group-1000004470-tqv">
+                    <div class="group-1000004465-Eun">
+                        <div class="rectangle-9-z8G">
+                        </div>
+                        <div class="auto-group-eenp-Xtt">
+                            <div class="frame-1000004462-EYQ">
+                                <div class="frame-1000004460-Nec">
+                                    <p class="from-vAL">FROM</p>
+                                    <div class="group-28-f7v">
+                                        <img class="twemoji-flag-us-outlying-islands-Brx" src="~/assets/twemoji-flag-us-outlying-islands-nQg.png" />
+                                        <p class="english-XA8">
+                                            @*<label id="FromLanguage"></label>*@
+                                            @Html.LabelFor(model => model.FromLanguageId,new { @id = "FromLanguageId" })
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="frame-1000004461-8Qp">
+                                    <p class="to-sdJ">TO</p>
+                                    <div class="group-29-1jW">
+                                        <img class="twemoji-flag-clipperton-island-MHa" src="~/assets/twemoji-flag-clipperton-island-FAp.png" />
+                                        <p class="french-5zG">
+                                            @*<label id="ToLanguage"></label>*@
+                                            @Html.LabelFor(model => model.ToLanguageId, new { @id = "ToLanguageId" })
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="frame-1000004461-8Qp">
-                                <p class="to-sdJ">TO</p>
-                                <div class="group-29-1jW">
-                                    <img class="twemoji-flag-clipperton-island-MHa" src="~/assets/twemoji-flag-clipperton-island-FAp.png" />
-                                    <p class="french-5zG">French</p>
-                                    <img class="material-symbols-arrow-drop-down-CZ6" src="~/assets/material-symbols-arrow-drop-down-RW8.png" />
-                                </div>
+                            <div class="group-30-5sn">
+                                @Html.TextAreaFor(model => model.OrderDescription, new { placeholder = "Enter text here...", @class  = "Textareclass", id = "OrderDescription"})
+                                <br><br>OR<br><br>
+                                <input type="file" name="fileUpload" id="fileUpload" />  <button type="button" id="uploadButton" class="button">Upload File</button>
+
+                                @*<p class="type-or-paste-text-here-to-translate-or-96x">Type or paste text here to translate,  or</p>*@
                             </div>
+                            <p class="words-sx4">0 words</p>
                         </div>
-                        <div class="group-30-5sn">
-                            <div class="frame-1000004492-oYt">
-                                <p class="type-or-paste-text-here-to-translate-or-96x">Type or paste text here to translate,  or</p>
-                                <div class="frame-1000004491-U9E">Upload Files</div>
-                            </div>
-                        </div>
-                        <p class="words-sx4">0 words</p>
+                        <p class="what-would-you-like-to-translate-DW8">What would you like to translate?</p>
                     </div>
-                    <p class="what-would-you-like-to-translate-DW8">What would you like to translate?</p>
+                    <div class="frame-1000004496-3k4"><button type="submit">Next</button></div>
                 </div>
-                <div class="frame-1000004496-3k4">NEXT</div>
             </div>
         </div>
-    </div>
+    }
+    @*<script src="~/js/style.js"></script>*@
 </body>
 </html>

@@ -54,20 +54,20 @@
             myModelList.forEach(function (item) {
                 if (item.planTypes[0].planType == "STANDARD") {
                     document.getElementById("Labelstandard").innerHTML = item.planTypes[0].planType;
-                    document.getElementById("standardprice").innerHTML = item.price;
+                    document.getElementById("standardprice").innerHTML = item.price.toFixed(2);
                     //link = document.getElementById('standardLink
                     createLinkWithPlanType(item.planTypes[0].planType, 'standardLink', item.productId);
                     //sessionStorage.setItem('ProductId', item.ProductId);
                 }
                 else if (item.planTypes[0].planType == "ADVANCED") {
                     document.getElementById("Labeladvanced").innerHTML = item.planTypes[0].planType;
-                    document.getElementById("advancedprice").innerHTML = item.price + ".00";
+                    document.getElementById("advancedprice").innerHTML = item.price.toFixed(2);
                     createLinkWithPlanType(item.planTypes[0].planType, 'advancedLink', item.productId);
                     //sessionStorage.setItem('ProductId', item.ProductId);
                 }
                 else if (item.planTypes[0].planType == "PREMIUM") {
                     document.getElementById("Labelpremium").innerHTML = item.planTypes[0].planType;
-                    document.getElementById("premiumprice").innerHTML = item.price + ".00";
+                    document.getElementById("premiumprice").innerHTML = item.price.toFixed(2);
                     // link = document.getElementById('premiumLink');
                     createLinkWithPlanType(item.planTypes[0].planType, 'premiumLink', item.productId);
                     //sessionStorage.setItem('ProductId', item.ProductId);
