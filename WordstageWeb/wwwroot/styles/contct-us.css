@@ -631,9 +631,26 @@ body {
   background-size: 100% 100%;
   background-repeat: no-repeat;
   background-position: center;
-  background-image: url('../assets/rectangle-29-bg.png');
+  background-image: url('~/assets/rectangle-29-bg.png');
+
   flex-shrink: 0;
 }
+
+	.myclass {
+		box-sizing: border-box;
+		padding: 4rem 4rem 4rem 66.05rem;
+		width: 100%;
+		align-items: flex-end;
+		display: flex;
+		flex-direction: column;
+		background-size: 100% 100%;
+		background-repeat: no-repeat;
+		background-position: center;
+		background-image: url('~/assets/rectangle-29-bg.png');
+		flex-shrink: 0;
+		height:500px;
+	}
+
 .contct-us-Zvg .group-1000004422-eFA .group-1000004407-K6Q .group-1000004413-SB2 {
   margin-bottom: 11.8rem;
   width: 5rem;

@@ -1,14 +1,17 @@
 ﻿<html>
 <head>
-  <meta charset="utf-8" />
-  <link rel="icon" href="/favicon.ico" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#000000" />
-  <title>Contct us</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins%3A300%2C400%2C500%2C600"/>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro%3A300%2C400%2C500%2C600"/>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=DM+Sans%3A400"/>
-  <link rel="stylesheet" href="~/styles/contct-us.css"/>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <title>Contct us</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins%3A300%2C400%2C500%2C600" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro%3A300%2C400%2C500%2C600" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=DM+Sans%3A400" />
+    <link rel="stylesheet" href="~/styles/contct-us.css" />
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxlswj6IWjzgiuqoG7IxoMWn8kXWU54vY&callback=initMap" async defer></script>
+
+
 </head>
 <body>
     <div class="contct-us-Zvg">
@@ -31,15 +34,15 @@
                         <div class="auto-group-tn4s-qwN">
                             <div class="frame-1000004420-NRW">
                                 <div class="frame-1000004418-VFE">
-                                    <img class="fluent-call-24-filled-bp4" src="./assets/fluent-call-24-filled-yPN.png" />
+                                    <img class="fluent-call-24-filled-bp4" src="~/assets/fluent-call-24-filled-yPN.png" />
                                     <p class="item-91-7069731619-w7E">+91 7069731619</p>
                                 </div>
                                 <div class="frame-1000004417-rjz">
-                                    <img class="ion-mail-C3A" src="./assets/ion-mail.png" />
+                                    <img class="ion-mail-C3A" src="~/assets/ion-mail.png" />
                                     <p class="bellowordstagcom-XLL">bello@wordstag.com</p>
                                 </div>
                                 <div class="frame-1000004419-fBe">
-                                    <img class="ic-baseline-location-on-BQt" src="./assets/ic-baseline-location-on-UcY.png" />
+                                    <img class="ic-baseline-location-on-BQt" src="~/assets/ic-baseline-location-on-UcY.png" />
                                     <p class="ahmedabad-india-hu2">Ahmedabad, India</p>
                                 </div>
                             </div>
@@ -96,16 +99,56 @@
         </div>
         <div class="group-1000004422-eFA">
             <p class="where-to-find-us-aec">Where to find us</p>
-            <div class="group-1000004407-K6Q">
-                <img class="group-1000004413-SB2" src="~/assets/group-1000004413.png" />
-                <img class="mdi-location-NKa" src="~/assets/mdi-location-61e.png" />
-                <div class="group-1000004402-toi">
-                    <img class="ic-baseline-plus-pSU" src="~/assets/ic-baseline-plus.png" />
-                    <div class="line-2-Z9A">
+            <div id="map" class="myclass">
+
+                <script>
+                    function initMap() {
+
+                        var myCenter = new google.maps.LatLng(23.11391, 72.54128);
+                        var mapProp = { center: myCenter, zoom: 12, scrollwheel: false, draggable: true, mapTypeId: google.maps.MapTypeId.ROADMAP };
+                        var map = new google.maps.Map(document.getElementById("map"), mapProp);
+                        var marker = new google.maps.Marker({ position: myCenter });
+                        marker.setMap(map);
+                    }
+                </script>
+            </div>
+
+
+
+            <div class="frame-1000004421-nXi">
+                <div class="frame-1000004404-7K6">
+                    <div class="frame-271-Fw6">
+                        <img class="ic-baseline-location-on-Mz8" src="~/assets/ic-baseline-location-on-BvG.png" />
+                        <p class="office-V4k">Office</p>
                     </div>
-                    <img class="ic-twotone-minus-thE" src="~/assets/ic-twotone-minus.png" />
+                    <div class="frame-270-dAx">
+                        <p class="ahmedabad-india-NuE">Ahmedabad, India</p>
+                        <p class="ganesh-glory-godrej-garden-city-road-jagatpur-ahmedabad-382470-vA4">1005, Ganesh Glory, Godrej Garden City Road, Jagatpur, Ahmedabad 382470.</p>
+                    </div>
+                </div>
+                <div class="frame-1000004421-RMi">
+                    <div class="frame-1000004408-xMe">
+                        <div class="frame-272-5x4">
+                            <img class="fluent-call-24-filled-cBJ" src="~/assets/fluent-call-24-filled-2Pz.png" />
+                            <p class="contact-wUU">Contact</p>
+                        </div>
+                        <p class="item-91-7069731619-UjJ">+91 7069731619</p>
+                    </div>
+                    <div class="frame-1000004408-QN4">
+                        <div class="frame-273-kRv">
+                            <img class="raphael-mail-Usi" src="~/assets/raphael-mail.png" />
+                            <p class="mail-DaQ">MAIL</p>
+                        </div>
+                        <p class="bellowwordstagcom-MRi">bellow@wordstag.com</p>
+                    </div>
                 </div>
             </div>
         </div>
-        </body>
-        </html>
+    </div>
+
+    </div>
+
+
+
+</body>
+</html>
