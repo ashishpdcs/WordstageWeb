@@ -23,6 +23,8 @@ namespace WordstageWeb.Models
         [Required(ErrorMessage = "Password is required")]
         [DataType(DataType.Password)]
         public string? Password { get; set; }
+        [Required]
+        public string? Categories { get; set; }
 
         public string? UserType { get; set; }
         public List<SelectListItem> UserTypes { get; set; }
