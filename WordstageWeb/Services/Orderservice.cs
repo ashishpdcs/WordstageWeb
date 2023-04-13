@@ -18,7 +18,7 @@ namespace WordstageWeb.Services
 
             JsonContent content = JsonContent.Create(myObject);
             //live url = https://wordstageapi.azurewebsites.net
-            string apiUrl = "https://localhost:7256/api/Product/GetProduct";
+            string apiUrl = "https://wordstageapi.azurewebsites.net/api/Product/GetProduct";
             using (HttpClient client = new HttpClient())
             {
                 List<Product> model = new List<Product>();

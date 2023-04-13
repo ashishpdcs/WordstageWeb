@@ -15,7 +15,7 @@ namespace WordstageWeb.Services
 
             JsonContent content = JsonContent.Create(myObject);
             //live url = https://wordstageapi.azurewebsites.net
-            string apiUrl = "https://localhost:7096/api/ProductType/GetAllProductType";
+            string apiUrl = "https://wordstageapi.azurewebsites.net/api/ProductType/GetAllProductType";
             using (HttpClient client = new HttpClient())
             {
                 List<ProductType> model = new List<ProductType>();
@@ -39,7 +39,7 @@ namespace WordstageWeb.Services
 
             JsonContent content = JsonContent.Create(myObject);
             //live url = https://wordstageapi.azurewebsites.net
-            string apiUrl = "https://localhost:7096/api/Language/GetAllLanguageName";
+            string apiUrl = "https://wordstageapi.azurewebsites.net/api/Language/GetAllLanguageName";
             using (HttpClient client = new HttpClient())
             {
                 List<Language> model = new List<Language>();
@@ -67,7 +67,7 @@ namespace WordstageWeb.Services
 
             JsonContent content = JsonContent.Create(myObject);
             //live url = https://wordstageapi.azurewebsites.net
-            string apiUrl = "https://localhost:7256/api/Product/GetAllProduct";
+            string apiUrl = "https://wordstageapi.azurewebsites.net/api/Product/GetAllProduct";
             using (HttpClient client = new HttpClient())
             {
                 List<Product> model = new List<Product>();

@@ -1,0 +1,79 @@
+
+html {
+	font-size:62.5%;
+}
+* {
+	margin: 0;
+	padding: 0;
+}
+ul, li {
+	list-style: none;
+}
+input {
+	border: none;
+}
+body {
+  width: 38.3rem;
+}.group-1000004431-Dq2 {
+  box-sizing: border-box;
+  padding: 9.1rem 6.1rem 9rem 6.2rem;
+  width: 100%;
+  height: 29.3rem;
+  background-color: #ffffff;
+}
+.group-1000004431-Dq2 .group-1000004430-imn {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.group-1000004431-Dq2 .group-1000004430-imn .group-1000004429-seg {
+  box-sizing: border-box;
+  padding: 3.8rem 2.4rem 1.6rem 2.4rem;
+  width: 26rem;
+  height: 7.8rem;
+  position: absolute;
+  left: 0;
+  top: 3.4rem;
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #333333;
+  font-family: Poppins, 'Source Sans Pro';
+  white-space: nowrap;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url('../assets/rectangle-3463270.png');
+}
+.group-1000004431-Dq2 .group-1000004430-imn .group-1000004428-urG {
+  box-sizing: border-box;
+  padding: 1.6rem 2.3rem 1.6rem 2.4rem;
+  width: 26rem;
+  height: 5.6rem;
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  border: solid 0.05rem #6a1d59;
+  background-color: #f5f6f7;
+  border-radius: 0.8rem;
+}
+.group-1000004431-Dq2 .group-1000004430-imn .group-1000004428-urG .customers-Dc4 {
+  margin-right: 11.5rem;
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #333333;
+  font-family: Poppins, 'Source Sans Pro';
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.group-1000004431-Dq2 .group-1000004430-imn .group-1000004428-urG .ic-outline-arrow-drop-down-x3r {
+  margin-top: 0.1rem;
+  width: 1rem;
+  height: 0.5rem;
+  object-fit: contain;
+  vertical-align: top;
+  flex-shrink: 0;
+}
