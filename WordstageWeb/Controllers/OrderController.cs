@@ -10,6 +10,7 @@ namespace WordstageWeb.Controllers
         private readonly IOrderrepository _homerepository = new Orderservice();
         public IActionResult Order()
         {
+            ViewBag.email = HttpContext.Session.GetString("emailid");
             return View();
         }
         public async Task<ActionResult> LoadProductData(string ProductId)

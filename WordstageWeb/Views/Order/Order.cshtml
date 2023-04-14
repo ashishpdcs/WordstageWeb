@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="~/styles/order.css" />
     <link rel="stylesheet" href="~/styles/purchase-option.css" />
     <link rel="stylesheet" href="~/styles/selected.css" />
+    <link rel="stylesheet" href="~/styles/when-text-type.css" />
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <style type="text/css">
         .Textareclass {
@@ -106,7 +107,7 @@
                 display: none;
             }
 
-            .progress-bar .step .bullet:after .active{
+            .progress-bar .step .bullet:after .active {
                 background: #6a1d59;
                 border-color: #6a1d59;
                 transform: scaleX(0);
@@ -131,6 +132,7 @@
             .progress-bar .step .bullet.active span {
                 display: none;
             }
+
             .progress-bar .step .check {
                 position: absolute;
                 left: 50%;
@@ -139,12 +141,13 @@
                 display: none;
             }
 
-        .progress-bar .step .check.active {
-             display: block;
-             color: #fff;
-         }
+                /*.progress-bar .step .check.active {
+                    display: block;
+                    color: #fff;
+                }*/
+
         .hidden {
-          display: none;
+            display: none;
         }
     </style>
 
@@ -163,6 +166,7 @@
             var words, wordCount;
             $('#numbersofItem').text(0);
             $('#Noofwords').text(0);
+            $('#Noofwordscount').text(0);
             $('#OrderDescription').on('input', function () {
                 words = this.value.match(/\S+/g);
                 var wordCount = words ? words.length : 0;
@@ -173,6 +177,13 @@
                     $('#numbersofItem').text(1);
                 }
                 $('#Noofwords').text(wordCount);
+                $('#Noofwordscount').text(wordCount);
+                $('#Noofwordscountpo').text(document.getElementById("Noofwordscount").textContent);
+            });
+
+            document.getElementById("cancellink").addEventListener("click", function (event) {
+                event.preventDefault();
+                document.getElementById("OrderDescription").value = "";
             });
         });
         function LoadProductData(ProductId) {
@@ -187,6 +198,14 @@
                     document.getElementById("priceLabel").innerHTML = result[0].price.toFixed(2);
                     document.getElementById("FromLanguageId").innerHTML = result[0].fromlanguages[0].languageName;
                     document.getElementById("ToLanguageId").innerHTML = result[0].tolanguages[0].languageName;
+                    document.getElementById("fromlabel").innerHTML = result[0].fromlanguages[0].languageName;
+                    document.getElementById("tolabel").innerHTML = result[0].tolanguages[0].languageName;
+                    document.getElementById("FromLanguagepo").innerHTML = result[0].fromlanguages[0].languageName;
+                    document.getElementById("ToLanguagepo").innerHTML = result[0].tolanguages[0].languageName;
+                    document.getElementById("priceLabelpo").innerHTML = result[0].price.toFixed(2);
+                    document.getElementById("finalprice").innerHTML = result[0].price.toFixed(2);
+                    document.getElementById("Totalprice").innerHTML = result[0].price.toFixed(2);
+                    document.getElementById("ToLanguagepo1").innerHTML = result[0].tolanguages[0].languageName;
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     alert('Error: ' + thrownError);
@@ -195,24 +214,32 @@
         }
         function toggleDiv(event, classname) {
             event.preventDefault();
-            console.log(classname +  max + current);
+            console.log(classname + max + current);
             const progresstext = document.querySelectorAll('.step p');
             const progresscheck = document.querySelectorAll('.step .check');
             const bullet = document.querySelectorAll('.step .bullet');
             if (classname == "slidepage1") {
-                const slidepage1 = document.querySelector('.slidepage1');
-                slidepage1.style.marginLeft = "-25%";
-                bullet[current - 1].classList.add('active');
-                progresstext[current - 1].classList.add('active');
-                progresscheck[current - 1].classList.add('active');
-                current += 1;
+                var myTextarea = document.getElementById("OrderDescription");
+                var textareaValue = myTextarea.value;
+                console.log(textareaValue);
+                if (myTextarea.value != "") {
+                    const slidepage1 = document.querySelector('.slidepage1');
+                    slidepage1.style.marginLeft = "-25%";
+                    bullet[current - 1].classList.add('active');
+                    progresstext[current - 1].classList.add('active');
+                    progresscheck[current - 1].classList.add('active');
+                    current += 1;
 
-                const Step2 = document.querySelector('.slidepage2');
-                Step2.classList.remove("hidden");
+                    const Step2 = document.querySelector('.slidepage2');
+                    Step2.classList.remove("hidden");
+                    slidepage1.classList.toggle('hidden');
+                }
+                else {
+                    var confirmed = confirm('Please enter order description.');
+                    if (confirmed) { }
+                }
 
-                slidepage1.classList.toggle('hidden');
-                //const Step3 = document.querySelector('.slidepage3');
-                //Step3.classList.toggle('hidden');
+
 
             }
             else if (classname == "slidepage2") {
@@ -242,8 +269,9 @@
 
 </head>
 <body>
-    @using (Html.BeginForm("Order", "Order", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    @using (Html.BeginForm())
     {
+        Html.AntiForgeryToken();
         <div id="form-outer">
             <form action="#">
 
@@ -305,7 +333,7 @@
                                     <p class="from-KuJ">From</p>
                                     <div class="frame-1000004497-GJk">
                                         <img class="vector-dQC" src="~/assets/vector-Sq6.png" />
-                                        <p class="per-word-Mqz"><label id="priceLabel">per word</label>  per word</p>
+                                        <p class="per-word-Mqz"><label id="priceLabel"> per word</label>  per word</p>
                                     </div>
                                 </div>
                             </div>
@@ -338,12 +366,15 @@
                                         </div>
                                         <div class="group-30-5sn">
                                             @Html.TextAreaFor(model => model.OrderDescription, new { placeholder = "Enter text here...", @class  = "Textareclass", id = "OrderDescription"})
-                                            <br><br>OR<br><br>
+                                            @*<br><br>OR<br><br>*@
+                                            <div style="font-size:17px">
+                                                <a id="cancellink" href="#">Cancel</a>
+                                                <p style="margin-left:90%;"><label id="Noofwordscount"> words</label> words</p>
+                                            </div>
                                             <input type="file" name="fileUpload" id="fileUpload" />  <button type="button" id="uploadButton" class="button">Upload File</button>
-
                                             @*<p class="type-or-paste-text-here-to-translate-or-96x">Type or paste text here to translate,  or</p>*@
                                         </div>
-                                        <p class="words-sx4">0 words</p>
+
                                     </div>
                                     <p class="what-would-you-like-to-translate-DW8">What would you like to translate?</p>
                                 </div>
@@ -369,7 +400,7 @@
                                             <img class="charm-tick-nWt" src="~/assets/charm-tick.png" />
                                             <p class="items-7JG">1 items</p>
                                         </div>
-                                        <p class="words-3xc">19 words</p>
+                                        <p class="words-3xc"><label id="Noofwordscountpo"> words</label> words</p>
                                     </div>
                                     <div class="frame-1000004496-zsr">
                                         <div class="frame-1000004517-jKe">
@@ -377,7 +408,7 @@
                                             </div>
                                             <p class="translate-from--oaQ">Translate from :</p>
                                         </div>
-                                        <p class="english-en-YH6">English (EN)</p>
+                                        <p class="english-en-YH6"><label id="fromlabel"></label></p>
                                     </div>
                                     <div class="frame-1000004521-UgY">
                                         <div class="group-1000004494-QaC">
@@ -388,7 +419,7 @@
                                             </div>
                                             <p class="one-language-gg8">(one language)</p>
                                         </div>
-                                        <p class="french-dLU">French</p>
+                                        <p class="french-dLU"><label id="tolabel"></label></p>
                                     </div>
                                     <div class="frame-1000004463-yQL">
                                         <div class="ellipse-28-KUC">
@@ -400,7 +431,7 @@
                                     <p class="from-j28">From</p>
                                     <div class="frame-1000004497-GXr">
                                         <img class="vector-Rfe" src="~/assets/vector-XgL.png" />
-                                        <p class="per-word-At8">5.00 per word</p>
+                                        <p class="per-word-At8"><label id="priceLabelpo"> per word</label> per word</p>
                                     </div>
                                 </div>
                             </div>
@@ -417,10 +448,13 @@
                                             </div>
                                             <div class="frame-1000004462-Li4">
                                                 <div class="group-28-5Qk">
-                                                    <p class="english-PwE">English</p>
-                                                    <img class="material-symbols-arrow-drop-down-8tp" src="~/assets/material-symbols-arrow-drop-down-erk.png" />
+                                                    <p class="english-PwE">
+                                                        @Html.LabelFor(model => model.FromLanguageId,new { @id = "FromLanguagepo" })
+                                                    </p>
                                                 </div>
-                                                <div class="group-29-S8p">French</div>
+                                                <div class="group-29-S8p">
+                                                    @Html.LabelFor(model => model.ToLanguageId, new { @id = "ToLanguagepo" })
+                                                </div>
                                             </div>
                                             <p class="clear-all-languages-gJ4">Clear all languages</p>
                                         </div>
@@ -435,10 +469,12 @@
                                                 </div>
                                                 <div class="line-40-JsA">
                                                 </div>
-                                                <p class="french-SyN">French</p>
+                                                <p class="french-SyN">
+                                                    @Html.LabelFor(model => model.ToLanguageId, new { @id = "ToLanguagepo1" })
+                                                </p>
                                                 <div class="frame-1000004500-MaY">
                                                     <img class="vector-VRr" src="~/assets/vector-9jE.png" />
-                                                    <p class="character-EuE">5.00 / character</p>
+                                                    <p class="character-EuE"><label id="finalprice">  / character</label> / character</p>
                                                 </div>
                                                 <div class="frame-1000004501-yrp">
                                                     <img class="vector-i3i" src="~/assets/vector-H9r.png" />
@@ -448,7 +484,7 @@
                                                 </div>
                                                 <div class="line-42-Z4L">
                                                 </div>
-                                                <p class="add-more-languages-hRS">+ Add more languages</p>
+                                                @*<p class="add-more-languages-hRS">+ Add more languages</p>*@
                                             </div>
                                             <div class="line-43-BrQ">
                                             </div>
@@ -456,7 +492,7 @@
                                                 <p class="language-rhe">1 Language</p>
                                                 <div class="frame-1000004497-o76">
                                                     <img class="vector-Z6G" src="~/assets/vector-61W.png" />
-                                                    <p class="item-500-uR2">5.00</p>
+                                                    <p class="item-500-uR2"><label id="Totalprice"></label></p>
                                                 </div>
                                             </div>
                                         </div>
