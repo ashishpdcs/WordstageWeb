@@ -6,6 +6,8 @@ namespace WordstageWeb.Controllers
     {
         public IActionResult About()
         {
+            ViewBag.email = HttpContext.Session.GetString("emailid");
+
             return View();
         }
     }

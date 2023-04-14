@@ -14,26 +14,27 @@
     <link href="~/styles/home-page.css" rel="stylesheet" />
 </head>
 <body>
+    <header>
     <div class="home-page-bkL">
         <div class="version-1-WsJ">
-            <p class="logo-2Kr">Logo</p>
-            <div class="frame-1-KJx">
-                <a class="services-dKe" style="text-decoration: none" asp-controller="Services" asp-action="Services">Services</a>
-                <a class="pricing-mAx" href="#pricing" style="text-decoration: none">Pricing</a>
-                <a class="company-uHA" href="#trust" style="text-decoration: none">Company</a>
-                <a class="faq-ekY" href="#faq" style="text-decoration: none">FAQ</a>
-                <a class="became-a-translator-zZW" style="text-decoration: none" asp-controller="Signup" asp-action="Signup">Became a Translator</a>
+            <a class="logo-2Kr" style="text-decoration: none" asp-controller="Home" asp-action="Index">Logo</a>
+                <div class="frame-1-KJx">
+                    <a class="services-dKe" style="text-decoration: none" asp-controller="Services" asp-action="Services">Services</a>
+                    <a class="services-dKe" href="#pricing" style="text-decoration: none">Pricing</a>
+                    <a class="services-dKe" href="#trust" style="text-decoration: none">Company</a>
+                    <a class="services-dKe" href="#faq" style="text-decoration: none">FAQ</a>
+                    <a class="services-dKe" style="text-decoration: none" asp-controller="Signup" asp-action="Signup">Became a Translator</a>
             </div>
             <div class="frame-2-L7a">
                 <div class="auto-group-aaxk-ghE">
                   
                         @if(ViewBag.email == null)
                         {
-                            <a class="log-in-p2k" style="text-decoration: none" asp-controller="Login" asp-action="Login">Log In</a>
+                            <a class="log-in-p2k" style="text-decoration: none ;" asp-controller="Login" asp-action="Login">Log In</a>
                                 }
                         else
                         {
-                        <p class="log-in-p2k"> @ViewBag.email </p>
+                        <a class="log-in-p2k"> @ViewBag.email </a>
                         }
                        
                     <div class="line-1-952">
@@ -50,6 +51,7 @@
             </div>
         </div>
     </div>
+    </header>
     @* <header>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
     <div class="container-fluid">
