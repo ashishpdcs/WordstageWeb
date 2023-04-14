@@ -21,10 +21,10 @@ namespace WordstageWeb.Controllers
             if (ModelState.IsValid)
             {
                     var Userinfo = await _loginRepository.login(emailid, password);
-                    if (Userinfo)
+                    if (Userinfo != null)
                     {
                         Console.WriteLine("Succesfully register");
-                    HttpContext.Session.SetString("emailid", emailid);
+                    HttpContext.Session.SetString("emailid", Userinfo);
                         return RedirectToAction("Index", "Home");
                         //return View();
                     }

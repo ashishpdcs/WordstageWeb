@@ -2,6 +2,6 @@
 {
     public interface ILoginrepository
     {
-        Task<bool> login(string userName, string password);
+        Task<string> login(string userName, string password);
     }
 }
