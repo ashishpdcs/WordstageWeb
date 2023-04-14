@@ -8,7 +8,7 @@ namespace WordstageWeb.Services
 {
     public class Loginservice: ILoginrepository
     {
-        public async Task<bool> login(string username, string password)
+        public async Task<string> login(string username, string password)
         {
             var login = new Login()
             {
@@ -27,10 +27,12 @@ namespace WordstageWeb.Services
                 //var details = JsonConvert.SerializeObject(JObject.Parse(jsonResponse));
 
                 var data = JsonConvert.DeserializeObject<Login>(details);
+                var firstName = data.Firstname;
+                var lastName = data.Lastname;
 
-                return true;
+                return firstName+""+ lastName;
             }
-            return false;
+            return string.Empty;
         }
     }
 }
