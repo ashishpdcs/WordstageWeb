@@ -107,7 +107,7 @@
                 display: none;
             }
 
-            .progress-bar .step .bullet:after .active {
+            .progress-bar .step .bullet.active:after {
                 background: #6a1d59;
                 border-color: #6a1d59;
                 transform: scaleX(0);
@@ -141,10 +141,10 @@
                 display: none;
             }
 
-                /*.progress-bar .step .check.active {
-                    display: block;
-                    color: #fff;
-                }*/
+        /*.progress-bar .step .check.active {
+                                                    display: block;
+                                                    color: #fff;
+                                                }*/
 
         .hidden {
             display: none;
@@ -156,10 +156,7 @@
         var max = 3;
         var current = 1;
         $(document).ready(function () {
-            const Step2 = document.querySelector('.slidepage2');
-            Step2.classList.toggle('hidden');
-            const Step3 = document.querySelector('.slidepage3');
-            Step3.classList.toggle('hidden');
+            toggleDiv("", "");
 
             const ProductId = sessionStorage.getItem('ProductId');
             LoadProductData(ProductId);
@@ -184,6 +181,9 @@
             document.getElementById("cancellink").addEventListener("click", function (event) {
                 event.preventDefault();
                 document.getElementById("OrderDescription").value = "";
+                $('#numbersofItem').text(0);
+                $('#Noofwords').text(0);
+                $('#Noofwordscount').text(0);
             });
         });
         function LoadProductData(ProductId) {
@@ -213,58 +213,70 @@
             });
         }
         function toggleDiv(event, classname) {
-            event.preventDefault();
             console.log(classname + max + current);
             const progresstext = document.querySelectorAll('.step p');
             const progresscheck = document.querySelectorAll('.step .check');
             const bullet = document.querySelectorAll('.step .bullet');
             if (classname == "slidepage1") {
+                event.preventDefault();
                 var myTextarea = document.getElementById("OrderDescription");
-                var textareaValue = myTextarea.value;
-                console.log(textareaValue);
                 if (myTextarea.value != "") {
-                    const slidepage1 = document.querySelector('.slidepage1');
-                    slidepage1.style.marginLeft = "-25%";
+                    const slidepage2 = document.querySelector('.slidepage2');
                     bullet[current - 1].classList.add('active');
                     progresstext[current - 1].classList.add('active');
                     progresscheck[current - 1].classList.add('active');
                     current += 1;
-
-                    const Step2 = document.querySelector('.slidepage2');
-                    Step2.classList.remove("hidden");
-                    slidepage1.classList.toggle('hidden');
+                    const Step1 = document.querySelector('.slidepage1');
+                    Step1.classList.toggle("hidden");
+                    slidepage2.classList.remove('hidden');
                 }
                 else {
                     var confirmed = confirm('Please enter order description.');
                     if (confirmed) { }
                 }
-
-
-
             }
             else if (classname == "slidepage2") {
-                const slidepage2 = document.querySelector('.slidepage2');
-                slidepage2.style.marginLeft = "-50%";
-                bullet[current - 1].classList.add('active');
-                progresstext[current - 1].classList.add('active');
-                progresscheck[current - 1].classList.add('active');
-                current += 1;
-
-                const Step3 = document.querySelector('.slidepage3');
-                Step3.classList.remove("hidden");
-
-                slidepage2.classList.toggle('hidden');
-            }
-            else if (classname == "slidepage3") {
+                event.preventDefault();
                 const slidepage3 = document.querySelector('.slidepage3');
-                slidepage3.style.marginLeft = "-75%";
                 bullet[current - 1].classList.add('active');
                 progresstext[current - 1].classList.add('active');
                 progresscheck[current - 1].classList.add('active');
                 current += 1;
-                slidepage3.classList.toggle('hidden');
+                slidepage3.classList.remove('hidden');
+                const Step2 = document.querySelector('.slidepage2');
+                Step2.classList.toggle("hidden");
+            }
+            else {
+                const slidepage1 = document.querySelector('.slidepage1');
+                bullet[current - 1].classList.add('active');
+                progresstext[current - 1].classList.add('active');
+                progresscheck[current - 1].classList.add('active');
+                current += 1;
+                const Step2 = document.querySelector('.slidepage2');
+                Step2.classList.toggle('hidden');
+                const Step3 = document.querySelector('.slidepage3');
+                Step3.classList.toggle('hidden');
+
+                //Step2.classList.remove("hidden");
+                //slidepage1.classList.toggle('hidden');
             }
         }
+        $("#uploadButton").click(function () {
+            var formData = new FormData($("#myForm")[0]);
+            $.ajax({
+                url: "/Order/upload",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    // Handle success
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    // Handle error
+                }
+            });
+        });
     </script>
 
 </head>
@@ -298,7 +310,7 @@
                         </div>
                     </div>
                     <div class="page slidepage1">
-                        <div class="auto-group-nrrx-dvg" style="margin:7%;">
+                        <div class="auto-group-nrrx-dvg">
                             <div class="group-1000004471-a5E">
                                 <p class="order-summary-6pG">Order Summary</p>
                                 <div class="line-34-1wE">
@@ -338,7 +350,7 @@
                                 </div>
                             </div>
                             <div class="group-1000004470-tqv">
-                                <div class="group-1000004465-Eun">
+                                <div class="group-1000004465-Eun" style="height: 60rem;">
                                     <div class="rectangle-9-z8G">
                                     </div>
                                     <div class="auto-group-eenp-Xtt">
@@ -371,8 +383,10 @@
                                                 <a id="cancellink" href="#">Cancel</a>
                                                 <p style="margin-left:90%;"><label id="Noofwordscount"> words</label> words</p>
                                             </div>
-                                            <input type="file" name="fileUpload" id="fileUpload" />  <button type="button" id="uploadButton" class="button">Upload File</button>
-                                            @*<p class="type-or-paste-text-here-to-translate-or-96x">Type or paste text here to translate,  or</p>*@
+                                            <form id="myForm" enctype="multipart/form-data">
+                                                <input type="file" name="fileUpload" id="fileUpload" />  <button type="button" id="uploadButton" class="button">Upload File</button>
+                                                @*<p class="type-or-paste-text-here-to-translate-or-96x">Type or paste text here to translate,  or</p>*@
+                                            </form>
                                         </div>
 
                                     </div>
@@ -385,7 +399,7 @@
                 </div>
                 <div class="page slidepage2">
                     <div class="purchase-option-Sic">
-                        <div class="auto-group-kq47-atg">
+                        <div class="auto-group-kq47-atg" style="height:34rem;">
                             <div class="group-1000004496-XZ2">
                                 <p class="order-summary-4J4">Order Summary</p>
                                 <div class="line-34-myA">
