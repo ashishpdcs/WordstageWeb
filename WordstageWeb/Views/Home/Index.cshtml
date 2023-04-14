@@ -1,13 +1,29 @@
 ﻿@*@model WordstageWeb.Models.Product*@
 @*@model List<WordstageWeb.Models.Product>*@
 @*@model Tuple<WordstageWeb.Models.Language.Language, WordstageWeb.Models.Login.Login>*@
- 
+
 @model WordstageWeb.Controllers.HomeController
 
 
 <!DOCTYPE html>
 <html>
 <head>
+    <style type="text/css">
+        .dropdownstyle {
+            width: 100%;
+            background-color: #f2f2f2;
+            border-radius: 0.4rem;
+            font-size: 1.6rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #333333;
+            font-family: Poppins, 'Source Sans Pro';
+            white-space: nowrap;
+            flex-shrink: 0;
+            margin-top: 0.1rem;
+            padding: 1rem 0rem 1rem 1rem;
+        }
+    </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
@@ -134,7 +150,7 @@
                         <div class="frame-4-QHn">
                             <img class="fluent-person-available-16-filled-6wJ" src="~/assets/fluent-person-available-16-filled.png" />
                             <p class="service-available-24-7-QSC">Service Available 24/7 </p>
-                     
+
 
                         </div>
                         <div class="line-4-2bz">
@@ -297,12 +313,8 @@
                     <p class="choose-a-plan-hTe" id="pricing">Choose a Plan </p>
                     <div class="frame-249-ide">
                         <p class="translation-3R2">TRANSLATION</p>
-                        <div class="group-57-ZuA">
-                            @*<p class="voice-over-translation-V28">Voice-Over Translation</p>
-                        <div class="line-8-p4Q">
-                        </div>*@
-                            @Html.DropDownList("ProductDropdown", ViewBag.ProductDropdown as List<SelectListItem>)
-                            <img class="material-symbols-arrow-drop-down-MKE" src="~/assets/material-symbols-arrow-drop-down-HfE.png" />
+                        <div>
+                            @Html.DropDownList("ProductDropdown", ViewBag.ProductDropdown as List<SelectListItem>, new {@class = "dropdownstyle" })
                         </div>
                     </div>
                     <p class="lorem-ipsum-dolor-sit-amet-consectetur-adipiscing-elit-ut-eu-elit-pellentesque-commodo-lectus-sit-amet-hendrerit-orci-maecenas-congue-velit-et-tempus-volutpat-donec-mattis-quam-ut-ullamcorper-porta-sed-rutrum-auctor-nisi-efficitur-iaculis-RK6">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eu elit pellentesque, commodo lectus sit amet, hendrerit orci. Maecenas congue velit et tempus volutpat. Donec mattis quam ut ullamcorper porta. Sed rutrum auctor nisi efficitur iaculis.</p>
@@ -311,12 +323,7 @@
                     <div class="group-54-PfE">
                         <div class="auto-group-ijvp-KHz">
                             <p class="from-TQC">FROM</p>
-                            @*@Html.DropDownList("LanguageId", (IEnumerable<SelectListItem>)ViewBag.Languages, null, new { @class ="from-TQC" })*@
-                            <div class="group-28-oDA">
-                                <img class="twemoji-flag-us-outlying-islands-vYg" src="~/assets/twemoji-flag-us-outlying-islands.png" />
-                                @Html.DropDownList("FromLanguages", (IEnumerable<SelectListItem>)ViewBag.FromLanguages, null)
-                                @* <img class="material-symbols-arrow-drop-down-BzQ" src="~/assets/material-symbols-arrow-drop-down-RHA.png" />*@
-                            </div>
+                            @Html.DropDownList("FromLanguages", (IEnumerable<SelectListItem>)ViewBag.FromLanguages, null, new {@class = "dropdownstyle" })
                         </div>
                         <div class="frame-248-UyW">
                             <div class="ellipse-12-zBA">
@@ -342,10 +349,7 @@
                         </div>
                         <div class="auto-group-1pgw-yKv">
                             <p class="to-iYQ">TO</p>
-                            <div class="group-29-fCk">
-                                <img class="twemoji-flag-clipperton-island-Bgt" src="~/assets/twemoji-flag-clipperton-island.png" />
-                                @Html.DropDownList("ToLanguages", (IEnumerable<SelectListItem>)ViewBag.ToLanguages, null)
-                            </div>
+                            @Html.DropDownList("ToLanguages", (IEnumerable<SelectListItem>)ViewBag.ToLanguages, null, new {@class = "dropdownstyle" })
                         </div>
                     </div>
                     <div class="group-53-jrp">
@@ -464,8 +468,8 @@
                                 <aside>(Which will require us to issue more than one certificate)</aside>
 
                                 <label>No. of applicants:*</label><br>
-                                <div style="width:15%">
-                                    @Html.DropDownList("noofapplicant", ViewBag.noofapplicant as List<SelectListItem>)
+                                <div style="width:50%">
+                                    @Html.DropDownList("noofapplicant", ViewBag.noofapplicant as List<SelectListItem>, new {@class = "dropdownstyle" ,style="padding: 0rem 0rem 0rem 1rem;" })
                                 </div>
                                 <br>
                                 <div data-is-required="" data-field-id="60b9d78f814e0">
@@ -513,21 +517,21 @@
                                 <div data-is-required="1">
                                     <button type="submit" style="display: inline-block;">No</button>
 
-                                    <button type="submit" style="display: inline-block;">Yes <span>(<span>+₹400.00</span>)</span><input type="button"  data-wapf-label="Yes" data-is-required="1" required=""  data-wapf-tax="1"></button>
+                                    <button type="submit" style="display: inline-block;">Yes <span>(<span>+₹400.00</span>)</span><input type="button" data-wapf-label="Yes" data-is-required="1" required="" data-wapf-tax="1"></button>
                                 </div>
                                 <br>
                                 <div><label><span>Courier notarized &amp; certified translation to an Indian address?</span></label></div>
-                                <div class="wapf-field-input"><div class="wapf-radios"><input type="hidden" data-fid="60ae7178ee587" value="0" name="wapf[field_60ae7178ee587]"><div ><label for="62564" class="wapf-input-label"><input type="radio" id="62564" name="wapf[field_60ae7178ee587]" data-wapf-label="No, only scanned copy via email" data-is-required="" data-wapf-pricetype="fixed" data-wapf-price="-150"><span class="wapf-custom"></span><span class="wapf-label-text">No, only scanned copy via email <span class="wapf-pricing-hint">(<span class="wapf-addon-price">₹-150.00</span>)</span></span></label></div><div class="wapf-checkable has-pricing"><label for="31132" class="wapf-input-label"><input type="radio" id="31132" name="wapf[field_60ae7178ee587]" class="wapf-input" data-field-id="60ae7178ee587" value="uygo1" data-wapf-label="No, will collect from your Mumbai office" data-is-required="" data-wapf-pricetype="fixed" data-wapf-price="-150"><span class="wapf-custom"></span><span class="wapf-label-text">No, will collect from your Mumbai office <span class="wapf-pricing-hint">(<span class="wapf-addon-price">₹-150.00</span>)</span></span></label></div><div class="wapf-checkable"><label for="68281" class="wapf-input-label"><input type="radio" id="68281" name="wapf[field_60ae7178ee587]" class="wapf-input" data-field-id="60ae7178ee587" value="1rcwy" data-wapf-label="Yes, send via standard courier service" data-is-required="" checked=""><span class="wapf-custom"></span><span class="wapf-label-text">Yes, send via standard courier service </span></label></div><div class="wapf-checkable has-pricing"><label for="73952" class="wapf-input-label"><input type="radio" id="73952" name="wapf[field_60ae7178ee587]" class="wapf-input" data-field-id="60ae7178ee587" value="ungcz" data-wapf-label="Yes, send via express courier service" data-is-required="" data-wapf-pricetype="fixed" data-wapf-price="250"><span class="wapf-custom"></span><span class="wapf-label-text">Yes, send via express courier service <span class="wapf-pricing-hint">(<span class="wapf-addon-price">+₹250.00</span>)</span></span></label></div></div></div>
+                                <div class="wapf-field-input"><div class="wapf-radios"><input type="hidden" data-fid="60ae7178ee587" value="0" name="wapf[field_60ae7178ee587]"><div><label for="62564" class="wapf-input-label"><input type="radio" id="62564" name="wapf[field_60ae7178ee587]" data-wapf-label="No, only scanned copy via email" data-is-required="" data-wapf-pricetype="fixed" data-wapf-price="-150"><span class="wapf-custom"></span><span class="wapf-label-text">No, only scanned copy via email <span class="wapf-pricing-hint">(<span class="wapf-addon-price">₹-150.00</span>)</span></span></label></div><div class="wapf-checkable has-pricing"><label for="31132" class="wapf-input-label"><input type="radio" id="31132" name="wapf[field_60ae7178ee587]" class="wapf-input" data-field-id="60ae7178ee587" value="uygo1" data-wapf-label="No, will collect from your Mumbai office" data-is-required="" data-wapf-pricetype="fixed" data-wapf-price="-150"><span class="wapf-custom"></span><span class="wapf-label-text">No, will collect from your Mumbai office <span class="wapf-pricing-hint">(<span class="wapf-addon-price">₹-150.00</span>)</span></span></label></div><div class="wapf-checkable"><label for="68281" class="wapf-input-label"><input type="radio" id="68281" name="wapf[field_60ae7178ee587]" class="wapf-input" data-field-id="60ae7178ee587" value="1rcwy" data-wapf-label="Yes, send via standard courier service" data-is-required="" checked=""><span class="wapf-custom"></span><span class="wapf-label-text">Yes, send via standard courier service </span></label></div><div class="wapf-checkable has-pricing"><label for="73952" class="wapf-input-label"><input type="radio" id="73952" name="wapf[field_60ae7178ee587]" class="wapf-input" data-field-id="60ae7178ee587" value="ungcz" data-wapf-label="Yes, send via express courier service" data-is-required="" data-wapf-pricetype="fixed" data-wapf-price="250"><span class="wapf-custom"></span><span class="wapf-label-text">Yes, send via express courier service <span class="wapf-pricing-hint">(<span class="wapf-addon-price">+₹250.00</span>)</span></span></label></div></div></div>
                                 <br><hr>
                                 <h3><span style="color: red">Confirm selected services &amp; timeline (or change selections above):</span></h3><br>
                                 <span style="color: darkgreen">✔️Certified Translation (Included by default - Free)&nbsp;</span><br>
                                 <br><span>Turnaround: 48 hours </span><span style="font-family: lato;font-size: 14px;font-style: normal;font-weight: 400;letter-spacing: normal;text-align: start;text-indent: 0px;text-transform: none;float: none">(For upto 3 pages. Add 6 hours for each additional page)</span><br>
-                               
+
                                 <br>
                                 <span style="color: darkgreen">✔️Notarization of certified translation&nbsp;</span><br>
                                 <span>Time required: 1 working day after certified translation </span>
-                                <br><br><span>Add-ons Cost (Total for all pages/documents)</span>
-                                <button type="submit" name="add-to-cart" value="19704" style="display: inline-block; opacity: 1; background-color: #38abcf">Proceed to checkout</button>
+                                <br><br><span>Add-ons Cost (Total for all pages/documents)</span><br><br>
+                                <button type="submit" name="add-to-cart" value="19704" class="dropdownstyle" style="background-color: #6a1d59; color: white;">Proceed to checkout</button>
                             </div>
                         </div>
 
@@ -535,7 +539,7 @@
                 </div>
             </div>
             <div class="group-66-eTr">
-                <p class="faq-Zap" id="faq" >FAQ</p>
+                <p class="faq-Zap" id="faq">FAQ</p>
                 <div class="group-65-H12">
                     <div class="group-60-QbS">
                         <p class="what-is-wordstag-jNp">What is Wordstag?</p>
@@ -568,7 +572,8 @@
                     <div class="group-81-jsv">
                         <div class="auto-group-blvw-tF2">
                             <div class="group-67-SGY">
-                                <p class="first-name-zJ4">First name
+                                <p class="first-name-zJ4">
+                                    First name
                                 </p>
                                 <div class="rectangle-27-hiG">
                                 </div>
