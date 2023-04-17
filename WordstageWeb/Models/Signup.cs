@@ -27,6 +27,6 @@ namespace WordstageWeb.Models
         public string? Categories { get; set; }
 
         public string? UserType { get; set; }
-        public List<SelectListItem> UserTypes { get; set; }
+        public List<SelectListItem>? UserTypes { get; set; }
     }
 }
