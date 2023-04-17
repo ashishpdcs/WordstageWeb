@@ -1,8 +1,8 @@
-﻿@*@model WordstageWeb.Models.Product*@
+﻿@model WordstageWeb.Models.ProductCertificate
 @*@model List<WordstageWeb.Models.Product>*@
 @*@model Tuple<WordstageWeb.Models.Language.Language, WordstageWeb.Models.Login.Login>*@
 
-@model WordstageWeb.Controllers.HomeController
+@*@model WordstageWeb.Controllers.HomeController*@
 
 
 <!DOCTYPE html>
@@ -22,6 +22,25 @@
             flex-shrink: 0;
             margin-top: 0.1rem;
             padding: 1rem 0rem 1rem 1rem;
+        }
+        .buttonstyle{
+            padding: 7px 11px;
+            margin: 0 15px 15px 0;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        .buttoncolor{
+             border-color: cornflowerblue;
+            background: cornflowerblue;
+        }
+        .labelstyle{
+            color:teal;
+            font-weight:bold;"
+        }
+        .required {
+            color: red;
+            font-size: 18px;
+            line-height: 0;
         }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -51,6 +70,37 @@
             $('#ToLanguages').change(function () {
                 toselect = $(this).val();
                 LoadProductData(Pselect, fromselect, toselect);
+            });
+            $("#CanadaImmigrationVisa").bind('change', function () {
+                if ($(this).is(':checked')) {
+                    if (document.getElementById("btnno").style.background == "cornflowerblue") {
+                        alert("cornflowerblue");
+                        document.getElementById("Couriernotarizedcertified").style.display = 'block';
+                        //document.getElementById("Requirehardcopy").style.display = 'block';
+                    }
+                    else if (document.getElementById("btnyes").style.background == "cornflowerblue") {
+                        alert("no");
+                        document.getElementById("Couriernotarizedcertified").style.display = 'none';
+                        document.getElementById("Requirehardcopy").style.display = 'none';
+                        document.getElementById("notarizedtranslation").style.display = 'none';
+                    }
+                    //alert("Checked");
+                    document.getElementById("Apostille").style.display = 'block';
+                    document.getElementById("Delivery").style.display = 'block';
+                    document.getElementById("selectedservices").style.display = 'block';
+                    document.getElementById("Notarization").style.display = 'block';
+                }
+                else {
+                    //alert("Unchecked");
+                    document.getElementById("Couriernotarizedcertified").style.display = 'none';
+                    document.getElementById("notarizedtranslation").style.display = 'block';
+                    document.getElementById("Requirehardcopy").style.display = 'block';
+                    document.getElementById("Apostille").style.display = 'none';
+                    document.getElementById("Delivery").style.display = 'none';
+                    document.getElementById("selectedservices").style.display = 'none';
+                    document.getElementById("Notarization").style.display = 'none';
+
+                }
             });
         });
         function LoadProductData(Product, from, to) {
@@ -125,15 +175,67 @@
             // Add a click event listener to the link with parameters
             link.addEventListener('click', function () {
                 sessionStorage.setItem('ProductId', ProductId);
-                myFunction(planType, ProductId);
+                // myFunction(planType, ProductId);
             });
         };
+        function clickok(value, btn) {
+            btn.style.background = "cornflowerblue";
+            btn.style.borderColor = "cornflowerblue";
+            if (value == "Yes") {
+                document.getElementById("btnno").style.background = '#ccc';
+                document.getElementById("btnno").style.borderColor = '#ccc';
+                document.getElementById("Needapostille").style.display = 'block';
+                document.getElementById("CourierEntireIndianAddress").style.display = 'block';
+                document.getElementById("notarizedtranslation").style.display = 'none';
+                document.getElementById("Requirehardcopy").style.display = 'none';
+                document.getElementById("Apostille").style.display = 'block';
+                document.getElementById("Delivery").style.display = 'block';
+                document.getElementById("selectedservices").style.display = 'block';
+                document.getElementById("AvailingApostilleService").style.display = 'block';
+                document.getElementById("Couriernotarizedcertified").style.display = 'none';
+            }
+            else if (value == "No") {
+                document.getElementById("btnyes").style.borderColor = '#ccc';
+                document.getElementById("btnyes").style.background = '#ccc';
+                document.getElementById("Needapostille").style.display = 'none';
+                document.getElementById("CourierEntireIndianAddress").style.display = 'none';
+                document.getElementById("notarizedtranslation").style.display = 'block';
+                document.getElementById("Requirehardcopy").style.display = 'block';
+                document.getElementById("Apostille").style.display = 'none';
+                document.getElementById("Delivery").style.display = 'none';
+                document.getElementById("selectedservices").style.display = 'none';
+                document.getElementById("AvailingApostilleService").style.display = 'none';
+                document.getElementById("Couriernotarizedcertified").style.display = 'block';
+            }
+            alert("hjgf ughfh" + btn);
+        }
+        function clickok1(value, btn) {
+            btn.style.background = "cornflowerblue";
+            btn.style.borderColor = "cornflowerblue";
+            if (value == "Yes") {
+                document.getElementById("btnno1").style.background = '#ccc';
+                document.getElementById("btnno1").style.borderColor = '#ccc';
+                document.getElementById("Couriernotarizedcertified").style.display = 'block';
+                document.getElementById("Requirehardcopy").style.display = 'none';
+                document.getElementById("Notarization").style.display = 'block';
+                document.getElementById("Delivery").style.display = 'block';
+                document.getElementById("selectedservices").style.display = 'block';
 
+            } else if (value == "No") {
+                document.getElementById("btnyes1").style.borderColor = '#ccc';
+                document.getElementById("btnyes1").style.background = '#ccc';
+                document.getElementById("Couriernotarizedcertified").style.display = 'none';
+                document.getElementById("Requirehardcopy").style.display = 'block';
+                document.getElementById("Notarization").style.display = 'none';
+                document.getElementById("Delivery").style.display = 'none';
+                document.getElementById("selectedservices").style.display = 'none';
+            }
+        }
         // Define the function to be called with a parameter
-        function myFunction(planType, ProductId) {
-            // Do something with the parameter
-            //window.location.href = url;
-        };
+        //function myFunction(planType, ProductId) {
+        //    // Do something with the parameter
+        //    //window.location.href = url;
+        //};
     </script>
 </head>
 <body>
@@ -234,7 +336,7 @@
                             </div>
                             <p class="our-customer-agree-that-wordstag-is-the-best-for-his-services-Zpk">Our customer agree that, Wordstag is the best for his services</p>
                         </div>
-                            <div >
+                        <div>
                             <img class="xyz" style="left:8.7rem;" src="~/assets/Ellipse 7.png" />
                             <img class="xyz" style="left:12rem;" src="~/assets/Ellipse 8.png" />
                             <img class="xyz" style="left:15rem;" src="~/assets/Ellipse 9.png" />
@@ -257,7 +359,7 @@
                         <div>
                             <a class="abc" style="left:8.7rem;top: 57rem;"> View all</a>
                             <img class="jkl" style="left:15.20rem;  top: 57.75rem;" src="~/assets/arrow-12-18C.png" />
-                            </div>
+                        </div>
                         <div class="frame-243-u9r">
                             <div class="frame-241-q3W">
                                 <p class="item-1500-a16">1,500</p>
@@ -378,37 +480,37 @@
                         </div>
                     </div>
                     <div class="group-53-jrp">
-                        <div style="width:30%">
-                            <div class="group-50-5Qt" id="group50">
-                                <div class="group-48-cQp"><label id="Labelstandard"></label></div>
-                                <a href="#" id="standardLink" style="text-decoration: none;">
-                                    <div class="auto-group-qmkw-Uxp">
-                                        <div class="frame-247-cJL">
-                                            <div class="frame-246-N2c">
-                                                <img class="vector-7kt" src="~/assets/vector-4AL.png" />
-                                                <p class="item-200-Fs6"><label id="standardprice"></label></p>
-                                            </div>
-                                            <p class="per-word-nc8">per word</p>
+                        @*<div style="width:30%">*@
+                        <div class="group-50-5Qt" id="group50">
+                            <div class="group-48-cQp"><label id="Labelstandard"></label></div>
+                            <a href="#" id="standardLink" style="text-decoration: none;">
+                                <div class="auto-group-qmkw-Uxp">
+                                    <div class="frame-247-cJL">
+                                        <div class="frame-246-N2c">
+                                            <img class="vector-7kt" src="~/assets/vector-4AL.png" />
+                                            <p class="item-200-Fs6"><label id="standardprice"></label></p>
                                         </div>
+                                        <p class="per-word-nc8">per word</p>
                                     </div>
-                                </a>
-                                <p class="machine-text-translation-Wo2">Machine text translation</p>
-                                <div class="group-49-Rf6">
-                                    <div class="frame-33-Yji">
-                                        <img class="dashicons-yes-alt-4xx" src="~/assets/dashicons-yes-alt.png" />
-                                        <p class="unedited-Bng">Unedited</p>
-                                    </div>
-                                    <div class="frame-34-Kdz">
-                                        <img class="dashicons-yes-alt-rtp" src="~/assets/dashicons-yes-alt-cb2.png" />
-                                        <p class="instant-service-zEL">Instant Service</p>
-                                    </div>
-                                    <div class="frame-236-iRE">
-                                        <img class="dashicons-yes-alt-e3z" src="~/assets/dashicons-yes-alt-MsN.png" />
-                                        <p class="free-trial-xaU">1-Free Trial</p>
-                                    </div>
+                                </div>
+                            </a>
+                            <p class="machine-text-translation-Wo2">Machine text translation</p>
+                            <div class="group-49-Rf6">
+                                <div class="frame-33-Yji">
+                                    <img class="dashicons-yes-alt-4xx" src="~/assets/dashicons-yes-alt.png" />
+                                    <p class="unedited-Bng">Unedited</p>
+                                </div>
+                                <div class="frame-34-Kdz">
+                                    <img class="dashicons-yes-alt-rtp" src="~/assets/dashicons-yes-alt-cb2.png" />
+                                    <p class="instant-service-zEL">Instant Service</p>
+                                </div>
+                                <div class="frame-236-iRE">
+                                    <img class="dashicons-yes-alt-e3z" src="~/assets/dashicons-yes-alt-MsN.png" />
+                                    <p class="free-trial-xaU">1-Free Trial</p>
                                 </div>
                             </div>
                         </div>
+                        @*  </div>*@
                         <div class="group-51-rvk" id="group51">
 
                             <div class="group-48-oLC"><label id="Labeladvanced"></label></div>
@@ -476,7 +578,7 @@
                             </div>
                         </div>
 
-                        <div id="group53" style="width:35%">
+                        <div class="group-51-rvknew" id="group53">
                             <div style="font-size:medium">
                                 <h1>Gujarati to English Birth Certificate</h1>
                                 <span class="woocs_price_code" data-product-id="19704"><del aria-hidden="true"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">₹</span>1,050.00</bdi></span></del> <ins><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">₹</span>750.00</bdi></span></ins> <small class="woocommerce-price-suffix">per page (auto-discount for multiple pages)</small></span>
@@ -492,7 +594,7 @@
                                 <h3><span style="color: red">Do Birth Certificates belong to multiple applicants?</span></h3><br />
                                 <aside>(Which will require us to issue more than one certificate)</aside>
 
-                                <label>No. of applicants:*</label><br>
+                                <label class="labelstyle">No. of applicants:<abbr class="required" title="required">*</abbr></label><br>
                                 <div style="width:50%">
                                     @Html.DropDownList("noofapplicant", ViewBag.noofapplicant as List<SelectListItem>, new {@class = "dropdownstyle" ,style="padding: 0rem 0rem 0rem 1rem;" })
                                 </div>
@@ -500,62 +602,155 @@
                                 <div data-is-required="" data-field-id="60b9d78f814e0">
                                     <h3><span style="color: red">Select required services:</span></h3>
                                     <br>
-                                    ☑️&nbsp;<span style="color: grey">Certified Translation (Included by default - free)</span>
+                                    ☑️&nbsp;<span>Certified Translation (Included by default - free)</span>
                                 </div>
                                 <br>
                                 <div for="60ae7178ee575">
                                     <div class="wapf-field-label wapf--above">
-                                        <label>
-                                            <span>Require document/s to be Apostilled?</span>
+                                        <label class="labelstyle">
+                                            Require document/s to be Apostilled?
                                             <abbr class="required" title="required">*</abbr>
                                         </label>
                                     </div>
 
-                                    <div data-is-required="1">
-                                        <button type="submit" style="display: inline-block;">No</button>
-                                        <button type="submit" style="display: inline-block;">Yes</button>
+                                    <div>
+                                        <button id="btnno" type="button" onclick="clickok('No', this)" class="buttonstyle buttoncolor" style="background: cornflowerblue;">No</button>
+                                        <button id="btnyes" type="button" onclick="clickok('Yes', this)" class="buttonstyle">Yes</button>
                                     </div>
                                     <br>
                                 </div>
-
+                                <div id="Needapostille" style="display:none">
+                                    <label class="labelstyle">Need apostille of:</label>
+                                    <div>
+                                        <input type="radio" id="1" name="apostille">
+                                        <label for="1">Only the source document (original) (+₹2,500.00)</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="2" name="apostille">
+                                        <label for="2">Only the certified translation (+₹2,500.00)</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="3" name="apostille">
+                                        <label for="3">Both original document as well as translation (+₹5,000.00)</label>
+                                    </div>
+                                    <br>
+                                </div>
                             </div>
                         </div>
-                        <div id="group54" style="width:35%">
+                        <div class="group-51-rvknew" id="group54">
                             <div style="font-size:medium">
-                                <div style="width:100%;" for="60ae7178ee571">
-                                    <div><label><span>Applying for Canada immigration/visa?</span></label></div><div class="wapf-field-input">
-                                        <br>
-                                        <input type="hidden" data-fid="60ae7178ee571" value="0" name="wapf[field_60ae7178ee571]">
-                                        <label for="30756">
-                                            <input id="30756" type="checkbox" value="1" data-is-required="" data-field-id="60ae7178ee571" name="wapf[field_60ae7178ee571]" data-wapf-price="[field.60bc6a5519a1c]*850+150" data-wapf-pricetype="fx" data-wapf-tax="1">
-
-                                            Yes (<span>+₹1,000.00</span>)
-
-                                        </label>
-                                        <br>
-                                    </div><div>Canada requires compulsory notarization with translator's affidavit.</div><br>
+                                <div>
+                                    <label class="labelstyle">Applying for Canada immigration/visa?</label>
+                                    <br>
+                                    <input id="CanadaImmigrationVisa" type="checkbox" />
+                                    Yes (<span>+₹1,000.00</span>)
+                                    <br>
+                                    <div>Canada requires compulsory notarization with translator's affidavit.</div>
                                 </div>
-                                <label>
-                                    <span>Require notarized translation?</span>
+                                <div id="CourierEntireIndianAddress" style="display:none">
+                                    <br>
+                                    <label class="labelstyle">Courier entire set to an Indian address?</label>
+                                    <div>
+                                        <input type="radio" id="0" name="CourierEntire">
+                                        <label for="0">No, will collect from your Delhi office (₹-150.00)</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="1" name="CourierEntire">
+                                        <label for="1">Yes</label>
+                                    </div>
+                                </div>
+                                <div id="notarizedtranslation">
+                                    <label class="labelstyle">Require notarized translation?</label>
                                     <abbr class="required" title="required">*</abbr>
-                                </label>
-                                <div data-is-required="1">
-                                    <button type="submit" style="display: inline-block;">No</button>
-
-                                    <button type="submit" style="display: inline-block;">Yes <span>(<span>+₹400.00</span>)</span><input type="button" data-wapf-label="Yes" data-is-required="1" required="" data-wapf-tax="1"></button>
+                                    <div>
+                                        <button id="btnno1" type="button" onclick="clickok1('No', this)" class="buttonstyle buttoncolor">No</button>
+                                        <button id="btnyes1" type="button" onclick="clickok1('Yes', this)" class="buttonstyle">Yes (<span>+₹400.00</span>)</button>
+                                    </div>
                                 </div>
-                                <br>
-                                <div><label><span>Courier notarized &amp; certified translation to an Indian address?</span></label></div>
-                                <div class="wapf-field-input"><div class="wapf-radios"><input type="hidden" data-fid="60ae7178ee587" value="0" name="wapf[field_60ae7178ee587]"><div><label for="62564" class="wapf-input-label"><input type="radio" id="62564" name="wapf[field_60ae7178ee587]" data-wapf-label="No, only scanned copy via email" data-is-required="" data-wapf-pricetype="fixed" data-wapf-price="-150"><span class="wapf-custom"></span><span class="wapf-label-text">No, only scanned copy via email <span class="wapf-pricing-hint">(<span class="wapf-addon-price">₹-150.00</span>)</span></span></label></div><div class="wapf-checkable has-pricing"><label for="31132" class="wapf-input-label"><input type="radio" id="31132" name="wapf[field_60ae7178ee587]" class="wapf-input" data-field-id="60ae7178ee587" value="uygo1" data-wapf-label="No, will collect from your Mumbai office" data-is-required="" data-wapf-pricetype="fixed" data-wapf-price="-150"><span class="wapf-custom"></span><span class="wapf-label-text">No, will collect from your Mumbai office <span class="wapf-pricing-hint">(<span class="wapf-addon-price">₹-150.00</span>)</span></span></label></div><div class="wapf-checkable"><label for="68281" class="wapf-input-label"><input type="radio" id="68281" name="wapf[field_60ae7178ee587]" class="wapf-input" data-field-id="60ae7178ee587" value="1rcwy" data-wapf-label="Yes, send via standard courier service" data-is-required="" checked=""><span class="wapf-custom"></span><span class="wapf-label-text">Yes, send via standard courier service </span></label></div><div class="wapf-checkable has-pricing"><label for="73952" class="wapf-input-label"><input type="radio" id="73952" name="wapf[field_60ae7178ee587]" class="wapf-input" data-field-id="60ae7178ee587" value="ungcz" data-wapf-label="Yes, send via express courier service" data-is-required="" data-wapf-pricetype="fixed" data-wapf-price="250"><span class="wapf-custom"></span><span class="wapf-label-text">Yes, send via express courier service <span class="wapf-pricing-hint">(<span class="wapf-addon-price">+₹250.00</span>)</span></span></label></div></div></div>
+                                <div id="Requirehardcopy">
+                                    <label class="labelstyle">Require hard copy? *</label>
+                                    <div>
+                                        <input type="radio" id="r1" name="hardcopy">
+                                        <label for="r1">No, only soft copy via email</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="r2" name="hardcopy">
+                                        <label for="r2">Yes, standard courier within India (+₹150.00)</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="r3" name="hardcopy">
+                                        <label for="r3">Yes, express courier within India (+₹400.00)</label>
+                                    </div>
+                                </div>
+                                <div id="Couriernotarizedcertified" style="display:none;">
+                                    <br>
+                                    <label class="labelstyle">
+                                        Courier notarized &amp; certified translation to an Indian address?
+                                    </label>
+                                    <div>
+                                        <input type="radio" id="r1" name="Courier">
+                                        <label for="r1">No, only scanned copy via email (₹-150.00)</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="r2" name="Courier">
+                                        <label for="r2">No, will collect from your Mumbai office (₹-150.00)</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="r3" name="Courier">
+                                        <label for="r3">Yes, send via express courier service (+₹250.00)</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="r4" name="Courier">
+                                        <label for="r4">Yes, send via standard courier service</label>
+                                    </div>
+                                </div>
                                 <br><hr>
                                 <h3><span style="color: red">Confirm selected services &amp; timeline (or change selections above):</span></h3><br>
-                                <span style="color: darkgreen">✔️Certified Translation (Included by default - Free)&nbsp;</span><br>
-                                <br><span>Turnaround: 48 hours </span><span style="font-family: lato;font-size: 14px;font-style: normal;font-weight: 400;letter-spacing: normal;text-align: start;text-indent: 0px;text-transform: none;float: none">(For upto 3 pages. Add 6 hours for each additional page)</span><br>
-
+                                <div>
+                                    <span style="color: darkgreen">✔️Certified Translation (Included by default - Free)</span><br>
+                                    <span>Turnaround: 48 hours (For upto 3 pages. Add 6 hours for each additional page)</span>
+                                </div>
+                                <div id="Apostille" style="display:none">
+                                    <span style="color: darkgreen">✔️Apostille of source and translated document (both) </span><br>
+                                    <span>Time required for apostille: 3-4 working days</span>
+                                </div>
+                                <div id="Notarization" style="display:none">
+                                    <span style="color: darkgreen">✔️Notarization with translator's affidavit for Canada immigration&nbsp;</span><br>
+                                    <span>Time required: 1 working day after certified translation </span>
+                                </div>
+                                <div id="Delivery" style="display:none">
+                                    <span style="color: darkgreen">✔️Delivery: Entire set via email + Express courier to a local Indian address </span><br>
+                                    <span>Estimated delivery in 24-48 hours from dispatch</span>
+                                </div>
+                                <div id="selectedservices" style="display:none">
+                                    <br>
+                                    <hr>
+                                    <span style="color: red"><strong>Mandatory additional information based on selected services:</strong></span>
+                                    <div>
+                                        <label style="labelstyle">
+                                            Enter local Indian address for availing courier service:
+                                            <abbr class="required" title="required">*</abbr>
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <textarea style="width:100%; height:70px;" id="CourierServiceAddress" placeholder="Kindly enter a complete local Indian Address (with contact person's name and Indian phone number). We do not deliver abroad presently." required=""></textarea>
+                                    </div><br>
+                                    <div id="AvailingApostilleService" style="display:none">
+                                        <label class="labelstyle">Confirmation required for availing Apostille service:<abbr class="required" title="required">*</abbr></label>
+                                        <br>
+                                        <input id="1" type="checkbox" value="true" unchecked />
+                                        Source document (original) is issued by Indian authorities.
+                                        <br>
+                                        <input id="2" type="checkbox" value="true" unchecked />
+                                        You (client) will courier the original document/s to our Delhi office - Detailed instructions will be shared after order confirmation
+                                    </div><br>
+                                </div>
                                 <br>
-                                <span style="color: darkgreen">✔️Notarization of certified translation&nbsp;</span><br>
-                                <span>Time required: 1 working day after certified translation </span>
-                                <br><br><span>Add-ons Cost (Total for all pages/documents)</span><br><br>
+                                <div>
+                                    <span style="font-weight: 400;">Add-ons Cost (Total for all pages/documents)</span>
+                                    <label id="price" style="padding-left: 10%;">₹0.00</label>
+                                    <input type="hidden" id="hdntotal">
+                                </div><br>
                                 <button type="submit" name="add-to-cart" value="19704" class="dropdownstyle" style="background-color: #6a1d59; color: white;">Proceed to checkout</button>
                             </div>
                         </div>
