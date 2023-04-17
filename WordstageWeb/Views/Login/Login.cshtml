@@ -15,6 +15,12 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins%3A300%2C400%2C500%2C600" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro%3A300%2C400%2C500%2C600" />
     <link href="~/styles/log-in.css" rel="stylesheet" />
+    <style>
+        .validatemessage {
+            color: red;
+            font-size: 1.2rem;
+        }
+    </style>
 </head>
 <body>
     @using (Html.BeginForm())
@@ -32,12 +38,12 @@
                     <div class="group-1000004421-fcL">
                         <p class="e-mail-1RJ">E-mail</p>
                         @Html.EditorFor(model => model.emailid, new { htmlAttributes = new {@class = "auto-group-xuty-LCg", @placeholder="Enter your email address" }})
-                        @Html.ValidationMessageFor(e => e.emailid,"", new  {@style = "color:red;"})
+                        @Html.ValidationMessageFor(e => e.emailid,"", new  {@class="validatemessage"})
                     </div>
                     <div class="group-1000004422-BUC">
                         <p class="password-8PS">Password</p>
                         @Html.EditorFor(model => model.Password, new { htmlAttributes = new {@class = "auto-group-61g7-42C", @placeholder="Enter your password",@minlength = "6", @maxlength="15"  }})
-                        @Html.ValidationMessageFor(e => e.Password,"", new  {@style = "color:red;"})
+                        @Html.ValidationMessageFor(e => e.Password,"", new  {@class="validatemessage"})
                     </div>
                     <p class="forgot-your-password-uoW">Forgot your password?</p>
                     <input type="submit" value="Log in" class="frame-71-eFJ" />
