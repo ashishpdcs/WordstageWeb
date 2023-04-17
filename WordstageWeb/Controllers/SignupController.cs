@@ -13,16 +13,15 @@ namespace WordstageWeb.Controllers
         readonly ISignuprepository _signUpRepository = new Signupservice();
 
         [HttpGet]
-        public async Task<IActionResult> SignUp()
+        public IActionResult SignUp()
         {
             var model = new Signup();
             model.UserTypes = new List<SelectListItem>
-    {
-        new SelectListItem { Text = "Customers", Value = "Customers" },
-        new SelectListItem { Text = "Translator", Value = "Translator" }
-    };
+            {
+                new SelectListItem { Text = "Customers", Value = "Customers" },
+                new SelectListItem { Text = "Translator", Value = "Translator" }
+            };
             return View(model);
-            // return View();
         }
 
         [HttpPost]
@@ -33,7 +32,6 @@ namespace WordstageWeb.Controllers
                 var Userinfo = await _signUpRepository.SignUp(firstname, lastname, emailAddress, password, usertype);
                 if (Userinfo)
                 {
-                    string Body;
                     MimeMessage emailMessage = new MimeMessage();
 
                     MailboxAddress emailFrom = new MailboxAddress("Jay", "jaybhatt.dcs@gmail.com");
