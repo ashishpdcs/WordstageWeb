@@ -4,6 +4,7 @@ using System.Text;
 using WordstageWeb.Repository;
 using WordstageWeb.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis;
 
 namespace WordstageWeb.Services
 {
@@ -80,6 +81,34 @@ namespace WordstageWeb.Services
                     var jsonResponse = await response.Content.ReadAsStringAsync();
                     var details = JsonConvert.SerializeObject(JObject.Parse(jsonResponse)["Data"]);
                     model = JsonConvert.DeserializeObject<List<Product>>(details).ToList();
+                }
+                return model;
+            }
+        }
+
+        public async Task<List<ProductService>> LoadProductservices(string productid)
+        {
+            var myObject = new
+            {
+                ProductId = productid,
+            };
+
+            JsonContent content = JsonContent.Create(myObject);
+            //live url = https://wordstageapi.azurewebsites.net
+            //Local url = https://localhost:7256
+            string apiUrl = "https://wordstageapi.azurewebsites.net/api/ProductServiceService/GetAllProductServiceService";
+            using (HttpClient client = new HttpClient())
+            {
+                List<ProductService> model = new List<ProductService>();
+                client.BaseAddress = new Uri(apiUrl);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+                var response = await client.PostAsync(apiUrl, content);
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    var jsonResponse = await response.Content.ReadAsStringAsync();
+                    var details = JsonConvert.SerializeObject(JObject.Parse(jsonResponse)["Data"]);
+                    model = JsonConvert.DeserializeObject<List<ProductService>>(details).ToList();
                 }
                 return model;
             }

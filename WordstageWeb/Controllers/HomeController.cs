@@ -6,6 +6,7 @@ using WordstageWeb.Services;
 using System.Reflection;
 using Nancy.Json;
 using Newtonsoft.Json;
+using System;
 
 namespace WordstageWeb.Controllers
 {
@@ -13,16 +14,45 @@ namespace WordstageWeb.Controllers
     {
         private readonly IHomerepository _homerepository = new Homeservice();
         List<Language> Languagemodel = new List<Language>();
-        List<ProductType> productmodel = new List<ProductType>();
-
+        List<ProductType> productTypes = new List<ProductType>();
+        List<RequireHardCopy> requireHardCopymodel = new List<RequireHardCopy>();
+        List<ProductService> productServices = new List<ProductService>();
         public async Task<ActionResult> Index()
         {
             Languagemodel = await _homerepository.LoadLanguageDropdown();
             ViewBag.FromLanguages = new SelectList(Languagemodel, "LanguageId", "LanguageName");
             ViewBag.ToLanguages = new SelectList(Languagemodel, "LanguageId", "LanguageName");
 
-            productmodel = await _homerepository.LoadProductDropdown();
-            var productDropdown = productmodel.Select(p => new SelectListItem
+            productTypes = await _homerepository.LoadProductDropdown();
+            var productDropdown = productTypes.Select(p => new SelectListItem
+            {
+                Value = p.TypeId.ToString(),
+                Text = p.ProductTypeName,
+            });
+            ViewBag.ProductDropdown = productDropdown;
+            ViewBag.email = HttpContext.Session.GetString("emailid");
+
+            List<ProductType> people = productTypes; // assume this method returns a list of Person objects
+            string[] names = people.Select(p => p.ProductTypeName).ToArray();
+            ViewBag.RequireHardCopy = names;
+
+            return View();
+        }
+        [HttpPost]
+        public async Task<ActionResult> LoadProductdata(string Product, string from, string to)
+        {
+            List<Product> productmodel = new List<Product>();
+            productmodel = await _homerepository.LoadProduct(Product,from,to);
+            return Json(productmodel);
+        }
+        public async Task<ActionResult> Home()
+        {
+            Languagemodel = await _homerepository.LoadLanguageDropdown();
+            ViewBag.FromLanguages = new SelectList(Languagemodel, "LanguageId", "LanguageName");
+            ViewBag.ToLanguages = new SelectList(Languagemodel, "LanguageId", "LanguageName");
+
+            productTypes = await _homerepository.LoadProductDropdown();
+            var productDropdown = productTypes.Select(p => new SelectListItem
             {
                 Value = p.TypeId.ToString(),
                 Text = p.ProductTypeName,
@@ -34,19 +64,14 @@ namespace WordstageWeb.Controllers
             applicant.Add(new SelectListItem { Value = "3", Text = "3" });
             ViewBag.noofapplicant = applicant;
             ViewBag.email = HttpContext.Session.GetString("emailid");
-            ViewBag.mytest = "hello from my test";
-
 
             return View();
         }
         [HttpPost]
-        public async Task<ActionResult> LoadProductdata(string Product, string from, string to)
+        public async Task<ActionResult> LoadProductServiceData(string ProductId)
         {
-            List<Product> productmodel = new List<Product>();
-          
-
-            productmodel = await _homerepository.LoadProduct(Product,from,to);
-            return Json(productmodel);
+            productServices =  await _homerepository.LoadProductservices(ProductId);
+            return Json(productServices);
         }
     }
 }

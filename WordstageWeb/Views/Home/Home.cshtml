@@ -1,0 +1,1051 @@
+﻿@model WordstageWeb.Models.ProductService
+
+@{
+    ViewData["Title"] = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style type="text/css">
+        .dropdownstyle {
+            width: 100%;
+            background-color: #f2f2f2;
+            border-radius: 0.4rem;
+            font-size: 1.6rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #333333;
+            font-family: Poppins, 'Source Sans Pro';
+            white-space: nowrap;
+            flex-shrink: 0;
+            margin-top: 0.1rem;
+            padding: 1rem 0rem 1rem 1rem;
+        }
+
+        .buttonstyle {
+            padding: 7px 11px;
+            margin: 0 15px 15px 0;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        .buttoncolor {
+            border-color: cornflowerblue;
+            background: cornflowerblue;
+        }
+
+        .labelstyle {
+            color: teal;
+            font-weight: bold;
+        }
+
+        .required {
+            color: red;
+            font-size: 18px;
+            line-height: 0;
+        }
+        .textarea{
+             style="width:100%;
+             height:70px;"
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        var productServiceResult, filterdata
+        var selectedamount = 0;
+        $(document).ready(function () {
+            var myModelList, Pselect, fromselect, toselect, translationtype;
+
+            Pselect = $('#ProductDropdown').val();
+            fromselect = $('#FromLanguages').val();
+            toselect = $('#ToLanguages').val();
+
+
+            fromselect = "69A9FFD4-5F46-432F-BA80-0AEE04B59E52";
+            toselect = "F7C668E4-FFA4-4FA2-936A-D20E03BA009E";
+            //default set to and from laguaage
+
+            LoadProductData(Pselect, fromselect, toselect);
+
+            $('#ProductDropdown').change(function () {
+                Pselect = $(this).val();
+                LoadProductData(Pselect, fromselect, toselect);
+            });
+            $('#FromLanguages').change(function () {
+                fromselect = $(this).val();
+                LoadProductData(Pselect, fromselect, toselect);
+            });
+            $('#ToLanguages').change(function () {
+                toselect = $(this).val();
+                LoadProductData(Pselect, fromselect, toselect);
+            });
+            $("#CanadaImmigrationVisa").bind('change', function () {
+                if ($(this).is(':checked')) {
+                    if (document.getElementById("btnno").style.background == "cornflowerblue") {
+
+                        document.getElementById("Couriernotarizedcertified").style.display = 'block';
+                        document.getElementById("Apostille").style.display = 'none';
+                        document.getElementById("Delivery").style.display = 'block';
+                        document.getElementById("Requirehardcopy").style.display = 'none';
+                        document.getElementById("notarizedtranslation").style.display = 'none';
+                        document.getElementById("Notarization").style.display = 'block';
+                        document.getElementById("selectedservices").style.display = 'block';
+                    }
+                    else if (document.getElementById("btnyes").style.background == "cornflowerblue") {
+                        document.getElementById("Couriernotarizedcertified").style.display = 'none';
+                        document.getElementById("Apostille").style.display = 'block';
+                        document.getElementById("Delivery").style.display = 'block';
+                        document.getElementById("selectedservices").style.display = 'block';
+                        document.getElementById("Notarization").style.display = 'block';
+                    }
+
+                }
+                else {
+                    //alert("Unchecked");
+                    if (document.getElementById("btnno").style.background == "cornflowerblue") {
+                        document.getElementById("notarizedtranslation").style.display = 'block';
+                        document.getElementById("Requirehardcopy").style.display = 'block';
+                        document.getElementById("Couriernotarizedcertified").style.display = 'none';
+                        document.getElementById("Notarization").style.display = 'none';
+                        document.getElementById("Delivery").style.display = 'none';
+                        document.getElementById("selectedservices").style.display = 'none';
+                    }
+                    else if (document.getElementById("btnyes").style.background == "cornflowerblue") {
+                        document.getElementById("Notarization").style.display = 'none';
+                    }
+                }
+            });
+        });
+        function LoadProductData(Product, from, to) {
+            $.ajax({
+                url: '/Home/LoadProductData',
+                data: { 'Product': Product, 'from': from, 'to': to },
+                type: 'Post',
+                dataType: 'json',
+                success: function (result) {
+                    console.log(result);
+                    TablelooandupdatePlan(result);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert('Error: ' + thrownError);
+                }
+            });
+        }
+        function TablelooandupdatePlan(myModelList) {
+            console.log(myModelList);
+            myModelList.forEach(function (item) {
+                if (item.planTypes[0].planType == "STANDARD") {
+                    document.getElementById("Labelstandard").innerHTML = item.planTypes[0].planType;
+                    document.getElementById("standardprice").innerHTML = item.price.toFixed(2);
+                    //link = document.getElementById('standardLink
+                    createLinkWithPlanType(item.planTypes[0].planType, 'standardLink', item.productId);
+                    //sessionStorage.setItem('ProductId', item.ProductId);
+                }
+                else if (item.planTypes[0].planType == "ADVANCED") {
+                    document.getElementById("Labeladvanced").innerHTML = item.planTypes[0].planType;
+                    document.getElementById("advancedprice").innerHTML = item.price.toFixed(2);
+                    createLinkWithPlanType(item.planTypes[0].planType, 'advancedLink', item.productId);
+                    //sessionStorage.setItem('ProductId', item.ProductId);
+                }
+                else if (item.planTypes[0].planType == "PREMIUM") {
+                    document.getElementById("Labelpremium").innerHTML = item.planTypes[0].planType;
+                    document.getElementById("premiumprice").innerHTML = item.price.toFixed(2);
+                    // link = document.getElementById('premiumLink');
+                    createLinkWithPlanType(item.planTypes[0].planType, 'premiumLink', item.productId);
+                    //sessionStorage.setItem('ProductId', item.ProductId);
+                }
+                var group51 = document.getElementById("group51");
+                var group52 = document.getElementById("group52");
+                var group53 = document.getElementById("group53");
+                var group54 = document.getElementById("group54");
+
+                if (item.productName == "Certificate") {
+                    group51.style.display = "none";
+                    group52.style.display = "none";
+                    group53.style.display = "block";
+                    group54.style.display = "block";
+                    if (item.planTypes[0].planType == "STANDARD")
+                        GetCertificateData(item.productId);
+                }
+                else {
+                    group51.style.display = "block";
+                    group52.style.display = "block";
+                    group53.style.display = "none";
+                    group54.style.display = "none";
+                }
+            });
+        };
+        function GetCertificateData(Productid) {
+            $.ajax({
+                url: '/Home/LoadProductServiceData',
+                data: { 'ProductId': Productid },
+                type: 'Post',
+                dataType: 'json',
+                success: function (result) {
+                    console.log(result);
+                    productServiceResult = result;
+
+                    for (var i = 0; i < productServiceResult.length; i++) {
+                        var buttonContainer = document.getElementById("documentApostilled"); // button first yes no
+                        var checkboxContainer = document.getElementById("CanadaImmigrationVisa"); // checkbox  Yes + 4000
+                        var buttonContainersecond = document.getElementById("Requirenotarizedtranslation"); //button second yes no
+                        // First Yes No button create.
+                        if (productServiceResult[i].name == "documentApostilled") {
+                            var newButton = document.createElement('button');
+                            event.preventDefault();
+                            newButton.textContent = productServiceResult[i].description;
+                            newButton.id = productServiceResult[i].name + productServiceResult[i].description;
+                            newButton.classList.add('buttonstyle');
+                            newButton.setAttribute('onclick', "clickok('" + productServiceResult[i].description + "','" + productServiceResult[i].name + productServiceResult[i].description + "' , '" + productServiceResult[i].id + "')");
+                            buttonContainer.appendChild(newButton);
+
+                            if (productServiceResult[i].description == "No")
+                                newButton.classList.add('buttoncolor');
+                        }
+                        if (productServiceResult[i].name == "ApplyingCanadaimmigration") {
+                            var checkbox = document.createElement('input');
+                            checkbox.type = 'checkbox';
+                            checkbox.id = productServiceResult[i].id;
+                            checkbox.name = productServiceResult[i].name;
+                            checkbox.value = " " + productServiceResult[i].description;
+
+                            checkbox.addEventListener('change', function () {
+                                console.log('Checkbox changed:', this.checked);
+                                //const myDiv = document.getElementById('Confirmselectedservicestimeline');
+                                //myDiv.innerHTML = '';
+                                alert("A");
+                            });
+
+                            checkboxContainer.appendChild(checkbox);
+                            var label = document.createElement('label');
+                            label.htmlFor = productServiceResult[i].description;
+                            label.appendChild(document.createTextNode(productServiceResult[i].description));
+                            checkboxContainer.appendChild(label);
+                            checkboxContainer.appendChild(document.createElement('br'));
+                        }                        
+                        
+
+                        if (productServiceResult[i].name == "Requirenotarizedtranslation") {
+                            var secondButton = document.createElement('button');
+                            secondButton.textContent = productServiceResult[i].description;
+                            secondButton.id = productServiceResult[i].name + productServiceResult[i].description;
+                            secondButton.classList.add('buttonstyle');
+
+                            secondButton.setAttribute('onclick', "clickok1('" + productServiceResult[i].description.split("(")[0] + "','" + productServiceResult[i].name + productServiceResult[i].description + "', '" + productServiceResult[i].id + "')");
+                            if (productServiceResult[i].description == "No")
+                                secondButton.classList.add('buttoncolor');
+                            buttonContainersecond.appendChild(secondButton);
+                        }
+                        document.getElementById("RequirenotarizedtranslationLabel").style.display = 'block';
+                        document.getElementById("RequirehardcopyLabel").style.display = 'block';
+                        document.getElementById("ConfirmselectedservicestimelineLabel").style.display = 'block';
+
+                    }
+                    LoadAllData("Default", "");
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert('Error: ' + thrownError);
+                }
+            });
+        }
+
+
+        function createLinkWithPlanType(planType, linkId, ProductId) {
+            console.log(planType, linkId, ProductId);
+            const link = document.getElementById(linkId);
+
+            if (planType === 'STANDARD') {
+                link.href = '/Order/Order';
+            } else if (planType === 'ADVANCED') {
+                link.href = '/Order/Order';
+            } else if (planType === 'PREMIUM') {
+                link.href = '/Order/Order';
+            }
+
+            // Add a click event listener to the link with parameters
+            link.addEventListener('click', function () {
+                sessionStorage.setItem('ProductId', ProductId);
+            });
+        };
+
+       
+
+        function clickok(value, buttonid, id) {
+
+            console.log("productServiceResult", productServiceResult);
+            event.preventDefault();
+            var btn = document.getElementById(buttonid);
+            btn.style.background = "cornflowerblue";
+            btn.style.borderColor = "cornflowerblue";
+            if (value == "Yes") {
+                document.getElementById("Requirenotarizedtranslation").style.display = 'none';
+            }
+            else {
+                document.getElementById("Requirenotarizedtranslation").style.display = 'block';
+            }
+            if (value == "Yes") {
+                //document.getElementById("hdntotal").value = 5000;
+                //document.getElementById("price").innerHTML = "₹5,000.00";
+                document.getElementById("documentApostilledNo").style.background = '#ccc';
+                document.getElementById("documentApostilledNo").style.borderColor = '#ccc';
+                //document.getElementById("Needapostille").style.display = 'block';
+                //document.getElementById("CourierEntireIndianAddress").style.display = 'block';
+                //document.getElementById("notarizedtranslation").style.display = 'none';
+                //document.getElementById("Requirehardcopy").style.display = 'none';
+                //document.getElementById("Apostille").style.display = 'block';
+                //document.getElementById("Delivery").style.display = 'block';
+                //document.getElementById("selectedservices").style.display = 'block';
+                //document.getElementById("AvailingApostilleService").style.display = 'block';
+                document.getElementById("NeedapostilleLabel").style.display = 'block';
+                document.getElementById("RequirenotarizedtranslationLabel").style.display = 'none';
+                document.getElementById("RequirehardcopyLabel").style.display = 'none';
+                document.getElementById("CourierEntireIndianAddressLabel").style.display = 'block';
+                document.getElementById("MandatoryadditionalinformationservicesLabel").style.display = 'block';
+                document.getElementById("AvailingApostilleServiceLabel").style.display = 'block';
+            }
+            else if (value == "No") {
+                document.getElementById("RequirenotarizedtranslationLabel").style.display = 'block';
+                document.getElementById("documentApostilledYes").style.borderColor = '#ccc';
+                document.getElementById("documentApostilledYes").style.background = '#ccc';
+                //document.getElementById("Needapostille").style.display = 'none';
+                //document.getElementById("CourierEntireIndianAddress").style.display = 'none';
+                //document.getElementById("notarizedtranslation").style.display = 'block';
+                document.getElementById("RequirehardcopyLabel").style.display = 'block';
+                //document.getElementById("Apostille").style.display = 'none';
+                //document.getElementById("Delivery").style.display = 'none';
+                //document.getElementById("selectedservices").style.display = 'none';
+                //document.getElementById("AvailingApostilleService").style.display = 'none';
+                document.getElementById("ConfirmselectedservicestimelineLabel").style.display = 'block';
+                document.getElementById("CourierEntireIndianAddressLabel").style.display = 'none';
+                document.getElementById("MandatoryadditionalinformationservicesLabel").style.display = 'none';
+                document.getElementById("AvailingApostilleServiceLabel").style.display = 'none';
+                document.getElementById("NeedapostilleLabel").style.display = 'none';
+            }
+            LoadAllData("NotDefault", id);
+        }
+        function clickok1(value, buttonid, id) {
+            alert(value + " " + buttonid);
+            event.preventDefault();
+            var btn = document.getElementById(buttonid);
+            btn.style.background = "cornflowerblue";
+            btn.style.borderColor = "cornflowerblue";
+            if (value == "Yes") {
+                document.getElementById("price").innerHTML = "₹4,00.00";
+                document.getElementById("hdntotal").value = 400;
+                document.getElementById("Nosecond").style.background = '#ccc';
+                document.getElementById("Nosecond").style.borderColor = '#ccc';
+                document.getElementById("Couriernotarizedcertified").style.display = 'block';
+                document.getElementById("Requirehardcopy").style.display = 'none';
+                document.getElementById("Notarization").style.display = 'block';
+                document.getElementById("Delivery").style.display = 'block';
+                document.getElementById("selectedservices").style.display = 'block';
+
+            } else if (value == "No") {
+                document.getElementById("Yessecond").style.borderColor = '#ccc';
+                document.getElementById("Yessecond").style.background = '#ccc';
+                document.getElementById("Couriernotarizedcertified").style.display = 'none';
+                document.getElementById("Requirehardcopy").style.display = 'block';
+                document.getElementById("Notarization").style.display = 'none';
+                document.getElementById("Delivery").style.display = 'none';
+                document.getElementById("selectedservices").style.display = 'none';
+            }
+        }
+        function LoadAllData(value, id) {
+            if (value == "NotDefault") {
+                console.log(id);
+                console.log("uhdsgh ufhgf u", productServiceResult);
+                filterdata = productServiceResult.filter(item => item.parentId === parseInt(id));
+            }
+            else {
+                filterdata = productServiceResult.filter(item => item.setDefault === value);
+            }
+            console.log(filterdata);
+            var Requirehardcopy, Couriernotarizedcertified, Needapostille, CourierEntireIndianAddress, AvailingApostilleService, informationservices, Confirmselectedservicestimeline;
+
+            Requirehardcopy = document.getElementById("Requirehardcopy");
+            Couriernotarizedcertified = document.getElementById("Couriernotarizedcertified");
+            Needapostille = document.getElementById("Needapostille");
+            CourierEntireIndianAddress = document.getElementById("CourierEntireIndianAddress");
+            AvailingApostilleService = document.getElementById("AvailingApostilleService");
+            informationservices = document.getElementById("Mandatoryadditionalinformationservices");
+            Confirmselectedservicestimeline = document.getElementById('Confirmselectedservicestimeline');
+
+
+            if (Confirmselectedservicestimeline != '')
+                Confirmselectedservicestimeline.innerHTML = '';
+            if (Couriernotarizedcertified.innerHTML != '')
+                Couriernotarizedcertified.innerHTML = '';
+            if (Requirehardcopy.innerHTML != '')
+                Requirehardcopy.innerHTML = '';
+            if (Needapostille.innerHTML != '')
+                Needapostille.innerHTML = '';
+            if (CourierEntireIndianAddress.innerHTML != '')
+                CourierEntireIndianAddress.innerHTML = '';
+            if (AvailingApostilleService.innerHTML != '')
+                AvailingApostilleService.innerHTML = '';
+            if (informationservices.innerHTML != '')
+                informationservices.innerHTML = '';
+            for (var i = 0; i < filterdata.length; i++) {
+
+                if (filterdata[i].name == "Confirmselectedservicestimeline") {
+                    const label = document.createElement('label');
+                    label.innerHTML = "✔️ " + filterdata[i].description;
+                    label.setAttribute('id', filterdata[i].id);
+                    label.setAttribute('value', filterdata[i].name);
+                    Confirmselectedservicestimeline.appendChild(label);
+                    Confirmselectedservicestimeline.appendChild(document.createElement('br'));
+                }
+
+                if (filterdata[i].name == "Requirehardcopy" && filterdata[i].typeOfElement == "Radio") {
+                    var radioButton = document.createElement("input");
+                    radioButton.setAttribute("type", "radio");
+                    radioButton.setAttribute("name", "Requirehardcopyoptions");
+                    radioButton.setAttribute("value", filterdata[i].name);
+                    radioButton.setAttribute("id", filterdata[i].id);
+                    var label = document.createElement("label");
+                    //label.setAttribute("for", filterdata[i].name);
+                    label.innerHTML = " " + filterdata[i].description;
+
+                    Requirehardcopy.appendChild(radioButton);
+                    Requirehardcopy.appendChild(label);
+                    Requirehardcopy.appendChild(document.createElement("br"));
+                }
+                if (filterdata[i].name == "Couriernotarizedcertified") {
+                    var radioButton = document.createElement("input");
+                    radioButton.setAttribute("type", "radio");
+                    radioButton.setAttribute("name", "Couriernotarizedcertifiedoptions");
+                    radioButton.setAttribute("value", filterdata[i].name);
+                    radioButton.setAttribute("id", filterdata[i].id);
+                    var label = document.createElement("label");
+                    //label.setAttribute("for", filterdata[i].name);
+                    label.innerHTML = " " + filterdata[i].description;
+
+                    Couriernotarizedcertified.appendChild(radioButton);
+                    Couriernotarizedcertified.appendChild(label);
+                    Couriernotarizedcertified.appendChild(document.createElement("br"));
+                }
+                if (filterdata[i].name == "Needapostille") {
+                    var radioButton = document.createElement("input");
+                    radioButton.setAttribute("type", "radio");
+                    radioButton.setAttribute("name", "Needapostilleoptions");
+                    radioButton.setAttribute("value", filterdata[i].name);
+                    radioButton.setAttribute("id", filterdata[i].id);
+                    if (filterdata[i].description == "Only the source document (original) (+₹2,500.00)") {
+                        selectedamount = selectedamount + parseInt(filterdata[i].price);
+                        radioButton.checked = true;
+                        document.getElementById("price").innerHTML = "₹ " + selectedamount;
+                    }
+                    var label = document.createElement("label");
+                    //label.setAttribute("for", filterdata[i].name);
+                    label.innerHTML = " " + filterdata[i].description;
+
+                    Needapostille.appendChild(radioButton);
+                    Needapostille.appendChild(label);
+                    Needapostille.appendChild(document.createElement("br"));
+                }
+                if (filterdata[i].name == "CourierIndianaddress" && filterdata[i].typeOfElement == "Radio") {
+                    var radioButton = document.createElement("input");
+                    radioButton.setAttribute("type", "radio");
+                    radioButton.setAttribute("name", "CourierIndianaddressoptions");
+                    radioButton.setAttribute("value", filterdata[i].name);
+                    radioButton.setAttribute("id", filterdata[i].id);
+                    if (filterdata[i].description == "Yes") {
+                        radioButton.checked = true;
+                    }
+                    var label = document.createElement("label");
+                    //label.setAttribute("for", filterdata[i].name);
+                    label.innerHTML = " " + filterdata[i].description;
+
+                    CourierEntireIndianAddress.appendChild(radioButton);
+                    CourierEntireIndianAddress.appendChild(label);
+                    CourierEntireIndianAddress.appendChild(document.createElement("br"));
+                }
+                if (filterdata[i].name == "ConfirmationApostilleservice") {
+                    var checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.id = filterdata[i].id;
+                    checkbox.name = filterdata[i].name;
+                    checkbox.value = " " + filterdata[i].description;
+
+                    checkbox.addEventListener('change', function () {
+                        console.log('Checkbox changed:', this.checked);
+                        //const myDiv = document.getElementById('Confirmselectedservicestimeline');
+                        //myDiv.innerHTML = '';
+                        alert("AvailingApostilleService");
+                    });
+
+                    AvailingApostilleService.appendChild(checkbox);
+                    var label = document.createElement('label');
+                    label.htmlFor = filterdata[i].description;
+                    label.appendChild(document.createTextNode(filterdata[i].description));
+                    AvailingApostilleService.appendChild(label);
+                    AvailingApostilleService.appendChild(document.createElement('br'));
+                }
+
+                if (filterdata[i].name == "Mandatoryadditionalinformationservices") {
+                    var label = document.createElement('label');
+                    label.id = filterdata[i].id;
+                    label.innerHTML = filterdata[i].description;
+                    label.setAttribute('class', 'labelstyle');
+                    informationservices.appendChild(label);
+
+                    var textarea = document.createElement('textarea');
+                    textarea.setAttribute('class', 'textarea');
+                    textarea.setAttribute('placeholder', 'Enter text here...');
+                    informationservices.appendChild(textarea);
+                }
+            }
+
+            const Requirehardcopyradios = document.querySelectorAll('input[name="Requirehardcopyoptions"]');
+            Requirehardcopyradios.forEach(radio => {
+                radio.addEventListener("click", () => {
+                    const name = radio.name;
+                    var amount = filterdata.filter(item => item.id === parseInt(radio.id))
+                    selectedamount = parseInt(amount[0].price);
+                    document.getElementById("price").innerHTML = "₹ " + selectedamount;
+                });
+            });
+            const Needapostilleradios = document.querySelectorAll('input[name="Needapostilleoptions"]');
+            Needapostilleradios.forEach(radio => {
+                radio.addEventListener("click", () => {
+                    const name = radio.name;
+                    var amount = filterdata.filter(item => item.id === parseInt(radio.id))
+                    selectedamount = parseInt(amount[0].price);
+                    document.getElementById("price").innerHTML = "₹ " + selectedamount;
+                });
+            });
+
+            const CourierIndianaddressradios = document.querySelectorAll('input[name="CourierIndianaddressoptions"]');
+            CourierIndianaddressradios.forEach(radio => {
+                radio.addEventListener("click", () => {
+                    const name = radio.name;
+                    var amount = filterdata.filter(item => item.id === parseInt(radio.id))
+                    if (amount[0].description != "Yes") {
+                        console.log(parseInt(amount[0].price));
+                        selectedamount = (selectedamount) + (parseInt(amount[0].price));
+                    }
+                    document.getElementById("price").innerHTML = "₹ " + selectedamount;
+                });
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="home-page-bkL">
+        @using (Html.BeginForm())
+        {
+            <div class="auto-group-zycb-x2U">
+                <div class="rectangle-1-HqS">
+                    <div class="rectangle-1-HqS-bg">
+                    </div>
+                </div>
+                <div class="group-4-LHv">
+                    <div class="group-11-3y2">
+                        <div class="frame-4-QHn">
+                            <img class="fluent-person-available-16-filled-6wJ" src="~/assets/fluent-person-available-16-filled.png" />
+                            <p class="service-available-24-7-QSC">Service Available 24/7 </p>
+
+
+                        </div>
+                        <div class="line-4-2bz">
+                        </div>
+                        <div class="frame-5-7dS">
+                            <img class="dashicons-awards-2Ec" src="~/assets/dashicons-awards.png" />
+                            <p class="year-guarantee-Xx4">1-Year Guarantee</p>
+                        </div>
+                        <div class="line-3-rUY">
+                        </div>
+                        <div class="frame-6-wVz">
+                            <img class="mdi-people-group-rcx" src="~/assets/mdi-people-group.png" />
+                            <p class="business-customers-aJ4">80,000 Business Customers</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="group-13-4j2">
+                    <div class="group-12-Q2C">
+                        <p class="different-languages-connecting-the-world-MTE">Different languages connecting the world.</p>
+                        <p class="we-aspires-to-carry-your-word-to-the-world-with-the-same-strength-grace-accuracy-and-power-GKJ">We aspires to carry your word to the world, with the same strength, grace, accuracy and power.</p>
+                    </div>
+                    <div class="frame-3-xT2">Translate now</div>
+                </div>
+            </div>
+            <div class="auto-group-hfz3-Sd6">
+                <div class="our-services-MVA">
+                    <div class="frame-240-VLU">
+                        <p class="our-services-2rC">OUR SERVICES</p>
+                        <div class="rectangle-17-Zr8">
+                        </div>
+                    </div>
+                    <div class="group-14-KKW">
+                        <div class="group-7-4Xz">
+                            <img class="group-8-mhJ" src="~/assets/group-8-s9i.png" />
+                            <p class="translation-localization-6zU">Translation &amp; Localization </p>
+                            <p class="using-only-the-native-translators-dUc">Using only the native translators</p>
+                            <div class="frame-7-MfW">
+                                <p class="explore-more-hDa">Explore More</p>
+                                <img class="arrow-12-EDW" src="~/assets/arrow-12-18C.png" />
+                            </div>
+                        </div>
+                        <div class="group-8-iuN">
+                            <img class="group-8-3gk" src="~/assets/group-8-eQQ.png" />
+                            <p class="voice-over-subtitling-neL">Voice Over &amp; Subtitling</p>
+                            <p class="in-house-voice-talent-and-post-production-iXz">In-house voice talent and post production</p>
+                            <div class="frame-7-qcc">
+                                <p class="explore-more-N6k">Explore More</p>
+                                <img class="arrow-12-JWC" src="~/assets/arrow-12-SB2.png" />
+                            </div>
+                        </div>
+                        <div class="group-9-1fW">
+                            <img class="group-8-Xdr" src="~/assets/group-8.png" />
+                            <p class="transcription-U3J">Transcription</p>
+                            <p class="offering-high-quality-audio-transcription-and-video-transcription-services-btc">Offering high quality audio transcription and video transcription services</p>
+                            <div class="frame-7-uPW">
+                                <p class="explore-more-rJk">Explore More</p>
+                                <img class="arrow-12-Brp" src="~/assets/arrow-12-CWc.png" />
+                            </div>
+                        </div>
+                        <div class="group-10-hqA">
+                            <img class="auto-group-6kkq-2sS" src="~/assets/auto-group-6kkq.png" />
+                            <p class="interpretation-yGt">Interpretation</p>
+                            <p class="indian-vernacular-or-any-foreign-language-7P6">Indian vernacular or any foreign language</p>
+                            <div class="frame-7-dcL">
+                                <p class="explore-more-anU">Explore More</p>
+                                <img class="arrow-12-7nQ" src="~/assets/arrow-12-GjA.png" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="group-39-cz4">
+                    <div class="auto-group-aytv-n7r">
+                        <p class="our-expert-translation-services-ensure-that-you-are-well-understood-and-deeply-communicate-with-your-target-market-XLL">Our expert translation services ensure that you are well understood and deeply communicate with your target market.</p>
+                        <p class="what-makes-our-translation-company-different-CBa">What makes our translation company different?</p>
+                    </div>
+                    <div class="group-38-hu2">
+                        <div class="frame-242-T7W">
+                            <div class="frame-241-ahv">
+                                <p class="item-98-Wba">98%</p>
+                                <p class="customer-satisfaction-qdr">Customer satisfaction</p>
+                            </div>
+                            <p class="our-customer-agree-that-wordstag-is-the-best-for-his-services-Zpk">Our customer agree that, Wordstag is the best for his services</p>
+                        </div>
+                        <div>
+                            <img class="xyz" style="left:8.7rem;" src="~/assets/Ellipse 7.png" />
+                            <img class="xyz" style="left:12rem;" src="~/assets/Ellipse 8.png" />
+                            <img class="xyz" style="left:15rem;" src="~/assets/Ellipse 9.png" />
+                            <a class="abc" style="left: 21rem; top: 28.5rem;"> View all</a>
+                            <img class="jkl" style="left: 27.5rem; top: 29.25rem;" src="~/assets/arrow-12-18C.png" />
+
+                        </div>
+
+                        <div class="frame-243-gPa">
+                            <div class="frame-241-R6G">
+                                <p class="item-10-MEp">10</p>
+                                <p class="years-of-professional-translation-experience-UaL">
+                                    Years of Professional
+                                    <br />
+                                    Translation Experience
+                                </p>
+                            </div>
+                            <p class="weve-had-more-than-a-decade-of-experience-optimizing-our-services-PSQ">We&#39;ve had more than a decade of experience optimizing our services.</p>
+                        </div>
+                        <div>
+                            <a class="abc" style="left:8.7rem;top: 57rem;"> View all</a>
+                            <img class="jkl" style="left:15.20rem;  top: 57.75rem;" src="~/assets/arrow-12-18C.png" />
+                        </div>
+                        <div class="frame-243-u9r">
+                            <div class="frame-241-q3W">
+                                <p class="item-1500-a16">1,500</p>
+                                <p class="native-translators-Jhn">Native translators</p>
+                            </div>
+                            <p class="a-global-pool-of-native-translators-at-your-service-anytime-anywhere-F7E">A global pool of native translators at your service, anytime, anywhere.</p>
+                        </div>
+                        <div>
+                            <img class="xyz" style="left:69rem;" src="~/assets/Ellipse 7.png" />
+                            <img class="xyz" style="left:72rem;" src="~/assets/Ellipse 8.png" />
+                            <img class="xyz" style="left:75rem;" src="~/assets/Ellipse 9.png" />
+                            <a class="abc" style="left:81rem;top: 28.5rem;"> View all</a>
+                            <img class="jkl" style="left:87.5rem;  top: 29.25rem;" src="~/assets/arrow-12-18C.png" />
+                        </div>
+
+                        <div class="frame-244-AEC">
+                            <div class="frame-241-tvt">
+                                <p class="item-100-dtU">100</p>
+                                <p class="languages-and-pairs-ANc">Languages and pairs</p>
+                            </div>
+                            <p class="we-have-the-language-pair-you-need-to-bring-meaning-to-your-words-tJc">We have the language pair you need to bring meaning to your words.</p>
+                        </div>
+                        <div>
+                            <a class="abc" style="left:69rem;top: 57rem;"> View all</a>
+                            <img class="jkl" style="left:75.5rem;  top: 57.75rem;" src="~/assets/arrow-12-18C.png" />
+                        </div>
+                        <div class="line-6-BYc">
+                        </div>
+                        <div class="line-7-iYY">
+                        </div>
+                    </div>
+                </div>
+                <div class="group-59-DEQ">
+                    <p class="trusted-by-leading-organization-around-the-world-yUU" id="trust">TRUSTED BY LEADING ORGANIZATION AROUND THE WORLD</p>
+                    <div class="group-58-Fgt">
+                        <div class="frame-58-D7v">
+                            <div class="company-logo-vY8">
+                                <img class="auto-group-uzck-qf6" src="~/assets/auto-group-uzck.png" />
+                                <img class="auto-group-ovks-a6t" src="~/assets/auto-group-ovks.png" />
+                                <img class="vector-hhJ" src="~/assets/vector-uDi.png" />
+                            </div>
+                            <img class="company-logo-dqr" src="~/assets/company-logo-qhA.png" />
+                            <img class="company-logo-wLk" src="~/assets/company-logo.png" />
+                            <img class="company-logo-3eg" src="~/assets/company-logo-ur8.png" />
+                        </div>
+                        <div class="frame-58-BVz">
+                            <img class="company-logo-6N4" src="~/assets/company-logo-kbi.png" />
+                            <div class="company-logo-crC">
+                                <img class="vector-ZmS" src="~/assets/vector-6Vv.png" />
+                                <img class="vector-JU8" src="~/assets/vector-vx8.png" />
+                            </div>
+                            <img class="company-logo-SaL" src="~/assets/company-logo-xhe.png" />
+                            <div class="company-logo-Zur">
+                                <img class="vector-uD2" src="~/assets/vector-zkY.png" />
+                                <img class="vector-FXn" src="~/assets/vector.png" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="group-40-mFE">
+                <div class="group-47-UvL">
+                    <p class="you-provide-we-translate-2wr">
+                        You Provide.
+                        <br />
+                        We Translate.
+                    </p>
+                    <p class="in-many-cultures-and-religions-a-stag-or-a-deer-represents-strength-sacredness-vitality-grace-power-peace-harmony-and-abundance-wov">
+                        In many cultures and religions, a stag or a deer represents strength, sacredness, vitality, grace, power, peace, harmony and abundance.
+                        <br />
+
+                    </p>
+                    <a class="about-us-1Hz" style="text-decoration: none" asp-action="About" asp-controller="About">About Us</a>
+                </div>
+            </div>
+            <div class="group-56-rhv">
+                <div class="auto-group-nyrs-nLg">
+                    <p class="choose-a-plan-hTe" id="pricing">Choose a Plan </p>
+                    <div class="frame-249-ide">
+                        <p class="translation-3R2">TRANSLATION</p>
+                        <div>
+                            @Html.DropDownList("ProductDropdown", ViewBag.ProductDropdown as List<SelectListItem>, new {@class = "dropdownstyle" })
+                        </div>
+                    </div>
+                    <p class="lorem-ipsum-dolor-sit-amet-consectetur-adipiscing-elit-ut-eu-elit-pellentesque-commodo-lectus-sit-amet-hendrerit-orci-maecenas-congue-velit-et-tempus-volutpat-donec-mattis-quam-ut-ullamcorper-porta-sed-rutrum-auctor-nisi-efficitur-iaculis-RK6">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eu elit pellentesque, commodo lectus sit amet, hendrerit orci. Maecenas congue velit et tempus volutpat. Donec mattis quam ut ullamcorper porta. Sed rutrum auctor nisi efficitur iaculis.</p>
+                </div>
+                <div class="group-55-eSk">
+                    <div class="group-54-PfE">
+                        <div class="auto-group-ijvp-KHz">
+                            <p class="from-TQC">FROM</p>
+                            @Html.DropDownList("FromLanguages", (IEnumerable<SelectListItem>)ViewBag.FromLanguages, null, new {@class = "dropdownstyle" })
+                        </div>
+                        <div class="frame-248-UyW">
+                            <div class="ellipse-12-zBA">
+                            </div>
+                            <div class="ellipse-13-icx">
+                            </div>
+                            <div class="ellipse-14-f2Q">
+                            </div>
+                            <div class="ellipse-15-oPW">
+                            </div>
+                            <div class="ellipse-16-9CU">
+                            </div>
+                            <div class="ellipse-17-5rp">
+                            </div>
+                            <div class="ellipse-18-EDv">
+                            </div>
+                            <div class="ellipse-20-A7a">
+                            </div>
+                            <div class="ellipse-19-u5A">
+                            </div>
+                            <div class="ellipse-21-Et8">
+                            </div>
+                        </div>
+                        <div class="auto-group-1pgw-yKv">
+                            <p class="to-iYQ">TO</p>
+                            @Html.DropDownList("ToLanguages", (IEnumerable<SelectListItem>)ViewBag.ToLanguages, null, new {@class = "dropdownstyle" })
+                        </div>
+                    </div>
+                    <div class="group-53-jrp">
+                        @*<div style="width:30%">*@
+                        <div class="group-50-5Qt" id="group50">
+                            <div class="group-48-cQp"><label id="Labelstandard"></label></div>
+                            <a href="#" id="standardLink" style="text-decoration: none;">
+                                <div class="auto-group-qmkw-Uxp">
+                                    <div class="frame-247-cJL">
+                                        <div class="frame-246-N2c">
+                                            <img class="vector-7kt" src="~/assets/vector-4AL.png" />
+                                            <p class="item-200-Fs6"><label id="standardprice"></label></p>
+                                        </div>
+                                        <p class="per-word-nc8">per word</p>
+                                    </div>
+                                </div>
+                            </a>
+                            <p class="machine-text-translation-Wo2">Machine text translation</p>
+                            <div class="group-49-Rf6">
+                                <div class="frame-33-Yji">
+                                    <img class="dashicons-yes-alt-4xx" src="~/assets/dashicons-yes-alt.png" />
+                                    <p class="unedited-Bng">Unedited</p>
+                                </div>
+                                <div class="frame-34-Kdz">
+                                    <img class="dashicons-yes-alt-rtp" src="~/assets/dashicons-yes-alt-cb2.png" />
+                                    <p class="instant-service-zEL">Instant Service</p>
+                                </div>
+                                <div class="frame-236-iRE">
+                                    <img class="dashicons-yes-alt-e3z" src="~/assets/dashicons-yes-alt-MsN.png" />
+                                    <p class="free-trial-xaU">1-Free Trial</p>
+                                </div>
+                            </div>
+                        </div>
+                        @*  </div>*@
+                        <div class="group-51-rvk" id="group51">
+
+                            <div class="group-48-oLC"><label id="Labeladvanced"></label></div>
+                            <a href="#" id="advancedLink" style="text-decoration: none;">
+                                <div class="auto-group-yvb5-get">
+                                    <div class="frame-247-ozQ">
+                                        <div class="frame-246-Zig">
+                                            <img class="vector-8Fz" src="~/assets/vector-q9J.png" />
+                                            <p class="item-500-sUU"><label id="advancedprice"></label></p>
+                                        </div>
+                                        <p class="per-word-D2Y">per word</p>
+                                    </div>
+                                </div>
+                            </a>
+                            <p class="expert-text-translation-wjE">Expert text translation</p>
+                            <div class="group-49-gB2">
+                                <div class="frame-33-bon">
+                                    <img class="dashicons-yes-alt-itQ" src="~/assets/dashicons-yes-alt-efA.png" />
+                                    <p class="edited-by-an-expert-e1N">Edited by an expert</p>
+                                </div>
+                                <div class="frame-34-yJY">
+                                    <img class="dashicons-yes-alt-WJU" src="~/assets/dashicons-yes-alt-Fda.png" />
+                                    <p class="delivered-in-an-hours-2Xi">Delivered in an hours</p>
+                                </div>
+                                <div class="frame-236-MZz">
+                                    <img class="dashicons-yes-alt-soE" src="~/assets/dashicons-yes-alt-jJ8.png" />
+                                    <p class="plain-text-CqW">Plain text</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="group-52-uV2" id="group52">
+                            <div class="group-48-2Jk"><label id="Labelpremium"></label></div>
+                            <a href="#" id="premiumLink" style="text-decoration: none;">
+                                <div class="auto-group-bivf-UgY">
+                                    <div class="frame-247-nhE">
+                                        <div class="frame-246-jMa">
+                                            <img class="vector-Hdz" src="~/assets/vector-6Wc.png" />
+                                            <p class="item-800-E3S"><label id="premiumprice"></label></p>
+                                        </div>
+                                        <p class="per-word-kXa">per word</p>
+                                    </div>
+                                </div>
+                            </a>
+                            <p class="professional-translation-Fz8">Professional translation</p>
+                            <div class="group-49-C8g">
+                                <div class="auto-group-uqdv-8HE">
+                                    <div class="frame-33-GeL">
+                                        <img class="dashicons-yes-alt-a9E" src="~/assets/dashicons-yes-alt-XVa.png" />
+                                        <p class="edited-by-an-expert-J5E">Edited by an expert</p>
+                                    </div>
+                                    <div class="frame-34-PcU">
+                                        <img class="dashicons-yes-alt-VvQ" src="~/assets/dashicons-yes-alt-rvc.png" />
+                                        <p class="delivered-in-an-hours-R3N">Delivered in an hours</p>
+                                    </div>
+                                </div>
+                                <div class="frame-236-9EG">
+                                    <img class="dashicons-yes-alt-GZn" src="~/assets/dashicons-yes-alt-aTS.png" />
+                                    <p class="supported-doc-pdf-pptx-no2">Supported .doc, pdf, pptx</p>
+                                </div>
+                                <div class="frame-237-7qJ">
+                                    <img class="dashicons-yes-alt-rH6" src="~/assets/dashicons-yes-alt-N16.png" />
+                                    <p class="keeping-the-format-on-demand-NWL">Keeping the format on demand</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="group-51-rvknew" id="group53">
+                            <div style="font-size:medium">
+                                <h1>Gujarati to English Birth Certificate</h1>
+                                <span class="woocs_price_code" data-product-id="19704"><del aria-hidden="true"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">₹</span>1,050.00</bdi></span></del> <ins><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">₹</span>750.00</bdi></span></ins> <small class="woocommerce-price-suffix">per page (auto-discount for multiple pages)</small></span>
+                                <br /><br />
+                                <p><em><strong id="order-now">3 easy steps</strong></em> to order internationally accepted Gujarati to English certified translation of Birth Certificate in <em><strong>48 hours</strong></em> with various additional options.</p><br>
+                                <ol>
+                                    <li><em>1.Select number of <strong>applicants </strong>and required <strong>services</strong></em></li>
+                                    <li><em>2.Confirm service details &amp; timeline and “<strong>Proceed to Checkout</strong>”</em></li>
+                                    <li><em>3.Enter <strong>billing</strong> details, <strong>upload</strong> Gujarati Birth Certificate/s and <strong>pay</strong>!</em></li>
+                                </ol>
+                                <br>
+                                <p>Order below or Scroll down the page for full service description.</p> <br /><hr><br />
+                                <h3><span style="color: red">Do Birth Certificates belong to multiple applicants?</span></h3><br />
+                                <aside>(Which will require us to issue more than one certificate)</aside>
+
+                                <label class="labelstyle">No. of applicants:<abbr class="required" title="required">*</abbr></label><br><br>
+                                <div style="width:50%">
+                                    @Html.DropDownList("noofapplicant", ViewBag.noofapplicant as List<SelectListItem>, new {@class = "dropdownstyle" ,style="padding: 0rem 0rem 0rem 1rem;" })
+                                </div>
+                                <div data-is-required="" data-field-id="60b9d78f814e0">
+                                    <h3><span style="color: red">Select required services:</span></h3>
+                                    <br>
+                                    ☑️&nbsp;<span>Certified Translation (Included by default - free)</span>
+                                </div>
+                                <br>
+                                <div for="60ae7178ee575">
+                                    <div class="wapf-field-label wapf--above">
+                                        <div id="documentApostilled">
+                                            <label class="labelstyle">
+                                                Require document/s to be Apostilled?
+                                                <abbr class="required" title="required">*</abbr>
+                                            </label> <br>
+                                        </div>
+                                    </div>
+                                    <br>
+                                </div>
+                                <label class="labelstyle" id="NeedapostilleLabel" style="display:none">Need apostille of:</label><br>
+                                <div id="Needapostille">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="group-51-rvknew" id="group54">
+                            <div style="font-size:medium">
+                                <div>
+                                    <label class="labelstyle" id="CanadaImmigrationVisaLabel">Applying for Canada immigration/visa?</label>
+                                    <br>
+                                    <div id="CanadaImmigrationVisa"></div>
+                                </div>
+                                <label class="labelstyle" id="CourierEntireIndianAddressLabel" style="display:none;">Courier entire set to an Indian address?</label><br>
+                                <div id="CourierEntireIndianAddress">
+                                </div>
+                                <div>
+                                    <label class="labelstyle" id="RequirenotarizedtranslationLabel" style="display:none;">
+                                        Require notarized translation?
+                                        <abbr class="required" title="required">*</abbr>
+                                    </label> <br>
+                                </div>
+                                <div id="Requirenotarizedtranslation">
+                                </div>
+                                <div>
+                                    <label class="labelstyle" id="RequirehardcopyLabel" style="display:none;">Require hard copy? *</label><br>
+                                </div>
+                                <div id="Requirehardcopy"> </div>
+                                <label class="labelstyle" id="CouriernotarizedcertifiedLabel" style="display:none;">
+                                    Courier notarized & certified translation to an Indian address?
+                                </label>
+                                <div id="Couriernotarizedcertified">
+                                    <br>
+                                </div>
+                                <br><hr>
+                                <h3><label style="color: red; display:none;" id="ConfirmselectedservicestimelineLabel">Confirm selected services &amp; timeline (or change selections above):</label></h3><br>
+                                <div id="Confirmselectedservicestimeline">
+                                </div>
+                                <hr>
+                                <label style="color: red; display:none;" id="MandatoryadditionalinformationservicesLabel"><strong>Mandatory additional information based on selected services:</strong></label>
+                                <div id="Mandatoryadditionalinformationservices">
+                                    <br>
+                                </div>
+                                @*<div>
+                            <textarea style="width:100%; height:70px;" name="textaredfgbh" id="CourierServiceAddress" placeholder="Kindly enter a complete local Indian Address (with contact person's name and Indian phone number). We do not deliver abroad presently." required=""></textarea>
+                            </div>*@<br>
+                                <label class="labelstyle" id="AvailingApostilleServiceLabel" style="display:none">Confirmation required for availing Apostille service:<abbr class="required" title="required">*</abbr></label>
+                                <div id="AvailingApostilleService">
+                                    @*
+                                <br>
+                                <input id="1" type="checkbox" value="true" unchecked />
+                                Source document (original) is issued by Indian authorities.
+                                <br>
+                                <input id="2" type="checkbox" value="true" unchecked />
+                                You (client) will courier the original document/s to our Delhi office - Detailed instructions will be shared after order confirmation*@
+                                </div><br>
+
+                                <br>
+                                <div>
+                                    <span style="font-weight: 400;">Add-ons Cost (Total for all pages/documents)</span>
+                                    <label id="price" style="padding-left: 5%;">₹0.00</label>
+                                    <input type="hidden" id="hdntotal">
+                                </div><br>
+                                <button type="submit" name="add-to-cart" value="19704" class="dropdownstyle" style="background-color: #6a1d59; color: white;">Proceed to checkout</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="group-66-eTr">
+                <p class="faq-Zap" id="faq">FAQ</p>
+                <div class="group-65-H12">
+                    <div class="group-60-QbS">
+                        <p class="what-is-wordstag-jNp">What is Wordstag?</p>
+                        <img class="ic-outline-plus-TZi" src="~/assets/ic-outline-plus.png" />
+                    </div>
+                    <div class="group-61-PTN">
+                        <p class="how-many-languages-does-wordstag-support-KM2">How many languages does Wordstag support?</p>
+                        <img class="ic-outline-plus-DxC" src="~/assets/ic-outline-plus-k8Q.png" />
+                    </div>
+                    <div class="group-62-A6k">
+                        <p class="how-can-i-communicate-with-the-translator-VPv">How can I communicate with the translator?</p>
+                        <img class="ic-outline-plus-1dA" src="~/assets/ic-outline-plus-QdW.png" />
+                    </div>
+                    <div class="group-63-LvL">
+                        <p class="how-can-i-track-the-status-of-my-translation-gUQ">How can I track the status of my translation?</p>
+                        <img class="ic-outline-plus-bLU" src="~/assets/ic-outline-plus-176.png" />
+                    </div>
+                    <div class="group-64-w9S">
+                        <p class="how-can-i-become-a-translator-at-wordstag-Tda">How can I become a translator at Wordstag?</p>
+                        <img class="ic-outline-plus-z7i" src="~/assets/ic-outline-plus-4JU.png" />
+                    </div>
+                </div>
+            </div>
+            <div class="frame-73-W64">
+                <div class="group-71-psS">
+                    <p class="get-in-touch-nJU">Get in Touch</p>
+                    <p class="looking-to-establish-a-local-footprint-in-emerging-global-markets-contact-to-our-language-expert-today-WEU">Looking to establish a local footprint in emerging global markets? Contact to our language expert today</p>
+                </div>
+                <div class="group-72-Q4x">
+                    <div class="group-81-jsv">
+                        <div class="auto-group-blvw-tF2">
+                            <div class="group-67-SGY">
+                                <p class="first-name-zJ4">
+                                    First name
+                                </p>
+                                <input type="text" class="rectangle-27-hiG" />
+
+                            </div>
+                            <div class="group-68-d68">
+                                <p class="last-name-yvg">Last name</p>
+                                <input type="text" class="rectangle-27-idN" />
+
+                            </div>
+                        </div>
+                        <div class="group-69-eX2">
+                            <p class="e-mail-D4L">E-mail</p>
+                            <input type="text" class="rectangle-27-8wz" />
+
+                        </div>
+                        <div class="group-70-sPn">
+                            <p class="message-dNx">Message</p>
+                            <input type="text" class="rectangle-27-ZGc" />
+
+                        </div>
+                    </div>
+                    <p class="by-submitting-this-form-you-agree-to-wordstags-privacy-policy-and-terms-conditions-5Ex">
+                        <span class="by-submitting-this-form-you-agree-to-wordstags-privacy-policy-and-terms-conditions-5Ex-sub-0">By submitting this form, you agree to WORDSTAG’S </span>
+                        <span class="by-submitting-this-form-you-agree-to-wordstags-privacy-policy-and-terms-conditions-5Ex-sub-1"> Privacy Policy</span>
+                        <span class="by-submitting-this-form-you-agree-to-wordstags-privacy-policy-and-terms-conditions-5Ex-sub-2"> and </span>
+                        <span class="by-submitting-this-form-you-agree-to-wordstags-privacy-policy-and-terms-conditions-5Ex-sub-3">Terms &amp; Conditions.</span>
+                    </p>
+                    <div class="frame-71-rBA">Continue</div>
+                </div>
+            </div>
+        }
+    </div>
+</body>
+</html>
+

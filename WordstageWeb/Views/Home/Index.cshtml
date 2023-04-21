@@ -22,21 +22,27 @@
             flex-shrink: 0;
             margin-top: 0.1rem;
             padding: 1rem 0rem 1rem 1rem;
+            border: 1px solid #333333;
         }
-        .buttonstyle{
+
+        .buttonstyle {
             padding: 7px 11px;
             margin: 0 15px 15px 0;
             border-radius: 4px;
             border: 1px solid #ccc;
         }
-        .buttoncolor{
-             border-color: cornflowerblue;
+
+        .buttoncolor {
+            border-color: cornflowerblue;
             background: cornflowerblue;
         }
-        .labelstyle{
-            color:teal;
-            font-weight:bold;"
+
+        .labelstyle {
+            color: teal;
+            font-weight: bold;
+            "
         }
+
         .required {
             color: red;
             font-size: 18px;
@@ -45,6 +51,7 @@
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript">
+        var TotalPrice = 0;
         $(document).ready(function () {
             var myModelList, Pselect, fromselect, toselect, translationtype;
 
@@ -71,36 +78,180 @@
                 toselect = $(this).val();
                 LoadProductData(Pselect, fromselect, toselect);
             });
-            $("#CanadaImmigrationVisa").bind('change', function () {
+            $("#CanadaImmigrationVisaCheck").bind('change', function () {
                 if ($(this).is(':checked')) {
                     if (document.getElementById("btnno").style.background == "cornflowerblue") {
-                        alert("cornflowerblue");
+
                         document.getElementById("Couriernotarizedcertified").style.display = 'block';
-                        //document.getElementById("Requirehardcopy").style.display = 'block';
-                    }
-                    else if (document.getElementById("btnyes").style.background == "cornflowerblue") {
-                        alert("no");
-                        document.getElementById("Couriernotarizedcertified").style.display = 'none';
+                        document.getElementById("availingApostille").style.display = 'none';
+                        document.getElementById("Delivery").style.display = 'none';
                         document.getElementById("Requirehardcopy").style.display = 'none';
                         document.getElementById("notarizedtranslation").style.display = 'none';
+                        document.getElementById("Notarization").style.display = 'block';
+                        document.getElementById("selectedservices").style.display = 'block';
+                        document.getElementById("Deliverystandard").style.display = 'block';
+
+                        if (document.getElementById("notarizedtranslationbutonYes").style.background == "cornflowerblue") {
+                            document.getElementById("selectedservices").style.display = 'none';
+                            document.getElementById("Deliverystandard").style.display = 'none';
+                            document.getElementById("Notarizationcertified").style.display = 'none';
+                            document.getElementById("notarizedtranslationbutonYes").style.borderColor = '#ccc';
+                            document.getElementById("notarizedtranslationbutonYes").style.background = '#ccc';
+
+                            document.getElementById("notarizedtranslationbutonNo").style.borderColor = 'cornflowerblue';
+                            document.getElementById("notarizedtranslationbutonNo").style.background = 'cornflowerblue';
+                        }
+
                     }
-                    //alert("Checked");
-                    document.getElementById("Apostille").style.display = 'block';
-                    document.getElementById("Delivery").style.display = 'block';
-                    document.getElementById("selectedservices").style.display = 'block';
-                    document.getElementById("Notarization").style.display = 'block';
+                    else if (document.getElementById("btnyes").style.background == "cornflowerblue") {
+                        document.getElementById("Couriernotarizedcertified").style.display = 'none';
+                        document.getElementById("availingApostille").style.display = 'block';
+                        document.getElementById("Delivery").style.display = 'block';
+                        document.getElementById("selectedservices").style.display = 'block';
+                        document.getElementById("Notarization").style.display = 'block';
+                        document.getElementById("Deliverystandard").style.display = 'none';
+                        var checkcondition = document.getElementById('Courierindianaddreesradio');
+                        if (checkcondition.checked) {
+                            document.getElementById("selectedservices").style.display = 'none';
+                            document.getElementById("Delivery").style.display = 'none';
+                        }
+                    }
                 }
                 else {
-                    //alert("Unchecked");
-                    document.getElementById("Couriernotarizedcertified").style.display = 'none';
-                    document.getElementById("notarizedtranslation").style.display = 'block';
-                    document.getElementById("Requirehardcopy").style.display = 'block';
-                    document.getElementById("Apostille").style.display = 'none';
-                    document.getElementById("Delivery").style.display = 'none';
-                    document.getElementById("selectedservices").style.display = 'none';
-                    document.getElementById("Notarization").style.display = 'none';
+                    if (document.getElementById("btnno").style.background == "cornflowerblue") {
 
+                        document.getElementById("Couriernotarizedcertified").style.display = 'none';
+                        document.getElementById("availingApostille").style.display = 'none';
+                        document.getElementById("Delivery").style.display = 'none';
+                        document.getElementById("Requirehardcopy").style.display = 'block';
+                        document.getElementById("notarizedtranslation").style.display = 'block';
+                        document.getElementById("Notarization").style.display = 'none';
+                        document.getElementById("selectedservices").style.display = 'none';
+                        document.getElementById("Deliverystandard").style.display = 'none';
+                    }
+                    else if (document.getElementById("btnyes").style.background == "cornflowerblue") {
+                        document.getElementById("Couriernotarizedcertified").style.display = 'none';
+                        document.getElementById("availingApostille").style.display = 'block';
+                        //document.getElementById("Delivery").style.display = 'none';
+                        document.getElementById("selectedservices").style.display = 'block';
+                        document.getElementById("Notarization").style.display = 'none';
+                        var checkcondition = document.getElementById('Courierindianaddreesradio');
+                        if (checkcondition.checked) {
+                            document.getElementById("selectedservices").style.display = 'none';
+                            document.getElementById("Delivery").style.display = 'none';
+                        }
+                    }
+                    var Yessendradio = document.getElementById('Yessendradio');
+                    Yessendradio.checked = true;
                 }
+                PriceCalculation();
+            });
+            $("#hardcopyNoradio").bind('change', function () {
+                document.getElementById("Deliveryviaemail").style.display = 'block';
+                document.getElementById("Deliverystandard").style.display = 'none';
+                document.getElementById("Delivery").style.display = 'none';
+                document.getElementById("selectedservices").style.display = 'none';
+            });
+            $("#hardcopyYesradio").bind('change', function () {
+                document.getElementById("Deliverystandard").style.display = 'block';
+                document.getElementById("Deliveryviaemail").style.display = 'none';
+                document.getElementById("Delivery").style.display = 'none';
+                document.getElementById("selectedservices").style.display = 'block';
+
+            });
+            $("#hardcopyYesexpressradio").bind('change', function () {
+                document.getElementById("Deliverystandard").style.display = 'none';
+                document.getElementById("Delivery").style.display = 'block';
+                document.getElementById("Deliveryviaemail").style.display = 'none';
+                document.getElementById("selectedservices").style.display = 'block';
+            });
+
+            $("#onlysourceradio").bind('change', function () {
+                document.getElementById("Apostillesource").style.display = 'block';
+                document.getElementById("Apostilletranslated").style.display = 'none';
+                document.getElementById("Apostilleboth").style.display = 'none';
+            });
+            $("#certifiedradio").bind('change', function () {
+                document.getElementById("Apostillesource").style.display = 'none';
+                document.getElementById("Apostilletranslated").style.display = 'block';
+                document.getElementById("Apostilleboth").style.display = 'none';
+
+            });
+            $("#Bothradio").bind('change', function () {
+                document.getElementById("Apostillesource").style.display = 'none';
+                document.getElementById("Apostilletranslated").style.display = 'none';
+                document.getElementById("Apostilleboth").style.display = 'block';
+
+            });
+            $("#Courierindianaddreesradio").bind('change', function () {
+                document.getElementById("selectedservices").style.display = 'none';
+                document.getElementById("Deliveryemailself").style.display = 'block';
+                document.getElementById("Delivery").style.display = 'none';
+
+            });
+            $("#Yesradio").bind('change', function () {
+                document.getElementById("selectedservices").style.display = 'block';
+                document.getElementById("Deliveryemailself").style.display = 'none';
+                document.getElementById("Delivery").style.display = 'block';
+            });
+
+            $("#Noonlyscanradio").bind('change', function () {
+                document.getElementById("Notarizationcertified").style.display = 'block';
+                document.getElementById("Notarization").style.display = 'none';
+                document.getElementById("Deliverystandard").style.display = 'none';
+                document.getElementById("Deliveryemailself").style.display = 'none';
+                document.getElementById("Delivery").style.display = 'none';
+                document.getElementById("selectedservices").style.display = 'none';
+            });
+            $("#Nowillcollectradio").bind('change', function () {
+                document.getElementById("Notarizationcertified").style.display = 'block';
+                document.getElementById("Notarization").style.display = 'none';
+                document.getElementById("Deliveryemailself").style.display = 'block';
+                document.getElementById("Deliverystandard").style.display = 'none';
+                document.getElementById("Delivery").style.display = 'none';
+                document.getElementById("selectedservices").style.display = 'none';
+            });
+            $("#Yessendradio").bind('change', function () {
+                document.getElementById("Notarizationcertified").style.display = 'block';
+                document.getElementById("Notarization").style.display = 'none';
+                document.getElementById("Deliverystandard").style.display = 'block';
+                document.getElementById("Deliveryemailself").style.display = 'none';
+                document.getElementById("Delivery").style.display = 'none';
+                document.getElementById("selectedservices").style.display = 'block';
+            });
+            $("#Yessendexpressradio").bind('change', function () {
+                document.getElementById("Notarizationcertified").style.display = 'block';
+                document.getElementById("Notarization").style.display = 'none';
+                document.getElementById("Deliveryemailself").style.display = 'none';
+                document.getElementById("Deliverystandard").style.display = 'none';
+                document.getElementById("Delivery").style.display = 'block';
+                document.getElementById("selectedservices").style.display = 'block';
+            });
+            $("#noofapplicant").bind('change', function () {
+                // this function will be called whenever the value of the input changes
+                var totalbuttonYes = 0, totalcheckYes = 0, changevalue = 0;
+                var input = document.getElementById("noofapplicant");
+                var buttonYes = document.getElementById("notarizedtranslationbutonYes");
+                var checkYes = document.getElementById("CanadaImmigrationVisaCheck");
+                console.log("Input value has changed to:", input.value);
+                if (input.value != "1") {
+                    changevalue = parseInt(input.value) - 1;
+                    totalbuttonYes = 250 * changevalue + 400;
+                    totalcheckYes = 850 * changevalue + 1000;
+                    buttonYes.setAttribute("Valueattribute", totalbuttonYes);
+                    checkYes.setAttribute("Valueattribute", totalcheckYes);
+                    console.log(totalbuttonYes, "  ", totalbuttonYes);
+                    document.getElementById("CanadaImmigrationVisalabel").innerHTML = "Yes (+₹ " + totalcheckYes.toFixed(2) + ") Canada requires compulsory notarization with translator's affidavit.";
+                    document.getElementById("notarizedtranslationbutonYes").innerHTML = "Yes (+₹ " + totalbuttonYes.toFixed(2) + ")";
+                }
+                else {
+                    buttonYes.setAttribute("Valueattribute", 1000);
+                    checkYes.setAttribute("Valueattribute", 400);
+                    document.getElementById("CanadaImmigrationVisalabel").innerHTML = "Yes (+₹ 1000.00) Canada requires compulsory notarization with translator's affidavit.";
+                    document.getElementById("notarizedtranslationbutonYes").innerHTML = "Yes (+₹ 400.00)";
+                }
+
+                PriceCalculation();
             });
         });
         function LoadProductData(Product, from, to) {
@@ -151,6 +302,8 @@
                     group52.style.display = "none";
                     group53.style.display = "block";
                     group54.style.display = "block";
+                    if (item.planTypes[0].planType == "STANDARD")
+                        GetCertificateData(item.productId);
                 }
                 else {
                     group51.style.display = "block";
@@ -160,6 +313,159 @@
                 }
             });
         };
+        function GetCertificateData(Productid) {
+            $.ajax({
+                url: '/Home/LoadProductServiceData',
+                data: { 'ProductId': Productid },
+                type: 'Post',
+                dataType: 'json',
+                success: function (result) {
+                    console.log(result);
+                    productServiceResult = result;
+                    console.log(productServiceResult);
+                    for (var i = 0; i < productServiceResult.length; i++) {
+                        if (productServiceResult[i].name == "Needapostillelabel") {
+                            document.getElementById("Needapostillelabel").innerHTML = productServiceResult[i].description;
+
+                        }
+                        if (productServiceResult[i].name == "onlysourceradio") {
+                            document.getElementById("onlysourcelabel").innerHTML = productServiceResult[i].description;
+                            //document.getElementById("onlysourceradio").value = productServiceResult[i].price;
+                            document.getElementById("onlysourceradio").setAttribute("Valueattribute", productServiceResult[i].price);
+                        }
+                        if (productServiceResult[i].name == "certifiedradio") {
+                            document.getElementById("certifiedlabel").innerHTML = productServiceResult[i].description;
+                            document.getElementById("certifiedradio").setAttribute("Valueattribute", productServiceResult[i].price);
+
+                        }
+                        if (productServiceResult[i].name == "Bothradio") {
+                            document.getElementById("Bothlabel").innerHTML = productServiceResult[i].description;
+                            //document.getElementById("Bothradio").checked = true;
+                            document.getElementById("Bothradio").setAttribute("Valueattribute", productServiceResult[i].price);
+                        }
+                        if (productServiceResult[i].name == "CanadaImmigrationVisa") {
+                            document.getElementById("CanadaImmigrationVisa").innerHTML = productServiceResult[i].description;
+                        }
+                        if (productServiceResult[i].name == "CanadaImmigrationVisaCheck") {
+                            document.getElementById("CanadaImmigrationVisalabel").innerHTML = productServiceResult[i].description;
+                            //document.getElementById("onlysourceradio").value = productServiceResult[i].price;
+                            document.getElementById("CanadaImmigrationVisaCheck").setAttribute("Valueattribute", productServiceResult[i].price);
+                        }
+                        if (productServiceResult[i].name == "Courierindianaddreeslabel") {
+                            document.getElementById("Courierindianaddreeslabel").innerHTML = productServiceResult[i].description;
+                        }
+                        if (productServiceResult[i].name == "Courierindianaddreesradio") {
+                            document.getElementById("willcollectlabel").innerHTML = productServiceResult[i].description;
+                            //document.getElementById("onlysourceradio").value = productServiceResult[i].price;
+                            document.getElementById("Courierindianaddreesradio").setAttribute("Valueattribute", productServiceResult[i].price);
+                        }
+                        if (productServiceResult[i].name == "Yesradio") {
+                            document.getElementById("YesLabel").innerHTML = productServiceResult[i].description;
+                        }
+                        if (productServiceResult[i].name == "notarizedtranslationLabel") {
+                            document.getElementById("notarizedtranslationLabel").innerHTML = productServiceResult[i].description;
+                        }
+                        if (productServiceResult[i].name == "notarizedtranslationbutonNo") {
+                            document.getElementById("notarizedtranslationbutonNo").innerHTML = productServiceResult[i].description;
+                            document.getElementById("notarizedtranslationbutonNo").setAttribute("Valueattribute", productServiceResult[i].price);
+                        }
+                        if (productServiceResult[i].name == "notarizedtranslationbutonYes") {
+                            document.getElementById("notarizedtranslationbutonYes").innerHTML = productServiceResult[i].description;
+                            document.getElementById("notarizedtranslationbutonYes").setAttribute("Valueattribute", productServiceResult[i].price);
+                        }
+                        if (productServiceResult[i].name == "Requirehardcopylbl") {
+                            document.getElementById("Requirehardcopylbl").innerHTML = productServiceResult[i].description;
+                        }
+
+                        if (productServiceResult[i].name == "hardcopyNoradio") {
+                            document.getElementById("hardcopyNolabel").innerHTML = productServiceResult[i].description;
+                            document.getElementById("hardcopyNoradio").setAttribute("Valueattribute", productServiceResult[i].price);
+                        }
+                        if (productServiceResult[i].name == "hardcopyYesradio") {
+                            document.getElementById("hardcopyYeslabel").innerHTML = productServiceResult[i].description;
+                            document.getElementById("hardcopyYesradio").setAttribute("Valueattribute", productServiceResult[i].price);
+                        }
+                        if (productServiceResult[i].name == "hardcopyYesexpressradio") {
+                            document.getElementById("hardcopyYesexpresslabel").innerHTML = productServiceResult[i].description;
+                            document.getElementById("hardcopyYesexpressradio").setAttribute("Valueattribute", productServiceResult[i].price);
+                        }
+                        if (productServiceResult[i].name == "Couriernotarizedcertifiedlabel") {
+                            document.getElementById("Couriernotarizedcertifiedlabel").innerHTML = productServiceResult[i].description;
+                        }
+                        if (productServiceResult[i].name == "Noonlyscanradio") {
+                            document.getElementById("Noonlyscanlbl").innerHTML = productServiceResult[i].description;
+                            document.getElementById("Noonlyscanradio").setAttribute("Valueattribute", productServiceResult[i].price);
+                        }
+                        if (productServiceResult[i].name == "Nowillcollectradio") {
+                            document.getElementById("Nowillcollectlbl").innerHTML = productServiceResult[i].description;
+                            document.getElementById("Nowillcollectradio").setAttribute("Valueattribute", productServiceResult[i].price);
+                        }
+                        if (productServiceResult[i].name == "Yessendradio") {
+                            document.getElementById("Yessendlbl").innerHTML = productServiceResult[i].description;
+                        }
+                        if (productServiceResult[i].name == "Yessendexpressradio") {
+                            document.getElementById("Yessendexpresslbl").innerHTML = productServiceResult[i].description;
+                            document.getElementById("Yessendexpressradio").setAttribute("Valueattribute", productServiceResult[i].price);
+                        }
+                        if (productServiceResult[i].name == "Confirmselectedserviceslbl") {
+                            document.getElementById("Confirmselectedserviceslbl").innerHTML = productServiceResult[i].description;
+                        }
+                        if (productServiceResult[i].name == "CertifiedTranslation") {
+                            document.getElementById("CertifiedTranslation").innerHTML = productServiceResult[i].description;
+                        }
+
+                        if (productServiceResult[i].name == "Apostillesource") {
+                            document.getElementById("Apostillesource").innerHTML = productServiceResult[i].description;
+                        }
+                        if (productServiceResult[i].name == "Apostilletranslated") {
+                            document.getElementById("Apostilletranslated").innerHTML = productServiceResult[i].description;
+                        }
+                        if (productServiceResult[i].name == "Apostilleboth") {
+                            document.getElementById("Apostilleboth").innerHTML = productServiceResult[i].description;
+                        }
+                        if (productServiceResult[i].name == "Notarization") {
+                            document.getElementById("Notarization").innerHTML = productServiceResult[i].description;
+                        }
+                        if (productServiceResult[i].name == "Notarizationcertified") {
+                            document.getElementById("Notarizationcertified").innerHTML = productServiceResult[i].description;
+                        }
+                        if (productServiceResult[i].name == "Delivery") {
+                            document.getElementById("Delivery").innerHTML = productServiceResult[i].description;
+                        }
+                        if (productServiceResult[i].name == "Deliverystandard") {
+                            document.getElementById("Deliverystandard").innerHTML = productServiceResult[i].description;
+                        }
+                        if (productServiceResult[i].name == "Deliveryviaemail") {
+                            document.getElementById("Deliveryviaemail").innerHTML = productServiceResult[i].description;
+                        }
+                        if (productServiceResult[i].name == "Deliveryemailself") {
+                            document.getElementById("Deliveryemailself").innerHTML = productServiceResult[i].description;
+                        }
+                        if (productServiceResult[i].name == "selectedserviceslbl") {
+                            document.getElementById("selectedserviceslbl").innerHTML = productServiceResult[i].description;
+                        }
+                        if (productServiceResult[i].name == "Indianaddresslbl") {
+                            document.getElementById("Indianaddresslbl").innerHTML = productServiceResult[i].description;
+                        }
+                        if (productServiceResult[i].name == "availingApostillelbl") {
+                            document.getElementById("availingApostillelbl").innerHTML = productServiceResult[i].description;
+                        }
+                        if (productServiceResult[i].name == "availingApostillelcheck") {
+                            document.getElementById("Sourcedocumentlbl").innerHTML = productServiceResult[i].description;
+                        }
+                        if (productServiceResult[i].name == "confirmationcheck") {
+                            document.getElementById("confirmationlbl").innerHTML = productServiceResult[i].description;
+                        }
+
+                        //LoadAllData("Default", "");
+                    }
+
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert('Error: ' + thrownError);
+                }
+            });
+        }
         function createLinkWithPlanType(planType, linkId, ProductId) {
             console.log(planType, linkId, ProductId);
             const link = document.getElementById(linkId);
@@ -178,64 +484,136 @@
                 // myFunction(planType, ProductId);
             });
         };
+        function PriceCalculation() {
+            var elements = document.querySelectorAll('[Valueattribute]');
+            console.log(elements);
+            var attributeValues = [];
+            var Price = 0;
+            for (var i = 0; i < elements.length; i++) {
+                var value = elements[i].getAttribute('Valueattribute');
+                attributeValues.push(value);
+                var newid = elements[i].getAttribute('id');
+                console.log("new ID", newid);
+
+                var myRadio = document.getElementById(newid);
+                if (myRadio.checked) {
+                    Price = Price + parseInt(value);
+                    console.log(newid, 'Radio button is checked!');
+                } else {
+                    console.log(newid, 'Radio button is not checked!');
+                }
+            }
+            if (document.getElementById("notarizedtranslationbutonYes").style.background == "cornflowerblue") {
+                const attributeValue = document.getElementById("notarizedtranslationbutonYes").getAttribute("Valueattribute");
+                Price = Price + parseInt(attributeValue);
+            }
+            console.log("total", Price);
+            TotalPrice = Price;
+            document.getElementById('price').innerHTML = Price;
+            console.log("Price" + attributeValues);
+        }
         function clickok(value, btn) {
-            btn.style.background = "cornflowerblue";
-            btn.style.borderColor = "cornflowerblue";
             if (value == "Yes") {
-                document.getElementById("btnno").style.background = '#ccc';
-                document.getElementById("btnno").style.borderColor = '#ccc';
-                document.getElementById("Needapostille").style.display = 'block';
-                document.getElementById("CourierEntireIndianAddress").style.display = 'block';
-                document.getElementById("notarizedtranslation").style.display = 'none';
-                document.getElementById("Requirehardcopy").style.display = 'none';
-                document.getElementById("Apostille").style.display = 'block';
-                document.getElementById("Delivery").style.display = 'block';
-                document.getElementById("selectedservices").style.display = 'block';
-                document.getElementById("AvailingApostilleService").style.display = 'block';
-                document.getElementById("Couriernotarizedcertified").style.display = 'none';
+                if (document.getElementById("btnyes").style.borderColor != 'cornflowerblue') {
+                    document.getElementById("btnno").style.background = '#ccc';
+                    document.getElementById("btnno").style.borderColor = '#ccc';
+                    document.getElementById("Needapostille").style.display = 'block';
+                    document.getElementById("CourierEntireIndianAddress").style.display = 'block';
+                    document.getElementById("notarizedtranslation").style.display = 'none';
+                    document.getElementById("Requirehardcopy").style.display = 'none';
+                    document.getElementById("Apostilleboth").style.display = 'none';
+                    document.getElementById("Delivery").style.display = 'block';
+                    document.getElementById("selectedservices").style.display = 'block';
+                    document.getElementById("availingApostille").style.display = 'block';
+                    document.getElementById("Couriernotarizedcertified").style.display = 'none';
+                    document.getElementById("Deliverystandard").style.display = 'none';
+                    document.getElementById("Notarizationcertified").style.display = 'none';
+                    document.getElementById("Apostilletranslated").style.display = 'block';
+                    var Bothradio = document.getElementById('Bothradio');
+                    Bothradio.checked = true;
+                    var Yesradio = document.getElementById('Yesradio');
+                    Yesradio.checked = true;
+                    var Yessendradio = document.getElementById('Yessendradio');
+                    Yessendradio.checked = true;
+
+
+                    document.getElementById("notarizedtranslationbutonYes").style.borderColor = '#ccc';
+                    document.getElementById("notarizedtranslationbutonYes").style.background = '#ccc';
+
+                    document.getElementById("notarizedtranslationbutonNo").style.borderColor = 'cornflowerblue';
+                    document.getElementById("notarizedtranslationbutonNo").style.background = 'cornflowerblue';
+                }
             }
             else if (value == "No") {
-                document.getElementById("btnyes").style.borderColor = '#ccc';
-                document.getElementById("btnyes").style.background = '#ccc';
-                document.getElementById("Needapostille").style.display = 'none';
-                document.getElementById("CourierEntireIndianAddress").style.display = 'none';
-                document.getElementById("notarizedtranslation").style.display = 'block';
-                document.getElementById("Requirehardcopy").style.display = 'block';
-                document.getElementById("Apostille").style.display = 'none';
-                document.getElementById("Delivery").style.display = 'none';
-                document.getElementById("selectedservices").style.display = 'none';
-                document.getElementById("AvailingApostilleService").style.display = 'none';
-                document.getElementById("Couriernotarizedcertified").style.display = 'block';
+                if (document.getElementById("btnno").style.background != "cornflowerblue") {
+                    document.getElementById("btnyes").style.borderColor = '#ccc';
+                    document.getElementById("btnyes").style.background = '#ccc';
+                    document.getElementById("Needapostille").style.display = 'none';
+                    document.getElementById("CourierEntireIndianAddress").style.display = 'none';
+                    document.getElementById("notarizedtranslation").style.display = 'block';
+                    document.getElementById("Requirehardcopy").style.display = 'block';
+                    document.getElementById("Apostilleboth").style.display = 'none';
+                    document.getElementById("Delivery").style.display = 'none';
+                    document.getElementById("selectedservices").style.display = 'none';
+                    document.getElementById("availingApostille").style.display = 'none';
+                    document.getElementById("Couriernotarizedcertified").style.display = 'none';
+                    document.getElementById("Apostilletranslated").style.display = 'none';
+                    var radioButtons = document.querySelectorAll('input[type="radio"]');
+
+                    document.getElementById("notarizedtranslationbutonYes").style.borderColor = '#ccc';
+                    document.getElementById("notarizedtranslationbutonYes").style.background = '#ccc';
+
+                    document.getElementById("notarizedtranslationbutonNo").style.borderColor = 'cornflowerblue';
+                    document.getElementById("notarizedtranslationbutonNo").style.background = 'cornflowerblue';
+
+                    for (var i = 0; i < radioButtons.length; i++) {
+                        radioButtons[i].checked = false;
+                    }
+                }
             }
-            alert("hjgf ughfh" + btn);
+
+            btn.style.background = "cornflowerblue";
+            btn.style.borderColor = "cornflowerblue";
+            PriceCalculation();
         }
         function clickok1(value, btn) {
             btn.style.background = "cornflowerblue";
             btn.style.borderColor = "cornflowerblue";
             if (value == "Yes") {
-                document.getElementById("btnno1").style.background = '#ccc';
-                document.getElementById("btnno1").style.borderColor = '#ccc';
+                document.getElementById("notarizedtranslationbutonNo").style.background = '#ccc';
+                document.getElementById("notarizedtranslationbutonNo").style.borderColor = '#ccc';
                 document.getElementById("Couriernotarizedcertified").style.display = 'block';
                 document.getElementById("Requirehardcopy").style.display = 'none';
-                document.getElementById("Notarization").style.display = 'block';
-                document.getElementById("Delivery").style.display = 'block';
-                document.getElementById("selectedservices").style.display = 'block';
-
-            } else if (value == "No") {
-                document.getElementById("btnyes1").style.borderColor = '#ccc';
-                document.getElementById("btnyes1").style.background = '#ccc';
-                document.getElementById("Couriernotarizedcertified").style.display = 'none';
-                document.getElementById("Requirehardcopy").style.display = 'block';
                 document.getElementById("Notarization").style.display = 'none';
-                document.getElementById("Delivery").style.display = 'none';
-                document.getElementById("selectedservices").style.display = 'none';
+                document.getElementById("Deliverystandard").style.display = 'block';
+                document.getElementById("selectedservices").style.display = 'block';
+                document.getElementById("Notarizationcertified").style.display = 'block';
+                var Yessendradio = document.getElementById('Yessendradio');
+                Yessendradio.checked = true;
+                var hardcopyNoradio = document.getElementById('hardcopyNoradio');
+                hardcopyNoradio.checked = true;
             }
+            else {
+                if (value == "No") {
+                    document.getElementById("notarizedtranslationbutonYes").style.borderColor = '#ccc';
+                    document.getElementById("notarizedtranslationbutonYes").style.background = '#ccc';
+                    document.getElementById("Couriernotarizedcertified").style.display = 'none';
+                    document.getElementById("Requirehardcopy").style.display = 'block';
+                    document.getElementById("Notarization").style.display = 'none';
+                    document.getElementById("Deliverystandard").style.display = 'none';
+                    document.getElementById("selectedservices").style.display = 'none';
+                    document.getElementById("Notarizationcertified").style.display = 'none';
+                    document.getElementById("Delivery").style.display = 'none';
+                    document.getElementById("Deliveryemailself").style.display = 'none';
+                    var Yessendradio = document.getElementById('Yessendradio');
+                    Yessendradio.checked = true;
+                }
+            }
+            PriceCalculation();
         }
-        // Define the function to be called with a parameter
-        //function myFunction(planType, ProductId) {
-        //    // Do something with the parameter
-        //    //window.location.href = url;
-        //};
+        function Checktotal(event) {
+            PriceCalculation();
+        }
     </script>
 </head>
 <body>
@@ -596,7 +974,8 @@
 
                                 <label class="labelstyle">No. of applicants:<abbr class="required" title="required">*</abbr></label><br>
                                 <div style="width:50%">
-                                    @Html.DropDownList("noofapplicant", ViewBag.noofapplicant as List<SelectListItem>, new {@class = "dropdownstyle" ,style="padding: 0rem 0rem 0rem 1rem;" })
+                                    @*@Html.DropDownList("noofapplicant", ViewBag.noofapplicant as List<SelectListItem>, new {@class = "dropdownstyle" ,style="padding: 0rem 0rem 0rem 1rem;" })*@
+                                    <input type="number" id="noofapplicant" value="1" data-is-required="1" required="" min="1" class="dropdownstyle" style="padding: 0rem 0rem 0rem 1rem;">
                                 </div>
                                 <br>
                                 <div data-is-required="" data-field-id="60b9d78f814e0">
@@ -619,19 +998,19 @@
                                     </div>
                                     <br>
                                 </div>
-                                <div id="Needapostille" style="display:none">
-                                    <label class="labelstyle">Need apostille of:</label>
+                                <div id="Needapostille" style="display:none;">
+                                    <label class="labelstyle" id="Needapostillelabel"></label>
                                     <div>
-                                        <input type="radio" id="1" name="apostille">
-                                        <label for="1">Only the source document (original) (+₹2,500.00)</label>
+                                        <input type="radio" id="onlysourceradio" name="Radioattribute" onchange="Checktotal(this)">
+                                        <label for="1" id="onlysourcelabel"></label>
                                     </div>
                                     <div>
-                                        <input type="radio" id="2" name="apostille">
-                                        <label for="2">Only the certified translation (+₹2,500.00)</label>
+                                        <input type="radio" id="certifiedradio" name="Radioattribute" onchange="Checktotal(this)">
+                                        <label for="2" id="certifiedlabel"></label>
                                     </div>
                                     <div>
-                                        <input type="radio" id="3" name="apostille">
-                                        <label for="3">Both original document as well as translation (+₹5,000.00)</label>
+                                        <input type="radio" id="Bothradio" name="Radioattribute" onchange="Checktotal(this)">
+                                        <label for="3" id="Bothlabel"></label>
                                     </div>
                                     <br>
                                 </div>
@@ -640,124 +1019,222 @@
                         <div class="group-51-rvknew" id="group54">
                             <div style="font-size:medium">
                                 <div>
-                                    <label class="labelstyle">Applying for Canada immigration/visa?</label>
+                                    <label class="labelstyle" id="CanadaImmigrationVisa"></label>
                                     <br>
-                                    <input id="CanadaImmigrationVisa" type="checkbox" />
-                                    Yes (<span>+₹1,000.00</span>)
-                                    <br>
-                                    <div>Canada requires compulsory notarization with translator's affidavit.</div>
+                                    <input id="CanadaImmigrationVisaCheck" type="checkbox" onclick="Checktotal(this)" />
+                                    <label id="CanadaImmigrationVisalabel"></label>
                                 </div>
-                                <div id="CourierEntireIndianAddress" style="display:none">
+                                <div id="CourierEntireIndianAddress" style="display:none;">
                                     <br>
-                                    <label class="labelstyle">Courier entire set to an Indian address?</label>
+                                    <label class="labelstyle" id="Courierindianaddreeslabel"></label>
                                     <div>
-                                        <input type="radio" id="0" name="CourierEntire">
-                                        <label for="0">No, will collect from your Delhi office (₹-150.00)</label>
+                                        <input id="Courierindianaddreesradio" type="radio" name="CourierEntire" onclick="Checktotal(this)">
+                                        <label for="0" id="willcollectlabel"></label>
                                     </div>
                                     <div>
-                                        <input type="radio" id="1" name="CourierEntire">
-                                        <label for="1">Yes</label>
+                                        <input type="radio" id="Yesradio" name="CourierEntire" onclick="Checktotal(this)" checked>
+                                        <label for="1" id="YesLabel"></label>
                                     </div>
                                 </div>
                                 <div id="notarizedtranslation">
-                                    <label class="labelstyle">Require notarized translation?</label>
+                                    <label class="labelstyle" id="notarizedtranslationLabel"></label>
                                     <abbr class="required" title="required">*</abbr>
                                     <div>
-                                        <button id="btnno1" type="button" onclick="clickok1('No', this)" class="buttonstyle buttoncolor">No</button>
-                                        <button id="btnyes1" type="button" onclick="clickok1('Yes', this)" class="buttonstyle">Yes (<span>+₹400.00</span>)</button>
+                                        <button id="notarizedtranslationbutonNo" type="button" onclick="clickok1('No', this)" class="buttonstyle buttoncolor"></button>
+                                        <button id="notarizedtranslationbutonYes" type="button" onclick="clickok1('Yes', this)" class="buttonstyle"></button>
                                     </div>
                                 </div>
                                 <div id="Requirehardcopy">
-                                    <label class="labelstyle">Require hard copy? *</label>
+                                    <label class="labelstyle" id="Requirehardcopylbl"></label>
                                     <div>
-                                        <input type="radio" id="r1" name="hardcopy">
-                                        <label for="r1">No, only soft copy via email</label>
+                                        <input type="radio" id="hardcopyNoradio" name="hardcopy" onclick="Checktotal(this)">
+                                        <label for="r1" id="hardcopyNolabel"></label>
                                     </div>
                                     <div>
-                                        <input type="radio" id="r2" name="hardcopy">
-                                        <label for="r2">Yes, standard courier within India (+₹150.00)</label>
+                                        <input type="radio" id="hardcopyYesradio" name="hardcopy" onclick="Checktotal(this)">
+                                        <label for="r2" id="hardcopyYeslabel"></label>
                                     </div>
                                     <div>
-                                        <input type="radio" id="r3" name="hardcopy">
-                                        <label for="r3">Yes, express courier within India (+₹400.00)</label>
+                                        <input type="radio" id="hardcopyYesexpressradio" name="hardcopy" onclick="Checktotal(this)">
+                                        <label for="r3" id="hardcopyYesexpresslabel"></label>
                                     </div>
                                 </div>
                                 <div id="Couriernotarizedcertified" style="display:none;">
                                     <br>
-                                    <label class="labelstyle">
-                                        Courier notarized &amp; certified translation to an Indian address?
+                                    <label class="labelstyle" id="Couriernotarizedcertifiedlabel">
                                     </label>
                                     <div>
-                                        <input type="radio" id="r1" name="Courier">
-                                        <label for="r1">No, only scanned copy via email (₹-150.00)</label>
+                                        <input type="radio" id="Noonlyscanradio" name="Courier" onclick="Checktotal(this)">
+                                        <label for="r1" id="Noonlyscanlbl"></label>
                                     </div>
                                     <div>
-                                        <input type="radio" id="r2" name="Courier">
-                                        <label for="r2">No, will collect from your Mumbai office (₹-150.00)</label>
+                                        <input type="radio" id="Nowillcollectradio" name="Courier" onclick="Checktotal(this)">
+                                        <label for="r2" id="Nowillcollectlbl"></label>
                                     </div>
                                     <div>
-                                        <input type="radio" id="r3" name="Courier">
-                                        <label for="r3">Yes, send via express courier service (+₹250.00)</label>
+                                        <input type="radio" id="Yessendradio" name="Courier" checked onclick="Checktotal(this)">
+                                        <label for="r3" id="Yessendlbl"></label>
                                     </div>
                                     <div>
-                                        <input type="radio" id="r4" name="Courier">
-                                        <label for="r4">Yes, send via standard courier service</label>
+                                        <input type="radio" id="Yessendexpressradio" name="Courier" onclick="Checktotal(this)">
+                                        <label for="r4" id="Yessendexpresslbl"></label>
                                     </div>
                                 </div>
                                 <br><hr>
-                                <h3><span style="color: red">Confirm selected services &amp; timeline (or change selections above):</span></h3><br>
+                                <h3><label style="color: red" id="Confirmselectedserviceslbl"></label></h3><br>
                                 <div>
-                                    <span style="color: darkgreen">✔️Certified Translation (Included by default - Free)</span><br>
-                                    <span>Turnaround: 48 hours (For upto 3 pages. Add 6 hours for each additional page)</span>
+                                    <label style="color: darkgreen" id="CertifiedTranslation"></label><br>
                                 </div>
-                                <div id="Apostille" style="display:none">
-                                    <span style="color: darkgreen">✔️Apostille of source and translated document (both) </span><br>
-                                    <span>Time required for apostille: 3-4 working days</span>
+                                <div>
+                                    <label style="color: darkgreen; display:none;" id="Apostillesource"></label>
                                 </div>
-                                <div id="Notarization" style="display:none">
-                                    <span style="color: darkgreen">✔️Notarization with translator's affidavit for Canada immigration&nbsp;</span><br>
-                                    <span>Time required: 1 working day after certified translation </span>
+                                <div>
+                                    <label style="color: darkgreen; display:none;" id="Apostilletranslated"></label>
                                 </div>
-                                <div id="Delivery" style="display:none">
-                                    <span style="color: darkgreen">✔️Delivery: Entire set via email + Express courier to a local Indian address </span><br>
-                                    <span>Estimated delivery in 24-48 hours from dispatch</span>
+                                <div>
+                                    <label style="color: darkgreen; display:none;" id="Apostilleboth"></label>
                                 </div>
+                                <div>
+                                    <label style="color: darkgreen; display:none;" id="Notarization"></label>
+                                </div>
+                                <div>
+                                    <label style="color: darkgreen; display:none;" id="Notarizationcertified"></label>
+                                </div>
+                                <div>
+                                    <label style="color: darkgreen; display:none;" id="Delivery"></label>
+                                </div>
+                                <div>
+                                    <label style="color: darkgreen; display:none;" id="Deliverystandard"></label>
+                                </div>
+                                <div>
+                                    <label style="color: darkgreen; display:none;" id="Deliveryviaemail"></label>
+                                </div>
+                                <div>
+                                    <label style="color: darkgreen; display:none;" id="Deliveryemailself"></label>
+                                    <hr>
+                                </div>
+                                <br>
                                 <div id="selectedservices" style="display:none">
                                     <br>
-                                    <hr>
-                                    <span style="color: red"><strong>Mandatory additional information based on selected services:</strong></span>
+                                    <label style="color: red" id="selectedserviceslbl"></label>
                                     <div>
-                                        <label style="labelstyle">
-                                            Enter local Indian address for availing courier service:
+                                        <label style="labelstyle" id="Indianaddresslbl">
                                             <abbr class="required" title="required">*</abbr>
                                         </label>
                                     </div>
                                     <div>
                                         <textarea style="width:100%; height:70px;" id="CourierServiceAddress" placeholder="Kindly enter a complete local Indian Address (with contact person's name and Indian phone number). We do not deliver abroad presently." required=""></textarea>
                                     </div><br>
-                                    <div id="AvailingApostilleService" style="display:none">
-                                        <label class="labelstyle">Confirmation required for availing Apostille service:<abbr class="required" title="required">*</abbr></label>
-                                        <br>
-                                        <input id="1" type="checkbox" value="true" unchecked />
-                                        Source document (original) is issued by Indian authorities.
-                                        <br>
-                                        <input id="2" type="checkbox" value="true" unchecked />
-                                        You (client) will courier the original document/s to our Delhi office - Detailed instructions will be shared after order confirmation
-                                    </div><br>
+                                </div>
+                                <div id="availingApostille" style="display:none">
+                                    <label class="labelstyle" id="availingApostillelbl"><abbr class="required" title="required">*</abbr></label>
+                                    <br>
+                                    <input id="availingApostillelcheck" type="checkbox" />
+                                    <label id="Sourcedocumentlbl"></label>
+                                    <br>
+                                    <input id="confirmationcheck" type="checkbox" value="true" />
+                                    <label id="confirmationlbl"></label>
                                 </div>
                                 <br>
                                 <div>
                                     <span style="font-weight: 400;">Add-ons Cost (Total for all pages/documents)</span>
-                                    <label id="price" style="padding-left: 10%;">₹0.00</label>
+                                    <label id="price" style="padding-left: 5%;">₹0.00</label>
                                     <input type="hidden" id="hdntotal">
                                 </div><br>
                                 <button type="submit" name="add-to-cart" value="19704" class="dropdownstyle" style="background-color: #6a1d59; color: white;">Proceed to checkout</button>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
+
+            <br />
+
+            <br />
+
+            <br />
+
+            <br />
+
+            <br />
+
+            <br />
+
+            <br />
+
+            <br />
+
+            <br />
+
+            <br />
+
+            <br />
+
+            <br />
+
+            <br />
+
+            <br />
+
+            <br />
+
+            <br />
+
+            <br />
+
+            <br />
+
+            <br />
+
+            <br />
+
+            <br />
+
+            <br />
+
+            <br />
+
+            <br />
+
+            <br />
+
+            <br />
+
+            <br />
+
+            <br />
+
+            <br />
+
+            <br />
+
+            <br />
+
+            <br />
+
+            <br />
+
+            <br />
+
+            <br />
+
+            <br />
+
+            <br />
+
+            <br />
+
+            <br />
+
+            <br />
+
+            <br />
+
+            <br />
+
+            <br />
+
+            <br />
             <div class="group-66-eTr">
                 <p class="faq-Zap" id="faq">FAQ</p>
                 <div class="group-65-H12">
@@ -795,24 +1272,24 @@
                                 <p class="first-name-zJ4">
                                     First name
                                 </p>
-                                <input type="text" class="rectangle-27-hiG"/>
-                               
+                                <input type="text" class="rectangle-27-hiG" />
+
                             </div>
                             <div class="group-68-d68">
                                 <p class="last-name-yvg">Last name</p>
-                                <input type="text" class="rectangle-27-idN"/>
-                                
+                                <input type="text" class="rectangle-27-idN" />
+
                             </div>
                         </div>
                         <div class="group-69-eX2">
                             <p class="e-mail-D4L">E-mail</p>
-                            <input type="text" class="rectangle-27-8wz"/>
-                           
+                            <input type="text" class="rectangle-27-8wz" />
+
                         </div>
                         <div class="group-70-sPn">
                             <p class="message-dNx">Message</p>
-                            <input type="text" class="rectangle-27-ZGc"/>
-                           
+                            <input type="text" class="rectangle-27-ZGc" />
+
                         </div>
                     </div>
                     <p class="by-submitting-this-form-you-agree-to-wordstags-privacy-policy-and-terms-conditions-5Ex">

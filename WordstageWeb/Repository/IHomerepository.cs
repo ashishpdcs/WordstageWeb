@@ -7,5 +7,6 @@ namespace WordstageWeb.Repository
         Task<List<Language>> LoadLanguageDropdown();
         Task<List<ProductType>> LoadProductDropdown();
         Task<List<Product>> LoadProduct(string Productid, string from, string to);
+        Task<List<ProductService>> LoadProductservices(string productid);
     }
 }
