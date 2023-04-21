@@ -132,7 +132,6 @@
                     else if (document.getElementById("btnyes").style.background == "cornflowerblue") {
                         document.getElementById("Couriernotarizedcertified").style.display = 'none';
                         document.getElementById("availingApostille").style.display = 'block';
-                        //document.getElementById("Delivery").style.display = 'none';
                         document.getElementById("selectedservices").style.display = 'block';
                         document.getElementById("Notarization").style.display = 'none';
                         var checkcondition = document.getElementById('Courierindianaddreesradio');
@@ -233,14 +232,12 @@
                 var input = document.getElementById("noofapplicant");
                 var buttonYes = document.getElementById("notarizedtranslationbutonYes");
                 var checkYes = document.getElementById("CanadaImmigrationVisaCheck");
-                console.log("Input value has changed to:", input.value);
                 if (input.value != "1") {
                     changevalue = parseInt(input.value) - 1;
                     totalbuttonYes = 250 * changevalue + 400;
                     totalcheckYes = 850 * changevalue + 1000;
                     buttonYes.setAttribute("Valueattribute", totalbuttonYes);
                     checkYes.setAttribute("Valueattribute", totalcheckYes);
-                    console.log(totalbuttonYes, "  ", totalbuttonYes);
                     document.getElementById("CanadaImmigrationVisalabel").innerHTML = "Yes (+₹ " + totalcheckYes.toFixed(2) + ") Canada requires compulsory notarization with translator's affidavit.";
                     document.getElementById("notarizedtranslationbutonYes").innerHTML = "Yes (+₹ " + totalbuttonYes.toFixed(2) + ")";
                 }
@@ -270,7 +267,6 @@
             });
         }
         function TablelooandupdatePlan(myModelList) {
-            console.log(myModelList);
             myModelList.forEach(function (item) {
                 if (item.planTypes[0].planType == "STANDARD") {
                     document.getElementById("Labelstandard").innerHTML = item.planTypes[0].planType;
@@ -322,7 +318,6 @@
                 success: function (result) {
                     console.log(result);
                     productServiceResult = result;
-                    console.log(productServiceResult);
                     for (var i = 0; i < productServiceResult.length; i++) {
                         if (productServiceResult[i].name == "Needapostillelabel") {
                             document.getElementById("Needapostillelabel").innerHTML = productServiceResult[i].description;
@@ -330,7 +325,6 @@
                         }
                         if (productServiceResult[i].name == "onlysourceradio") {
                             document.getElementById("onlysourcelabel").innerHTML = productServiceResult[i].description;
-                            //document.getElementById("onlysourceradio").value = productServiceResult[i].price;
                             document.getElementById("onlysourceradio").setAttribute("Valueattribute", productServiceResult[i].price);
                         }
                         if (productServiceResult[i].name == "certifiedradio") {
@@ -340,7 +334,6 @@
                         }
                         if (productServiceResult[i].name == "Bothradio") {
                             document.getElementById("Bothlabel").innerHTML = productServiceResult[i].description;
-                            //document.getElementById("Bothradio").checked = true;
                             document.getElementById("Bothradio").setAttribute("Valueattribute", productServiceResult[i].price);
                         }
                         if (productServiceResult[i].name == "CanadaImmigrationVisa") {
@@ -348,7 +341,6 @@
                         }
                         if (productServiceResult[i].name == "CanadaImmigrationVisaCheck") {
                             document.getElementById("CanadaImmigrationVisalabel").innerHTML = productServiceResult[i].description;
-                            //document.getElementById("onlysourceradio").value = productServiceResult[i].price;
                             document.getElementById("CanadaImmigrationVisaCheck").setAttribute("Valueattribute", productServiceResult[i].price);
                         }
                         if (productServiceResult[i].name == "Courierindianaddreeslabel") {
@@ -356,7 +348,6 @@
                         }
                         if (productServiceResult[i].name == "Courierindianaddreesradio") {
                             document.getElementById("willcollectlabel").innerHTML = productServiceResult[i].description;
-                            //document.getElementById("onlysourceradio").value = productServiceResult[i].price;
                             document.getElementById("Courierindianaddreesradio").setAttribute("Valueattribute", productServiceResult[i].price);
                         }
                         if (productServiceResult[i].name == "Yesradio") {
@@ -456,10 +447,7 @@
                         if (productServiceResult[i].name == "confirmationcheck") {
                             document.getElementById("confirmationlbl").innerHTML = productServiceResult[i].description;
                         }
-
-                        //LoadAllData("Default", "");
                     }
-
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     alert('Error: ' + thrownError);
@@ -467,7 +455,6 @@
             });
         }
         function createLinkWithPlanType(planType, linkId, ProductId) {
-            console.log(planType, linkId, ProductId);
             const link = document.getElementById(linkId);
 
             if (planType === 'STANDARD') {
@@ -486,31 +473,24 @@
         };
         function PriceCalculation() {
             var elements = document.querySelectorAll('[Valueattribute]');
-            console.log(elements);
             var attributeValues = [];
             var Price = 0;
             for (var i = 0; i < elements.length; i++) {
                 var value = elements[i].getAttribute('Valueattribute');
                 attributeValues.push(value);
                 var newid = elements[i].getAttribute('id');
-                console.log("new ID", newid);
 
                 var myRadio = document.getElementById(newid);
                 if (myRadio.checked) {
                     Price = Price + parseInt(value);
-                    console.log(newid, 'Radio button is checked!');
-                } else {
-                    console.log(newid, 'Radio button is not checked!');
                 }
             }
             if (document.getElementById("notarizedtranslationbutonYes").style.background == "cornflowerblue") {
                 const attributeValue = document.getElementById("notarizedtranslationbutonYes").getAttribute("Valueattribute");
                 Price = Price + parseInt(attributeValue);
             }
-            console.log("total", Price);
             TotalPrice = Price;
-            document.getElementById('price').innerHTML = Price;
-            console.log("Price" + attributeValues);
+            document.getElementById('price').innerHTML = "₹ " + Price.toFixed(2);
         }
         function clickok(value, btn) {
             if (value == "Yes") {
@@ -1140,7 +1120,6 @@
                                 <div>
                                     <span style="font-weight: 400;">Add-ons Cost (Total for all pages/documents)</span>
                                     <label id="price" style="padding-left: 5%;">₹0.00</label>
-                                    <input type="hidden" id="hdntotal">
                                 </div><br>
                                 <button type="submit" name="add-to-cart" value="19704" class="dropdownstyle" style="background-color: #6a1d59; color: white;">Proceed to checkout</button>
                             </div>
